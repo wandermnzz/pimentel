@@ -1,52 +1,166 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamburgueria Lima</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Hamburgueria Delícia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav {
+            margin: 0;
+            padding: 0;
+            background: #444;
+            color: #fff;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .main-content {
+            background: #fff;
+            padding: 1rem;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+        .post {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #e4e4e4;
+            border-radius: 8px;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .menu-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #e4e4e4;
+            border-radius: 8px;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label, input, textarea {
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        input[type="submit"]:hover {
+            background: #555;
+        }
+    </style>
 </head>
 <body>
-    <header class="header">
-        <h1>Hamburgueria Lima</h1>
-        <nav>
-            <ul>
-                <li><a href="#home">Início</a></li>
-                <li><a href="#menu">Menu</a></li>
-                <li><a href="#about">Sobre Nós</a></li>
-                <li><a href="#contact">Contato</a></li>
-            </ul>
-        </nav>
+    <header>
+        <h1>Hamburgueria Delícia</h1>
+        <p>Os melhores hambúrgueres da cidade!</p>
     </header>
-
-    <section id="home">
-        <h2>Bem-vindo à Hamburgueria Lima!</h2>
-        <p>Deliciosos hambúrgueres para você.</p>
-    </section>
-
-    <section id="menu">
-        <h2>Nosso Menu</h2>
+    <nav>
         <ul>
-            <li>Hambúrguer Clássico - R$20,00</li>
-            <li>Cheeseburguer - R$25,00</li>
-            <li>Hambúrguer Vegano - R$22,00</li>
+            <li><a href="#home">Página Inicial</a></li>
+            <li><a href="#menu">Cardápio</a></li>
+            <li><a href="#about">Sobre Nós</a></li>
+            <li><a href="#contact">Contato</a></li>
+            <li><a href="#gallery">Galeria</a></li>
         </ul>
-    </section>
+    </nav>
+    <div class="container">
+        <div class="main-content" id="home">
+            <h2>Bem-vindo à Hamburgueria Delícia!</h2>
+            <p>Experimente nossos deliciosos hambúrgueres e muito mais. Navegue pelo nosso cardápio e descubra as novidades que preparamos para você.</p>
+        </div>
 
-    <section id="about">
-        <h2>Sobre Nós</h2>
-        <p>Nossa missão é oferecer os melhores hambúrgueres.</p>
-    </section>
-
-    <section id="contact">
+        <div class="main-content" id="menu">
+            <h2>Cardápio</h2>
+            <div class="menu-item">
+                <h3>Hambúrguer Clássico</h3>
+                <p>Carne suculenta, queijo cheddar, alface, tomate e maionese.</p>
+                <p>Preço: R$ 20,00</p>
+            </div>
+            <div class="menu-item">
+                <h3>Cheeseburger Deluxe</h3>
+                <p>Carne de alta qualidade, queijo cheddar, bacon crocante e cebola caramelizada.</p>
+                <p>Preço: R$ 30,00</p>
+            </div>
+            <div class="menu-item">
+                <h3>Hambúrguer Vegetariano</h3>
+                <p>Hambúrguer de grão-de-bico, queijo suíço, alface, tomate e molho pesto.</p>
+                <p>Preço: R$ 25,00</p>
+            </div>
+          <div class="menu-item">
+                <h3>Hambúrguer </h3>
+                <p>Hambúrguer de grão-de-bico, queijo suíço, alface, tomate e molho pesto.</p>
+                <p>Preço: R$ 25,00</p>
+            </div>
+        </div>
+    <!-- Seção de Contato -->
+    <section id="contato">
         <h2>Contato</h2>
-        <form>
-            <label for="name">Nome:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="message">Mensagem:</label>
-            <textarea id="message" name="message" required></textarea>
-            <button type="submit">Enviar</button>
-        </form>
-  
+        <p>Entre em contato conosco pelo WhatsApp para pedidos ou dúvidas:</p>
+        <a id="btn-whatsapp" href="https://wa.me/551234567890" target="_blank">Falar pelo WhatsApp</a>
+    </section>
+
+        <div class="main-content" id="about">
+            <h2>Sobre Nós</h2>
+            <p>A Hamburgueria Delícia foi fundada em 2023 com o objetivo de oferecer hambúrgueres de alta qualidade e sabor inigualável. Nossa missão é proporcionar uma experiência gastronômica inesquecível para nossos clientes.</p>
+        </div>
+
+
+        <div class="main-content" id="gallery">
+            <h2>Galeria</h2>
+            <div class="gallery">
+                <img src="burger1.jpg" alt="Hambúrguer Clássico">
+                <img src="burger2.jpg" alt="Cheeseburger Deluxe">
+                <img src="burger3.jpg" alt="Hambúrguer Vegetariano">
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Hamburgueria Delícia. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
