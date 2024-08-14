@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BURGUER SETK</title>
+    <title>Hamburgueria Delícia</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -48,24 +48,14 @@
             margin-top: 20px;
             border-radius: 8px;
         }
-        .post {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #e4e4e4;
-            border-radius: 8px;
-        }
-        footer {
-            background: #333;
-            color: #fff;
-            padding: 1rem 0;
-            text-align: center;
-            margin-top: 20px;
-        }
         .menu-item {
             margin-bottom: 20px;
             padding: 15px;
             background: #e4e4e4;
             border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .gallery img {
             width: 100%;
@@ -91,11 +81,62 @@
         input[type="submit"]:hover {
             background: #555;
         }
+        .cart {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            width: 250px;
+            display: none; /* Carrinho oculto inicialmente */
+        }
+        .cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .cart-items li {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        .cart-items li button {
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .cart-total {
+            text-align: right;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .cart-actions {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .cart-actions button {
+            background: #25D366;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 5px;
+        }
+        .cart-actions button:hover {
+            background: #1ebe5a;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>burguer</h1>
+        <h1>Hamburgueria Delícia</h1>
         <p>Os melhores hambúrgueres da cidade!</p>
     </header>
     <nav>
@@ -109,46 +150,42 @@
     </nav>
     <div class="container">
         <div class="main-content" id="home">
-            <h2>Bem-vindo à Hamburgueria WANDER
-                !</h2>
+            <h2>Bem-vindo à Hamburgueria Delícia!</h2>
             <p>Experimente nossos deliciosos hambúrgueres e muito mais. Navegue pelo nosso cardápio e descubra as novidades que preparamos para você.</p>
         </div>
 
         <div class="main-content" id="menu">
             <h2>Cardápio</h2>
             <div class="menu-item">
-                <h3>Hambúrguer Clássico</h3>
-                <p>Carne suculenta, queijo cheddar, alface, tomate e maionese.</p>
-                <p>Preço: R$ 20,00</p>
+                <div>
+                    <h3>Hambúrguer Clássico</h3>
+                    <p>Carne suculenta, queijo cheddar, alface, tomate e maionese.</p>
+                    <p>Preço: R$ 20,00</p>
+                </div>
+                <button onclick="addToCart('Hambúrguer Clássico', 20)">Adicionar ao Carrinho</button>
             </div>
             <div class="menu-item">
-                <h3>Cheeseburger Deluxe</h3>
-                <p>Carne de alta qualidade, queijo cheddar, bacon crocante e cebola caramelizada.</p>
-                <p>Preço: R$ 30,00</p>
+                <div>
+                    <h3>Cheeseburger Deluxe</h3>
+                    <p>Carne de alta qualidade, queijo cheddar, bacon crocante e cebola caramelizada.</p>
+                    <p>Preço: R$ 30,00</p>
+                </div>
+                <button onclick="addToCart('Cheeseburger Deluxe', 30)">Adicionar ao Carrinho</button>
             </div>
             <div class="menu-item">
-                <h3>Hambúrguer Vegetariano</h3>
-                <p>Hambúrguer de grão-de-bico, queijo suíço, alface, tomate e molho pesto.</p>
-                <p>Preço: R$ 25,00</p>
-            </div>
-          <div class="menu-item">
-                <h3>Hambúrguer </h3>
-                <p>Hambúrguer de grão-de-bico, queijo suíço, alface, tomate e molho pesto.</p>
-                <p>Preço: R$ 25,00</p>
+                <div>
+                    <h3>Hambúrguer Vegetariano</h3>
+                    <p>Hambúrguer de grão-de-bico, queijo suíço, alface, tomate e molho pesto.</p>
+                    <p>Preço: R$ 25,00</p>
+                </div>
+                <button onclick="addToCart('Hambúrguer Vegetariano', 25)">Adicionar ao Carrinho</button>
             </div>
         </div>
-    <!-- Seção de Contato -->
-    <section id="contato">
-        <h2>Contato</h2>
-        <p>Entre em contato conosco pelo WhatsApp para pedidos ou dúvidas:</p>
-        <a id="btn-whatsapp" href="https://wa.me/557996283715" target="_blank">Falar pelo WhatsApp</a>
-    </section>
 
         <div class="main-content" id="about">
             <h2>Sobre Nós</h2>
             <p>A Hamburgueria Delícia foi fundada em 2023 com o objetivo de oferecer hambúrgueres de alta qualidade e sabor inigualável. Nossa missão é proporcionar uma experiência gastronômica inesquecível para nossos clientes.</p>
         </div>
-
 
         <div class="main-content" id="gallery">
             <h2>Galeria</h2>
@@ -159,9 +196,91 @@
             </div>
         </div>
     </div>
-    
+
+    <!-- Carrinho de Compras -->
+    <div class="cart" id="cart">
+        <h2>Carrinho</h2>
+        <ul class="cart-items" id="cart-items"></ul>
+        <p class="cart-total" id="cart-total">Total: R$ 0,00</p>
+        <div class="cart-actions">
+            <button onclick="sendOrder()">Enviar Pedido</button>
+            <button onclick="clearCart()">Limpar Carrinho</button>
+        </div>
+    </div>
+
     <footer>
-        <p>&copy; 2024 burguer setk. Todos os direitos reservados.</p>
+        <p>&copy; 2024 Hamburgueria Delícia. Todos os direitos reservados.</p>
     </footer>
+
+    <script>
+        let cart = [];
+
+        function addToCart(item, price) {
+            cart.push({ item: item, price: price });
+            renderCart();
+            showCart(); // Mostra o carrinho ao adicionar um item
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            cartItems.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((cartItem, index) => {
+                total += cartItem.price;
+                cartItems.innerHTML += `
+                    <li>
+                        ${cartItem.item} - R$ ${cartItem.price.toFixed(2)}
+                        <button onclick="removeFromCart(${index})">Remover</button>
+                    </li>
+                `;
+            });
+
+            cartTotal.innerText = `Total: R$ ${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            renderCart();
+            if (cart.length === 0) {
+                hideCart(); // Esconde o carrinho se estiver vazio
+            }
+        }
+
+        function clearCart() {
+            cart = [];
+            renderCart();
+            hideCart(); // Esconde o carrinho ao limpar
+        }
+
+        function sendOrder() {
+            if (cart.length === 0) {
+                alert("Seu carrinho está vazio!");
+                return;
+            }
+
+            let orderText = "Pedido:\n";
+            let total = 0;
+
+            cart.forEach(cartItem => {
+                orderText += `${cartItem.item} - R$ ${cartItem.price.toFixed(2)}\n`;
+                total += cartItem.price;
+            });
+
+            orderText += `\nTotal: R$ ${total.toFixed(2)}`;
+
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=557996283715&text=${encodeURIComponent(orderText)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function showCart() {
+            document.getElementById('cart').style.display = 'block';
+        }
+
+        function hideCart() {
+            document.getElementById('cart').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
