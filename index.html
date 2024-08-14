@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PimentelBiju</title>
+    <title>Hamburgueria Delícia</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             color: #333;
-            background-color: #FF007F;
+            background-color: #f4f4f4;
         }
         header {
             background: #333;
@@ -136,8 +136,8 @@
 </head>
 <body>
     <header>
-        <h1>PIMENTELBIJU</h1>
-        <p>A melhor de AJUU!</p>
+        <h1>Hamburgueria Delícia</h1>
+        <p>Os melhores hambúrgueres da cidade!</p>
     </header>
     <nav>
         <ul>
@@ -150,7 +150,7 @@
     </nav>
     <div class="container">
         <div class="main-content" id="home">
-            <h2>Bem-vindo à PIMENTELBIJU!</h2>
+            <h2>Bem-vindo à Hamburgueria Delícia!</h2>
             <p>Experimente nossos deliciosos hambúrgueres e muito mais. Navegue pelo nosso cardápio e descubra as novidades que preparamos para você.</p>
         </div>
 
@@ -190,8 +190,8 @@
         <div class="main-content" id="gallery">
             <h2>Galeria</h2>
             <div class="gallery">
-                <img src="burger1.jpg.webp" alt="Hambúrguer Clássico">
-                <img src="joia.jpg" alt="joiaaa">
+                <img src="burger1.jpg" alt="Hambúrguer Clássico">
+                <img src="burger2.jpg" alt="Cheeseburger Deluxe">
                 <img src="burger3.jpg" alt="Hambúrguer Vegetariano">
             </div>
         </div>
@@ -270,7 +270,7 @@
 
             orderText += `\nTotal: R$ ${total.toFixed(2)}`;
 
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=557996283715&text=${encodeURIComponent(orderText)}`;
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=SEU_NUMERO&text=${encodeURIComponent(orderText)}`;
             window.open(whatsappUrl, '_blank');
         }
 
