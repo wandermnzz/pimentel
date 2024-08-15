@@ -3,284 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamburgueria Delícia</title>
+    <title>Loja de Joias</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            line-height: 1.6;
             margin: 0;
             padding: 0;
+            background-color: #f5f5f5;
             color: #333;
-            background-color: #f4f4f4;
         }
+
         header {
-            background: #333;
+            background: #222;
             color: #fff;
-            padding: 1rem 0;
+            padding: 15px;
             text-align: center;
         }
-        nav {
-            margin: 0;
-            padding: 0;
-            background: #444;
-            color: #fff;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin-right: 15px;
-        }
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
+
         .container {
             width: 80%;
-            margin: auto;
-            overflow: hidden;
+            margin: 20px auto;
         }
-        .main-content {
-            background: #fff;
-            padding: 1rem;
-            margin-top: 20px;
-            border-radius: 8px;
-        }
-        .menu-item {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #e4e4e4;
-            border-radius: 8px;
+
+        .product {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .gallery img {
-            width: 100%;
-            height: auto;
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
             border-radius: 8px;
-            margin-bottom: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
-        form {
-            display: flex;
-            flex-direction: column;
+
+        .product img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
         }
-        label, input, textarea {
-            margin-bottom: 10px;
+
+        .product-info {
+            flex-grow: 1;
+            margin-left: 20px;
         }
-        input[type="submit"] {
-            background: #333;
+
+        .product-info h3 {
+            margin: 0 0 10px 0;
+        }
+
+        .product-info p {
+            margin: 5px 0;
+        }
+
+        .product button {
+            background: #222;
             color: #fff;
             border: none;
-            padding: 10px;
+            padding: 10px 20px;
             cursor: pointer;
             border-radius: 5px;
         }
-        input[type="submit"]:hover {
+
+        .product button:hover {
             background: #555;
         }
-        .cart {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background: #333;
-            color: #fff;
-            padding: 10px;
+
+        #cart {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff;
             border-radius: 8px;
-            width: 250px;
-            display: none; /* Carrinho oculto inicialmente */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
-        .cart-items {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+
+        #cart h2 {
+            margin-top: 0;
         }
-        .cart-items li {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 0;
+
+        #cart-items {
+            margin-bottom: 15px;
         }
-        .cart-items li button {
-            background: #e74c3c;
-            color: #fff;
-            border: none;
-            padding: 5px;
-            cursor: pointer;
-            border-radius: 5px;
+
+        #cart-items p {
+            margin: 10px 0;
         }
-        .cart-total {
-            text-align: right;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        .cart-actions {
-            margin-top: 10px;
-            text-align: center;
-        }
-        .cart-actions button {
+
+        #whatsapp-btn {
+            display: block;
+            width: 100%;
             background: #25D366;
             color: #fff;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #whatsapp-btn:hover {
+            background: #1ebe5b;
+        }
+
+        /* Estilo para o chat */
+        #chat-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #chat-header {
+            background: #222;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        #chat-messages {
+            padding: 10px;
+            height: 200px;
+            overflow-y: scroll;
+            flex-grow: 1;
+        }
+
+        #chat-input {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+
+        #chat-input textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            resize: none;
+        }
+
+        #chat-input button {
+            background: #222;
+            color: #fff;
             border: none;
             padding: 10px;
             cursor: pointer;
-            border-radius: 5px;
-            width: 100%;
-            margin-top: 5px;
         }
-        .cart-actions button:hover {
-            background: #1ebe5a;
+
+        #chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #222;
+            color: #fff;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
         }
+
     </style>
 </head>
 <body>
+
     <header>
-        <h1>Hamburgueria Delícia</h1>
-        <p>Os melhores hambúrgueres da cidade!</p>
+        <h1>Loja de Joias</h1>
+        <p>Encontre as mais belas joias aqui!</p>
     </header>
-    <nav>
-        <ul>
-            <li><a href="#home">Página Inicial</a></li>
-            <li><a href="#menu">Cardápio</a></li>
-            <li><a href="#about">Sobre Nós</a></li>
-            <li><a href="#contact">Contato</a></li>
-            <li><a href="#gallery">Galeria</a></li>
-        </ul>
-    </nav>
+
     <div class="container">
-        <div class="main-content" id="home">
-            <h2>Bem-vindo à Hamburgueria Delícia!</h2>
-            <p>Experimente nossos deliciosos hambúrgueres e muito mais. Navegue pelo nosso cardápio e descubra as novidades que preparamos para você.</p>
+        <div class="product">
+            <img src="joia1.jpg" alt="Joia 1">
+            <div class="product-info">
+                <h3>Colar de Diamantes</h3>
+                <p>R$ 5.000,00</p>
+            </div>
+            <button onclick="addToCart('Colar de Diamantes', 5000)">Adicionar ao Carrinho</button>
         </div>
 
-        <div class="main-content" id="menu">
-            <h2>Cardápio</h2>
-            <div class="menu-item">
-                <div>
-                    <h3>Hambúrguer Clássico</h3>
-                    <p>Carne suculenta, queijo cheddar, alface, tomate e maionese.</p>
-                    <p>Preço: R$ 20,00</p>
-                </div>
-                <button onclick="addToCart('Hambúrguer Clássico', 20)">Adicionar ao Carrinho</button>
+        <div class="product">
+            <img src="joia2.jpg" alt="Joia 2">
+            <div class="product-info">
+                <h3>Anel de Ouro</h3>
+                <p>R$ 2.500,00</p>
             </div>
-            <div class="menu-item">
-                <div>
-                    <h3>Cheeseburger Deluxe</h3>
-                    <p>Carne de alta qualidade, queijo cheddar, bacon crocante e cebola caramelizada.</p>
-                    <p>Preço: R$ 30,00</p>
-                </div>
-                <button onclick="addToCart('Cheeseburger Deluxe', 30)">Adicionar ao Carrinho</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <h3>Hambúrguer Vegetariano</h3>
-                    <p>Hambúrguer de grão-de-bico, queijo suíço, alface, tomate e molho pesto.</p>
-                    <p>Preço: R$ 25,00</p>
-                </div>
-                <button onclick="addToCart('Hambúrguer Vegetariano', 25)">Adicionar ao Carrinho</button>
-            </div>
+            <button onclick="addToCart('Anel de Ouro', 2500)">Adicionar ao Carrinho</button>
         </div>
 
-        <div class="main-content" id="about">
-            <h2>Sobre Nós</h2>
-            <p>A Hamburgueria Delícia foi fundada em 2023 com o objetivo de oferecer hambúrgueres de alta qualidade e sabor inigualável. Nossa missão é proporcionar uma experiência gastronômica inesquecível para nossos clientes.</p>
+        <div class="product">
+            <img src="joia3.jpg" alt="Joia 3">
+            <div class="product-info">
+                <h3>Pulseira de Pérolas</h3>
+                <p>R$ 1.200,00</p>
+            </div>
+            <button onclick="addToCart('Pulseira de Pérolas', 1200)">Adicionar ao Carrinho</button>
         </div>
 
-        <div class="main-content" id="gallery">
-            <h2>Galeria</h2>
-            <div class="gallery">
-                <img src="burger1.jpg" alt="Hambúrguer Clássico">
-                <img src="burger2.jpg" alt="Cheeseburger Deluxe">
-                <img src="burger3.jpg" alt="Hambúrguer Vegetariano">
+        <div id="cart">
+            <h2>Carrinho de Compras</h2>
+            <div id="cart-items">
+                <p>Seu carrinho está vazio.</p>
             </div>
+            <a id="whatsapp-btn" href="#" target="_blank">Enviar Pedido pelo WhatsApp</a>
         </div>
     </div>
 
-    <!-- Carrinho de Compras -->
-    <div class="cart" id="cart">
-        <h2>Carrinho</h2>
-        <ul class="cart-items" id="cart-items"></ul>
-        <p class="cart-total" id="cart-total">Total: R$ 0,00</p>
-        <div class="cart-actions">
-            <button onclick="sendOrder()">Enviar Pedido</button>
-            <button onclick="clearCart()">Limpar Carrinho</button>
+    <!-- Chat -->
+    <div id="chat-box">
+        <div id="chat-header">Chat com o Vendedor</div>
+        <div id="chat-messages"></div>
+        <div id="chat-input">
+            <textarea id="chat-message" placeholder="Digite sua mensagem"></textarea>
+            <button onclick="sendMessage()">Enviar</button>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2024 Hamburgueria Delícia. Todos os direitos reservados.</p>
-    </footer>
+    <div id="chat-toggle" onclick="toggleChat()">💬</div>
 
     <script>
         let cart = [];
 
-        function addToCart(item, price) {
-            cart.push({ item: item, price: price });
+        function addToCart(name, price) {
+            cart.push({ name, price });
             renderCart();
-            showCart(); // Mostra o carrinho ao adicionar um item
         }
 
         function renderCart() {
             const cartItems = document.getElementById('cart-items');
-            const cartTotal = document.getElementById('cart-total');
             cartItems.innerHTML = '';
-            let total = 0;
 
-            cart.forEach((cartItem, index) => {
-                total += cartItem.price;
-                cartItems.innerHTML += `
-                    <li>
-                        ${cartItem.item} - R$ ${cartItem.price.toFixed(2)}
-                        <button onclick="removeFromCart(${index})">Remover</button>
-                    </li>
-                `;
-            });
-
-            cartTotal.innerText = `Total: R$ ${total.toFixed(2)}`;
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            renderCart();
             if (cart.length === 0) {
-                hideCart(); // Esconde o carrinho se estiver vazio
-            }
-        }
+                cartItems.innerHTML = '<p>Seu carrinho está vazio.</p>';
+            } else {
+                cart.forEach(item => {
+                    cartItems.innerHTML += `<p>${item.name} - R$ ${item.price.toFixed(2)}</p>`;
+                });
 
-        function clearCart() {
-            cart = [];
-            renderCart();
-            hideCart(); // Esconde o carrinho ao limpar
-        }
-
-        function sendOrder() {
-            if (cart.length === 0) {
-                alert("Seu carrinho está vazio!");
-                return;
+                const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+                cartItems.innerHTML += `<p><strong>Total: R$ ${totalPrice.toFixed(2)}</strong></p>`;
             }
 
-            let orderText = "Pedido:\n";
-            let total = 0;
-
-            cart.forEach(cartItem => {
-                orderText += `${cartItem.item} - R$ ${cartItem.price.toFixed(2)}\n`;
-                total += cartItem.price;
-            });
-
-            orderText += `\nTotal: R$ ${total.toFixed(2)}`;
-
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=SEU_NUMERO&text=${encodeURIComponent(orderText)}`;
-            window.open(whatsappUrl, '_blank');
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+            const message = cart.map(item => `${item.name} - R$ ${item.price.toFixed(2)}`).join('%0A');
+            const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+            const encodedMessage = encodeURIComponent(`Olá, gostaria de fazer o pedido:%0A${message}%0ATotal: R$ ${totalPrice.toFixed(2)}`);
+            whatsappBtn.href = `https://wa.me/551234567890?text=${encodedMessage}`;
         }
 
-        function showCart() {
-            document.getElementById('cart').style.display = 'block';
+        // Funções do chat
+        function toggleChat() {
+            const chatBox = document.getElementById('chat-box');
+            chatBox.style.display = chatBox.style.display === 'none' || chatBox.style.display === '' ? 'flex' : 'none';
         }
 
-        function hideCart() {
-            document.getElementById('cart').style.display = 'none';
+        function sendMessage() {
+            const message = document.getElementById('chat-message').value;
+            if (message.trim() === '') return;
+
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML += `<div><strong>Você:</strong> ${message}</div>`;
+            document.getElementById('chat-message').value = '';
+
+            // Simulação de resposta do vendedor
+            setTimeout(() => {
+                chatMessages.innerHTML += `<div><strong>Vendedor:</strong> Obrigado pela mensagem! Vou verificar isso para você.</div>`;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         }
     </script>
+
 </body>
 </html>
