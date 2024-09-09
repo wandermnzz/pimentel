@@ -30,27 +30,7 @@
             margin-bottom: 20px;
         }
 
-        /* Botões de filtro por categoria */
-        .category-buttons {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .category-buttons button {
-            background: #222;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin: 5px;
-        }
-
-        .category-buttons button:hover {
-            background: #555;
-        }
-
-        /* Estilo para a barra de pesquisa */
+        /* Barra de pesquisa */
         .search-container {
             text-align: center;
             margin-bottom: 20px;
@@ -124,6 +104,84 @@
         .product button:hover {
             background: #555;
         }
+
+        /* Carrinho Flutuante */
+        #cart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            z-index: 1000;
+            display: none;
+        }
+
+        #cart h2 {
+            margin-top: 0;
+        }
+
+        #cart-items p {
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Botão para mostrar/ocultar o carrinho */
+        #toggle-cart {
+            position: fixed;
+            bottom: 20px;
+            right: 340px;
+            background: #222;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        /* Ícone do WhatsApp para enviar pedidos com botão de fechar */
+        #chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            color: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            background: url('whatsapp-icon.png') no-repeat center center;
+            background-size: cover;
+        }
+
+        /* Lista de vendedores oficiais */
+        #vendor-list {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 12px;
+            z-index: 1000;
+            display: none;
+        }
+
+        #vendor-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #vendor-list ul li {
+            margin: 10px 0;
+        }
+
     </style>
 </head>
 <body>
@@ -155,6 +213,7 @@
                     <h3>Colar de Diamantes</h3>
                     <p>R$ 5.000,00</p>
                     <p><strong>Descrição:</strong> Colar de diamantes exclusivo com design elegante.</p>
+                    <button onclick="addToCart('Colar de Diamantes', 5000)">Adicionar ao Carrinho</button>
                 </div>
             </div>
 
@@ -164,6 +223,7 @@
                     <h3>Anel de Ouro</h3>
                     <p>R$ 2.500,00</p>
                     <p><strong>Descrição:</strong> Anel de ouro 18k com acabamento refinado.</p>
+                    <button onclick="addToCart('Anel de Ouro', 2500)">Adicionar ao Carrinho</button>
                 </div>
             </div>
 
@@ -173,13 +233,74 @@
                     <h3>Pulseira de Pérolas</h3>
                     <p>R$ 1.200,00</p>
                     <p><strong>Descrição:</strong> Pulseira com pérolas naturais de alta qualidade.</p>
+                    <button onclick="addToCart('Pulseira de Pérolas', 1200)">Adicionar ao Carrinho</button>
                 </div>
             </div>
         </div>
 
     </div>
 
+    <!-- Carrinho Flutuante -->
+    <div id="cart">
+        <h2>Carrinho de Compras</h2>
+        <div id="cart-items">
+            <p>Seu carrinho está vazio.</p>
+        </div>
+    </div>
+
+    <!-- Botão para mostrar/ocultar o carrinho -->
+    <div id="toggle-cart" onclick="toggleCart()">🛒</div>
+
+    <!-- Lista de vendedores oficiais -->
+    <div id="vendor-list">
+        <h3>Vendedores Oficiais</h3>
+        <ul>
+            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567891')">Vendedor 1</a></li>
+            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567892')">Vendedor 2</a></li>
+            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567893')">Vendedor 3</a></li>
+        </ul>
+    </div>
+
+    <!-- Ícone do WhatsApp para enviar pedidos -->
+    <div id="chat-toggle" onclick="toggleVendorList()"></div>
+
     <script>
+        let cart = [];
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            renderCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            renderCart();
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Seu carrinho está vazio.</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    cartItems.innerHTML += `
+                        <p>${item.name} - R$${item.price}
+                        <button onclick="removeFromCart(${index})">Remover</button></p>`;
+                });
+            }
+        }
+
+        function toggleCart() {
+            const cartElement = document.getElementById('cart');
+            if (cartElement.style.display === 'none') {
+                cartElement.style.display = 'block';
+            } else {
+                cartElement.style.display = 'none';
+            }
+        }
+
         function searchProduct() {
             const searchInput = document.getElementById('search-input').value.toLowerCase();
             const products = document.querySelectorAll('.product');
@@ -192,6 +313,16 @@
                     product.style.display = 'none';
                 }
             });
+        }
+
+        function toggleVendorList() {
+            const vendorList = document.getElementById('vendor-list');
+            vendorList.style.display = (vendorList.style.display === 'none') ? 'block' : 'none';
+        }
+
+        function enviarPedidoWhatsApp(numero) {
+            const url = `https://api.whatsapp.com/send?phone=${numero}&text=Olá, gostaria de fazer um pedido.`;
+            window.open(url, '_blank');
         }
     </script>
 
