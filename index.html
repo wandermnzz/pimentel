@@ -50,14 +50,17 @@
             background: #555;
         }
 
-        /* Grade de produtos */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
+        .product-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
         }
 
-        .product {
+        .product-slider .product {
+            flex: 0 0 auto;
+            width: 300px;
+            scroll-snap-align: start;
+            margin-right: 15px;
             border-radius: 8px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             background: #fff;
@@ -164,6 +167,23 @@
             background-size: cover;
         }
 
+        /* Botão de fechar o ícone do WhatsApp */
+        #close-chat {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background: #ff0000;
+            color: #fff;
+            font-size: 16px;
+            line-height: 20px;
+            text-align: center;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
         /* Lista de vendedores oficiais */
         #vendor-list {
             position: fixed;
@@ -185,6 +205,13 @@
 
         #vendor-list ul li {
             margin: 10px 0;
+        }
+
+        /* Estilo para a descrição, formas de pagamento e Instagram */
+        .product-info p strong {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
         }
 
         .instagram {
@@ -223,8 +250,8 @@
             <button onclick="filterProducts('pulseiras')">Pulseiras</button>
         </div>
 
-        <!-- Grade de Produtos -->
-        <div class="product-grid" id="product-grid">
+        <!-- Galeria de Produtos Deslizante -->
+        <div class="product-slider" id="product-slider">
             <div class="product" data-category="colares">
                 <img src="joia1.jpg" alt="Joia 1" onclick="ampliarImagem('joia1.jpg')">
                 <div class="product-name">Colar de Diamantes</div>
@@ -249,6 +276,39 @@
                 </div>
             </div>
 
+            <div class="product" data-category="aneis">
+                <img src="joia4.jpg" alt="Joia 4" onclick="ampliarImagem('joia4.jpg')">
+                <div class="product-name">Anel de Ouro</div>
+                <div class="product-info">
+                    <h3>Anel de Ouro</h3>
+                    <p>R$ 2.500,00</p>
+                    <p><strong>Descrição:</strong> Anel de ouro 18k com acabamento refinado.</p>
+                    <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
+                    <button onclick="addToCart('Anel de Ouro', 2500)">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+     <div class="product" data-category="aneis">
+                <img src="joia2.jpg" alt="Joia 2" onclick="ampliarImagem('joia2.jpg')">
+                <div class="product-name">Anel de Ouro</div>
+                <div class="product-info">
+                    <h3>Anel de Ouro</h3>
+                    <p>R$ 2.500,00</p>
+                    <p><strong>Descrição:</strong> Anel de ouro 18k com acabamento refinado.</p>
+                    <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
+                    <button onclick="addToCart('Anel de Ouro', 2500)">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+                 <div class="product" data-category="aneis">
+                <img src="Trioemprata1.jpg" alt="Joia 2" onclick="ampliarImagem('Trioemprata1.jpg')">
+                <div class="product-name">Trio em prata bolinha</div>
+                <div class="product-info">
+                    <h3>Trio em prata </h3>
+                    <p>R$ 65</p>
+                    <p><strong>Descrição:</strong> Trio em prata bolinha.</p>
+                    <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
+                    <button onclick="addToCart('Trio em prata bolinha', 65)">Adicionar ao Carrinho</button>
+                </div>
+            </div>
             <div class="product" data-category="pulseiras">
                 <img src="joia3.jpg" alt="Joia 3" onclick="ampliarImagem('joia3.jpg')">
                 <div class="product-name">Pulseira de Pérolas</div>
@@ -273,104 +333,122 @@
     <!-- Carrinho Flutuante -->
     <div id="cart">
         <h2>Carrinho de Compras</h2>
-        <div id="cart-items"></div>
-        <p>Total: R$ <span id="cart-total">0,00</span></p>
-        <button onclick="finalizePurchase()">Finalizar Compra</button>
+        <div id="cart-items">
+            <p>Seu carrinho está vazio.</p>
+        </div>
     </div>
-    <div id="toggle-cart" onclick="toggleCart()">Carrinho</div>
+
+    <!-- Botão para mostrar/ocultar o carrinho -->
+    <div id="toggle-cart" onclick="toggleCart()">🛒</div>
 
     <!-- Lista de vendedores oficiais -->
     <div id="vendor-list">
-        <h2>Vendedores Oficiais</h2>
+        <h3>Vendedores Oficiais</h3>
         <ul>
-            <li>Vendedor 1: (11) 99999-9999</li>
-            <li>Vendedor 2: (21) 98888-8888</li>
+            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567891')">Vendedor 1</a></li>
+            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567892')">Vendedor 2</a></li>
+            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567893')">Vendedor 3</a></li>
         </ul>
     </div>
 
-    <!-- Ícone de WhatsApp -->
-    <div id="chat-toggle" onclick="toggleVendorList()"></div>
+    <!-- Ícone do WhatsApp para enviar pedidos -->
+    <div id="chat-toggle" onmousedown="dragElement(this)" onclick="toggleVendorList()"></div>
 
     <script>
-        // Função para filtrar produtos por categoria
-        function filterProducts(category) {
-            var products = document.querySelectorAll('.product');
-            products.forEach(function (product) {
-                if (category === 'todos' || product.getAttribute('data-category') === category) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
-            });
+        let cart = [];
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            renderCart();
         }
 
-        // Função para ampliar a imagem do produto
-        function ampliarImagem(src) {
-            var modal = document.createElement('div');
-            modal.style.position = 'fixed';
-            modal.style.top = '0';
-            modal.style.left = '0';
-            modal.style.width = '100%';
-            modal.style.height = '100%';
-            modal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-            modal.style.display = 'flex';
-            modal.style.alignItems = 'center';
-            modal.style.justifyContent = 'center';
-            modal.onclick = function () {
-                document.body.removeChild(modal);
-            };
-
-            var img = document.createElement('img');
-            img.src = src;
-            img.style.maxWidth = '90%';
-            img.style.maxHeight = '90%';
-
-            modal.appendChild(img);
-            document.body.appendChild(modal);
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            renderCart();
         }
 
-        // Carrinho de compras
-        var cart = [];
-        function addToCart(productName, productPrice) {
-            cart.push({ name: productName, price: productPrice });
-            updateCart();
-        }
-
-        function updateCart() {
-            var cartItems = document.getElementById('cart-items');
+        function renderCart() {
+            const cartItems = document.getElementById('cart-items');
             cartItems.innerHTML = '';
-            var total = 0;
-            cart.forEach(function (item) {
-                var itemElement = document.createElement('p');
-                itemElement.textContent = item.name + ' - R$ ' + item.price.toFixed(2);
-                cartItems.appendChild(itemElement);
-                total += item.price;
-            });
-            document.getElementById('cart-total').textContent = total.toFixed(2);
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Seu carrinho está vazio.</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    cartItems.innerHTML += `<p>${item.name} - R$ ${item.price.toFixed(2)} <button onclick="removeFromCart(${index})">Remover</button></p>`;
+                });
+
+                const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+                cartItems.innerHTML += `<p><strong>Total: R$ ${totalPrice.toFixed(2)}</strong></p>`;
+            }
+        }
+
+        function enviarPedidoWhatsApp(phone) {
+            if (cart.length === 0) {
+                alert("Seu carrinho está vazio!");
+                return;
+            }
+
+            const message = cart.map(item => `${item.name} - R$ ${item.price.toFixed(2)}`).join('%0A');
+            const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+            const encodedMessage = encodeURIComponent(`Olá, gostaria de fazer o pedido:%0A${message}%0ATotal: R$ ${totalPrice.toFixed(2)}`);
+            window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
         }
 
         function toggleCart() {
-            var cart = document.getElementById('cart');
-            if (cart.style.display === 'none' || cart.style.display === '') {
-                cart.style.display = 'block';
-            } else {
-                cart.style.display = 'none';
-            }
+            const cart = document.getElementById('cart');
+            cart.style.display = cart.style.display === 'none' || cart.style.display === '' ? 'block' : 'none';
         }
 
-        // Função para exibir/ocultar a lista de vendedores oficiais
         function toggleVendorList() {
-            var vendorList = document.getElementById('vendor-list');
-            if (vendorList.style.display === 'none' || vendorList.style.display === '') {
-                vendorList.style.display = 'block';
-            } else {
-                vendorList.style.display = 'none';
-            }
+            const vendorList = document.getElementById('vendor-list');
+            vendorList.style.display = vendorList.style.display === 'none' || vendorList.style.display === '' ? 'block' : 'none';
         }
 
-        function finalizePurchase() {
-            alert('Compra finalizada com sucesso!');
+        function ampliarImagem(src) {
+            const img = new Image();
+            img.src = src;
+            const w = window.open("");
+            w.document.write(`<div style="text-align: center;"><img src="${src}" style="max-width: 100%; height: auto;"/><br><br><button onclick="window.close()">Voltar</button></div>`);
+        }
+
+        function filterProducts(category) {
+            const products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                product.style.display = category === 'todos' || product.getAttribute('data-category') === category ? 'block' : 'none';
+            });
+        }
+
+        function dragElement(elmnt) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            elmnt.onmousedown = dragMouseDown;
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
         }
     </script>
+
 </body>
 </html>
