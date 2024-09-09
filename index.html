@@ -83,6 +83,7 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             padding: 15px;
             text-align: center;
+            cursor: pointer;
         }
 
         .product img {
@@ -155,20 +156,46 @@
             z-index: 1000;
         }
 
-        /* Ícone do WhatsApp para enviar pedidos com botão de fechar */
-        #chat-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: #25D366;
-            color: #fff;
+        /* Ponto laranja no carrinho */
+        #cart-indicator {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 12px;
+            height: 12px;
+            background: orange;
             border-radius: 50%;
+            display: none; /* Aparece quando houver itens no carrinho */
+        }
+
+        /* Modal de imagem ampliada */
+        #image-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        #image-modal img {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+        }
+
+        #image-modal span {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
             cursor: pointer;
-            z-index: 1000;
-            background: url('whatsapp-icon.png') no-repeat center center;
-            background-size: cover;
         }
 
         /* Lista de vendedores oficiais */
@@ -194,6 +221,22 @@
             margin: 10px 0;
         }
 
+        /* Ícone do WhatsApp para enviar pedidos com botão de fechar */
+        #chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            color: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            background: url('whatsapp-icon.png') no-repeat center center;
+            background-size: cover;
+        }
+
     </style>
 </head>
 <body>
@@ -202,7 +245,7 @@
         <h1>Dona Pimentel</h1>
         <p>Encontre as mais belas joias aqui!</p>
         <!-- Ícone do Instagram -->
-        <a href="https://www.instagram.com/donnapimentel_12/#" target="_blank">
+        <a href="https://www.instagram.com/seu_perfil" target="_blank">
             <img src="instagram-icon.png" alt="Instagram">
         </a>
     </header>
@@ -223,17 +266,17 @@
 
         <!-- Lista de Produtos -->
         <div class="product-list" id="product-list">
-            <div class="product" data-name="Colar de Diamantes">
+            <div class="product" data-name="Colar de Diamantes" onclick="openModal('joia1.jpg', 'Colar de Diamantes')">
                 <img src="joia1.jpg" alt="Colar de Diamantes">
                 <div class="product-info">
                     <h3>Colar de Diamantes</h3>
                     <p>R$ 5.000,00</p>
-                    <p><strong>Descrição:</strong> Brinco 1.</p>
-                    <button onclick="addToCart('Brinco 1', 5000)">Adicionar ao Carrinho</button>
+                    <p><strong>Descrição:</strong> Colar de diamantes exclusivo com design elegante.</p>
+                    <button onclick="addToCart('Colar de Diamantes', 5000)">Adicionar ao Carrinho</button>
                 </div>
             </div>
 
-            <div class="product" data-name="Anel de Ouro">
+            <div class="product" data-name="Anel de Ouro" onclick="openModal('joia2.jpg', 'Anel de Ouro')">
                 <img src="joia2.jpg" alt="Anel de Ouro">
                 <div class="product-info">
                     <h3>Anel de Ouro</h3>
@@ -243,54 +286,50 @@
                 </div>
             </div>
 
-            <div class="product" data-name="Pulseira de Pérolas">
+            <div class="product" data-name="Pulseira de Pérolas" onclick="openModal('joia3.jpg', 'Pulseira de Pérolas')">
                 <img src="joia3.jpg" alt="Pulseira de Pérolas">
                 <div class="product-info">
                     <h3>Pulseira de Pérolas</h3>
-                    <p>R$ 1.200,00</p>
-                    <p><strong>Descrição:</strong> Pulseira com pérolas naturais de alta qualidade.</p>
-                    <button onclick="addToCart('Pulseira de Pérolas', 1200)">Adicionar ao Carrinho</button>
+                    <p>R$ 1.500,00</p>
+                    <p><strong>Descrição:</strong> Pulseira clássica com pérolas naturais.</p>
+                    <button onclick="addToCart('Pulseira de Pérolas', 1500)">Adicionar ao Carrinho</button>
                 </div>
             </div>
         </div>
-
     </div>
 
-    <!-- Carrinho Flutuante -->
+    <!-- Modal para visualizar imagem maior -->
+    <div id="image-modal">
+        <span onclick="closeModal()">&times;</span>
+        <img id="modal-image" src="" alt="Joia">
+        <p id="modal-caption"></p>
+    </div>
+
+    <!-- Carrinho -->
     <div id="cart">
-        <h2>Carrinho de Compras</h2>
-        <div id="cart-items">
-            <p>Seu carrinho está vazio.</p>
-        </div>
+        <h2>Seu Carrinho</h2>
+        <div id="cart-items"></div>
     </div>
 
-    <!-- Botão para mostrar/ocultar o carrinho -->
-    <div id="toggle-cart" onclick="toggleCart()">🛒</div>
+    <button id="toggle-cart" onclick="toggleCart()">Carrinho <span id="cart-indicator"></span></button>
 
-    <!-- Lista de vendedores oficiais -->
-    <div id="vendor-list">
-        <h3>Vendedores Oficiais</h3>
-        <ul>
-            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567891')">Vendedor 1</a></li>
-            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567892')">Vendedor 2</a></li>
-            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567893')">Vendedor 3</a></li>
-        </ul>
-    </div>
-
-    <!-- Ícone do WhatsApp para enviar pedidos -->
-    <div id="chat-toggle" onclick="toggleVendorList()"></div>
-
+    <!-- Script principal -->
     <script>
-        let cart = [];
+        const cart = [];
 
         function addToCart(name, price) {
             cart.push({ name, price });
             renderCart();
+            alert(`Você adicionou "${name}" ao carrinho!`);
+            document.getElementById('cart-indicator').style.display = 'block'; // Exibe o ponto laranja
         }
 
         function removeFromCart(index) {
             cart.splice(index, 1);
             renderCart();
+            if (cart.length === 0) {
+                document.getElementById('cart-indicator').style.display = 'none'; // Esconde o ponto laranja
+            }
         }
 
         function renderCart() {
@@ -310,11 +349,7 @@
 
         function toggleCart() {
             const cartElement = document.getElementById('cart');
-            if (cartElement.style.display === 'none') {
-                cartElement.style.display = 'block';
-            } else {
-                cartElement.style.display = 'none';
-            }
+            cartElement.style.display = (cartElement.style.display === 'none' || cartElement.style.display === '') ? 'block' : 'none';
         }
 
         function searchProduct() {
@@ -331,14 +366,21 @@
             });
         }
 
-        function toggleVendorList() {
-            const vendorList = document.getElementById('vendor-list');
-            vendorList.style.display = (vendorList.style.display === 'none') ? 'block' : 'none';
+        // Função para abrir o modal de imagem ampliada
+        function openModal(imageSrc, captionText) {
+            const modal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            const modalCaption = document.getElementById('modal-caption');
+            
+            modal.style.display = 'block';
+            modalImage.src = imageSrc;
+            modalCaption.textContent = captionText;
         }
 
-        function enviarPedidoWhatsApp(numero) {
-            const url = `https://api.whatsapp.com/send?phone=${numero}&text=Olá, gostaria de fazer um pedido.`;
-            window.open(url, '_blank');
+        // Função para fechar o modal
+        function closeModal() {
+            const modal = document.getElementById('image-modal');
+            modal.style.display = 'none';
         }
     </script>
 
