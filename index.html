@@ -331,6 +331,17 @@
                 document.getElementById('cart-indicator').style.display = 'none'; // Esconde o ponto laranja
             }
         }
+ <div id="vendor-list">
+        <h3>Vendedores Oficiais</h3>
+        <ul>
+            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567891')">Vendedor 1</a></li>
+            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567892')">Vendedor 2</a></li>
+            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567893')">Vendedor 3</a></li>
+        </ul>
+    </div>
+
+    <!-- Ícone do WhatsApp para enviar pedidos -->
+    <div id="chat-toggle" onclick="toggleVendorList()"></div>
 
         function renderCart() {
             const cartItems = document.getElementById('cart-items');
@@ -381,6 +392,15 @@
         function closeModal() {
             const modal = document.getElementById('image-modal');
             modal.style.display = 'none';
+        }
+         function toggleVendorList() {
+            const vendorList = document.getElementById('vendor-list');
+            vendorList.style.display = (vendorList.style.display === 'none') ? 'block' : 'none';
+        }
+
+        function enviarPedidoWhatsApp(numero) {
+            const url = `https://api.whatsapp.com/send?phone=${numero}&text=Olá, gostaria de fazer um pedido.`;
+            window.open(url, '_blank');
         }
     </script>
 
