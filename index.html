@@ -50,45 +50,57 @@
             background: #555;
         }
 
-        .product-slider {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
+        /* Estilo para a barra de pesquisa */
+        .search-container {
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .product-slider .product {
-            flex: 0 0 auto;
-            width: 300px;
-            scroll-snap-align: start;
-            margin-right: 15px;
+        .search-container input {
+            width: 50%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-container button {
+            padding: 10px 20px;
+            background-color: #222;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .search-container button:hover {
+            background-color: #555;
+        }
+
+        /* Estilos para os produtos */
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .product {
+            width: 200px;
+            margin: 10px;
+            background: #fff;
             border-radius: 8px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            background: #fff;
             padding: 15px;
-            position: relative;
+            text-align: center;
         }
 
         .product img {
             width: 100%;
             height: auto;
             border-radius: 8px;
-            cursor: pointer;
         }
 
-        /* Nome flutuante do produto */
-        .product .product-name {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            padding: 5px;
-            border-radius: 5px;
-            display: none;
-        }
-
-        .product:hover .product-name {
-            display: block;
+        .product-info {
+            margin-top: 10px;
         }
 
         .product-info h3 {
@@ -112,119 +124,6 @@
         .product button:hover {
             background: #555;
         }
-
-        /* Carrinho Flutuante */
-        #cart {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 300px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            z-index: 1000;
-            display: none;
-        }
-
-        #cart h2 {
-            margin-top: 0;
-        }
-
-        #cart-items p {
-            margin: 10px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Botão para mostrar/ocultar o carrinho */
-        #toggle-cart {
-            position: fixed;
-            bottom: 20px;
-            right: 340px;
-            background: #222;
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1000;
-        }
-
-        /* Ícone do WhatsApp para enviar pedidos com botão de fechar */
-        #chat-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: #25D366;
-            color: #fff;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 1000;
-            background: url('whatsapp-icon.png') no-repeat center center;
-            background-size: cover;
-        }
-
-        /* Botão de fechar o ícone do WhatsApp */
-        #close-chat {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 20px;
-            height: 20px;
-            background: #ff0000;
-            color: #fff;
-            font-size: 16px;
-            line-height: 20px;
-            text-align: center;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        /* Lista de vendedores oficiais */
-        #vendor-list {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            padding: 12px;
-            z-index: 1000;
-            display: none;
-        }
-
-        #vendor-list ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #vendor-list ul li {
-            margin: 10px 0;
-        }
-
-        /* Estilo para a descrição, formas de pagamento e Instagram */
-        .product-info p strong {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        .instagram {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .instagram img {
-            width: 24px;
-            height: 24px;
-            vertical-align: middle;
-            margin-left: 10px;
-        }
     </style>
 </head>
 <body>
@@ -242,211 +141,57 @@
                perfeitas para todas as ocasiões.</p>
         </div>
 
-        <!-- Botões de filtro por categoria -->
-        <div class="category-buttons">
-            <button onclick="filterProducts('todos')">Todos</button>
-            <button onclick="filterProducts('colares')">Colares</button>
-            <button onclick="filterProducts('aneis')">Anéis</button>
-            <button onclick="filterProducts('pulseiras')">Pulseiras</button>
+        <!-- Barra de pesquisa -->
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Digite o nome da joia..." onkeyup="searchProduct()">
+            <button onclick="searchProduct()">Pesquisar</button>
         </div>
 
-        <!-- Galeria de Produtos Deslizante -->
-        <div class="product-slider" id="product-slider">
-            <div class="product" data-category="colares">
-                <img src="joia1.jpg" alt="Joia 1" onclick="ampliarImagem('joia1.jpg')">
-                <div class="product-name">Colar de Diamantes</div>
+        <!-- Lista de Produtos -->
+        <div class="product-list" id="product-list">
+            <div class="product" data-name="Colar de Diamantes">
+                <img src="joia1.jpg" alt="Colar de Diamantes">
                 <div class="product-info">
                     <h3>Colar de Diamantes</h3>
                     <p>R$ 5.000,00</p>
                     <p><strong>Descrição:</strong> Colar de diamantes exclusivo com design elegante.</p>
-                    <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
-                    <button onclick="addToCart('Colar de Diamantes', 5000)">Adicionar ao Carrinho</button>
                 </div>
             </div>
 
-            <div class="product" data-category="aneis">
-                <img src="joia2.jpg" alt="Joia 2" onclick="ampliarImagem('joia2.jpg')">
-                <div class="product-name">Anel de Ouro</div>
+            <div class="product" data-name="Anel de Ouro">
+                <img src="joia2.jpg" alt="Anel de Ouro">
                 <div class="product-info">
                     <h3>Anel de Ouro</h3>
                     <p>R$ 2.500,00</p>
                     <p><strong>Descrição:</strong> Anel de ouro 18k com acabamento refinado.</p>
-                    <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
-                    <button onclick="addToCart('Anel de Ouro', 2500)">Adicionar ao Carrinho</button>
                 </div>
             </div>
 
-            <div class="product" data-category="aneis">
-                <img src="joia4.jpg" alt="Joia 4" onclick="ampliarImagem('joia4.jpg')">
-                <div class="product-name">Anel de Ouro</div>
-                <div class="product-info">
-                    <h3>Anel de Ouro</h3>
-                    <p>R$ 2.500,00</p>
-                    <p><strong>Descrição:</strong> Anel de ouro 18k com acabamento refinado.</p>
-                    <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
-                    <button onclick="addToCart('Anel de Ouro', 2500)">Adicionar ao Carrinho</button>
-                </div>
-            </div>
-     <div class="product" data-category="aneis">
-                <img src="joia2.jpg" alt="Joia 2" onclick="ampliarImagem('joia2.jpg')">
-                <div class="product-name">Anel de Ouro</div>
-                <div class="product-info">
-                    <h3>Anel de Ouro</h3>
-                    <p>R$ 2.500,00</p>
-                    <p><strong>Descrição:</strong> Anel de ouro 18k com acabamento refinado.</p>
-                    <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
-                    <button onclick="addToCart('Anel de Ouro', 2500)">Adicionar ao Carrinho</button>
-                </div>
-            </div>
-                 <div class="product" data-category="aneis">
-                <img src="Trioemprata1.jpg" alt="Joia 2" onclick="ampliarImagem('Trioemprata1.jpg')">
-                <div class="product-name">Trio em prata bolinha</div>
-                <div class="product-info">
-                    <h3>Trio em prata </h3>
-                    <p>R$ 65</p>
-                    <p><strong>Descrição:</strong> Trio em prata bolinha.</p>
-                    <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
-                    <button onclick="addToCart('Trio em prata bolinha', 65)">Adicionar ao Carrinho</button>
-                </div>
-            </div>
-            <div class="product" data-category="pulseiras">
-                <img src="joia3.jpg" alt="Joia 3" onclick="ampliarImagem('joia3.jpg')">
-                <div class="product-name">Pulseira de Pérolas</div>
+            <div class="product" data-name="Pulseira de Pérolas">
+                <img src="joia3.jpg" alt="Pulseira de Pérolas">
                 <div class="product-info">
                     <h3>Pulseira de Pérolas</h3>
                     <p>R$ 1.200,00</p>
                     <p><strong>Descrição:</strong> Pulseira com pérolas naturais de alta qualidade.</p>
-                    <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
-                    <button onclick="addToCart('Pulseira de Pérolas', 1200)">Adicionar ao Carrinho</button>
                 </div>
             </div>
         </div>
 
-        <!-- Informações de contato -->
-        <div class="instagram">
-            <p>Siga-nos no Instagram: <a href="https://www.instagram.com/donnapimentel_12" target="_blank">@donnapimentel_12</a></p>
-            <img src="instagram-icon.png" alt="Instagram">
-        </div>
-
     </div>
-
-    <!-- Carrinho Flutuante -->
-    <div id="cart">
-        <h2>Carrinho de Compras</h2>
-        <div id="cart-items">
-            <p>Seu carrinho está vazio.</p>
-        </div>
-    </div>
-
-    <!-- Botão para mostrar/ocultar o carrinho -->
-    <div id="toggle-cart" onclick="toggleCart()">🛒</div>
-
-    <!-- Lista de vendedores oficiais -->
-    <div id="vendor-list">
-        <h3>Vendedores Oficiais</h3>
-        <ul>
-            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567891')">Vendedor 1</a></li>
-            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567892')">Vendedor 2</a></li>
-            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567893')">Vendedor 3</a></li>
-        </ul>
-    </div>
-
-    <!-- Ícone do WhatsApp para enviar pedidos -->
-    <div id="chat-toggle" onmousedown="dragElement(this)" onclick="toggleVendorList()"></div>
 
     <script>
-        let cart = [];
-
-        function addToCart(name, price) {
-            cart.push({ name, price });
-            renderCart();
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            renderCart();
-        }
-
-        function renderCart() {
-            const cartItems = document.getElementById('cart-items');
-            cartItems.innerHTML = '';
-
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p>Seu carrinho está vazio.</p>';
-            } else {
-                cart.forEach((item, index) => {
-                    cartItems.innerHTML += `<p>${item.name} - R$ ${item.price.toFixed(2)} <button onclick="removeFromCart(${index})">Remover</button></p>`;
-                });
-
-                const totalPrice = cart.reduce((total, item) => total + item.price, 0);
-                cartItems.innerHTML += `<p><strong>Total: R$ ${totalPrice.toFixed(2)}</strong></p>`;
-            }
-        }
-
-        function enviarPedidoWhatsApp(phone) {
-            if (cart.length === 0) {
-                alert("Seu carrinho está vazio!");
-                return;
-            }
-
-            const message = cart.map(item => `${item.name} - R$ ${item.price.toFixed(2)}`).join('%0A');
-            const totalPrice = cart.reduce((total, item) => total + item.price, 0);
-            const encodedMessage = encodeURIComponent(`Olá, gostaria de fazer o pedido:%0A${message}%0ATotal: R$ ${totalPrice.toFixed(2)}`);
-            window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
-        }
-
-        function toggleCart() {
-            const cart = document.getElementById('cart');
-            cart.style.display = cart.style.display === 'none' || cart.style.display === '' ? 'block' : 'none';
-        }
-
-        function toggleVendorList() {
-            const vendorList = document.getElementById('vendor-list');
-            vendorList.style.display = vendorList.style.display === 'none' || vendorList.style.display === '' ? 'block' : 'none';
-        }
-
-        function ampliarImagem(src) {
-            const img = new Image();
-            img.src = src;
-            const w = window.open("");
-            w.document.write(`<div style="text-align: center;"><img src="${src}" style="max-width: 100%; height: auto;"/><br><br><button onclick="window.close()">Voltar</button></div>`);
-        }
-
-        function filterProducts(category) {
+        function searchProduct() {
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
             const products = document.querySelectorAll('.product');
+
             products.forEach(product => {
-                product.style.display = category === 'todos' || product.getAttribute('data-category') === category ? 'block' : 'none';
+                const productName = product.getAttribute('data-name').toLowerCase();
+                if (productName.includes(searchInput)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
             });
-        }
-
-        function dragElement(elmnt) {
-            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-            elmnt.onmousedown = dragMouseDown;
-
-            function dragMouseDown(e) {
-                e = e || window.event;
-                e.preventDefault();
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                document.onmouseup = closeDragElement;
-                document.onmousemove = elementDrag;
-            }
-
-            function elementDrag(e) {
-                e = e || window.event;
-                e.preventDefault();
-                pos1 = pos3 - e.clientX;
-                pos2 = pos4 - e.clientY;
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-            }
-
-            function closeDragElement() {
-                document.onmouseup = null;
-                document.onmousemove = null;
-            }
         }
     </script>
 
