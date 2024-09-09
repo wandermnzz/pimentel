@@ -147,20 +147,22 @@
         #toggle-cart {
             position: fixed;
             bottom: 20px;
-            right: 340px;
-            background: #222;
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
+            right: 80px;
+            background: url('carrinho-icon.png') no-repeat center center;
+            background-size: cover;
+            width: 60px;
+            height: 60px;
+            border: none;
             cursor: pointer;
             z-index: 1000;
+            border-radius: 50%;
         }
 
         /* Ponto laranja no carrinho */
         #cart-indicator {
             position: absolute;
-            top: 0;
-            right: 0;
+            top: -5px;
+            right: -5px;
             width: 12px;
             height: 12px;
             background: orange;
@@ -221,20 +223,18 @@
             margin: 10px 0;
         }
 
-        /* Ícone do WhatsApp para enviar pedidos com botão de fechar */
+        /* Ícone do WhatsApp */
         #chat-toggle {
             position: fixed;
             bottom: 20px;
             right: 20px;
             width: 60px;
             height: 60px;
-            background: #25D366;
-            color: #fff;
+            background: url('whatsapp-icon.png') no-repeat center center;
+            background-size: cover;
             border-radius: 50%;
             cursor: pointer;
             z-index: 1000;
-            background: url('whatsapp-icon.png') no-repeat center center;
-            background-size: cover;
         }
 
     </style>
@@ -266,13 +266,15 @@
 
         <!-- Lista de Produtos -->
         <div class="product-list" id="product-list">
+            <div class="product" data-name="Colar de Diamantes" onclick="openModal('joia1.jpg', 'Colar de Diam
             <div class="product" data-name="Colar de Diamantes" onclick="openModal('joia1.jpg', 'Colar de Diamantes')">
                 <img src="joia1.jpg" alt="Colar de Diamantes">
                 <div class="product-info">
                     <h3>Colar de Diamantes</h3>
                     <p>R$ 5.000,00</p>
                     <p><strong>Descrição:</strong> Colar de diamantes exclusivo com design elegante.</p>
-                    <button onclick="addToCart('Colar de Diamantes', 5000)">Adicionar ao Carrinho</button>
+                    <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
+                    <button onclick="addToCart('Colar de Diamantes', 5000); event.stopPropagation();">Adicionar ao Carrinho</button>
                 </div>
             </div>
 
@@ -282,56 +284,38 @@
                     <h3>Anel de Ouro</h3>
                     <p>R$ 2.500,00</p>
                     <p><strong>Descrição:</strong> Anel de ouro 18k com acabamento refinado.</p>
-                    <button onclick="addToCart('Anel de Ouro', 2500)">Adicionar ao Carrinho</button>
+                    <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
+                    <button onclick="addToCart('Anel de Ouro', 2500); event.stopPropagation();">Adicionar ao Carrinho</button>
                 </div>
             </div>
 
-            <div class="product" data-name="Pulseira de Pérolas" onclick="openModal('joia3.jpg', 'Pulseira de Pérolas')">
-                <img src="joia3.jpg" alt="Pulseira de Pérolas">
-                <div class="product-info">
-                    <h3>Pulseira de Pérolas</h3>
-                    <p>R$ 1.500,00</p>
-                    <p><strong>Descrição:</strong> Pulseira clássica com pérolas naturais.</p>
-                    <button onclick="addToCart('Pulseira de Pérolas', 1500)">Adicionar ao Carrinho</button>
-                </div>
-            </div>
+            <!-- Adicione mais produtos conforme necessário -->
+
+        </div>
+
+        <!-- Informações de contato -->
+        <div class="instagram">
+            <p>Siga-nos no Instagram: <a href="https://www.instagram.com/donnapimentel_12" target="_blank">@donnapimentel_12</a></p>
+            <img src="instagram-icon.png" alt="Instagram">
+        </div>
+
+    </div>
+
+    <!-- Carrinho Flutuante -->
+    <div id="cart">
+        <h2>Carrinho de Compras</h2>
+        <div id="cart-items">
+            <p>Seu carrinho está vazio.</p>
         </div>
     </div>
 
-    <!-- Modal para visualizar imagem maior -->
-    <div id="image-modal">
-        <span onclick="closeModal()">&times;</span>
-        <img id="modal-image" src="" alt="Joia">
-        <p id="modal-caption"></p>
+    <!-- Botão para mostrar/ocultar o carrinho -->
+    <div id="toggle-cart" onclick="toggleCart()">
+        <div id="cart-indicator"></div>
     </div>
 
-    <!-- Carrinho -->
-    <div id="cart">
-        <h2>Seu Carrinho</h2>
-        <div id="cart-items"></div>
-    </div>
-
-    <button id="toggle-cart" onclick="toggleCart()">Carrinho <span id="cart-indicator"></span></button>
-
-    <!-- Script principal -->
-    <script>
-        const cart = [];
-
-        function addToCart(name, price) {
-            cart.push({ name, price });
-            renderCart();
-            alert(`Você adicionou "${name}" ao carrinho!`);
-            document.getElementById('cart-indicator').style.display = 'block'; // Exibe o ponto laranja
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            renderCart();
-            if (cart.length === 0) {
-                document.getElementById('cart-indicator').style.display = 'none'; // Esconde o ponto laranja
-            }
-        }
- <div id="vendor-list">
+    <!-- Lista de vendedores oficiais -->
+    <div id="vendor-list">
         <h3>Vendedores Oficiais</h3>
         <ul>
             <li><a href="#" onclick="enviarPedidoWhatsApp('551234567891')">Vendedor 1</a></li>
@@ -343,6 +327,27 @@
     <!-- Ícone do WhatsApp para enviar pedidos -->
     <div id="chat-toggle" onclick="toggleVendorList()"></div>
 
+    <!-- Modal para visualizar imagem ampliada -->
+    <div id="image-modal" onclick="closeModal()">
+        <span>&times;</span>
+        <img id="modal-image" src="" alt="Imagem Ampliada">
+    </div>
+
+    <script>
+        let cart = [];
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            renderCart();
+            document.getElementById('cart-indicator').style.display = cart.length > 0 ? 'block' : 'none';
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            renderCart();
+            document.getElementById('cart-indicator').style.display = cart.length > 0 ? 'block' : 'none';
+        }
+
         function renderCart() {
             const cartItems = document.getElementById('cart-items');
             cartItems.innerHTML = '';
@@ -351,56 +356,55 @@
                 cartItems.innerHTML = '<p>Seu carrinho está vazio.</p>';
             } else {
                 cart.forEach((item, index) => {
-                    cartItems.innerHTML += `
-                        <p>${item.name} - R$${item.price}
-                        <button onclick="removeFromCart(${index})">Remover</button></p>`;
+                    cartItems.innerHTML += `<p>${item.name} - R$ ${item.price.toFixed(2)} <button onclick="removeFromCart(${index})">Remover</button></p>`;
                 });
+
+                const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+                cartItems.innerHTML += `<p><strong>Total: R$ ${totalPrice.toFixed(2)}</strong></p>`;
             }
         }
 
+        function enviarPedidoWhatsApp(phone) {
+            if (cart.length === 0) {
+                alert("Seu carrinho está vazio!");
+                return;
+            }
+
+            const message = cart.map(item => `${item.name} - R$ ${item.price.toFixed(2)}`).join('%0A');
+            const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+            const encodedMessage = encodeURIComponent(`Olá, gostaria de fazer o pedido:%0A${message}%0ATotal: R$ ${totalPrice.toFixed(2)}`);
+            window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
+        }
+
         function toggleCart() {
-            const cartElement = document.getElementById('cart');
-            cartElement.style.display = (cartElement.style.display === 'none' || cartElement.style.display === '') ? 'block' : 'none';
+            const cart = document.getElementById('cart');
+            cart.style.display = cart.style.display === 'none' || cart.style.display === '' ? 'block' : 'none';
         }
 
-        function searchProduct() {
-            const searchInput = document.getElementById('search-input').value.toLowerCase();
-            const products = document.querySelectorAll('.product');
-
-            products.forEach(product => {
-                const productName = product.getAttribute('data-name').toLowerCase();
-                if (productName.includes(searchInput)) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
-            });
+        function toggleVendorList() {
+            const vendorList = document.getElementById('vendor-list');
+            vendorList.style.display = vendorList.style.display === 'none' || vendorList.style.display === '' ? 'block' : 'none';
         }
 
-        // Função para abrir o modal de imagem ampliada
-        function openModal(imageSrc, captionText) {
+        function openModal(src, name) {
             const modal = document.getElementById('image-modal');
             const modalImage = document.getElementById('modal-image');
-            const modalCaption = document.getElementById('modal-caption');
-            
             modal.style.display = 'block';
-            modalImage.src = imageSrc;
-            modalCaption.textContent = captionText;
+            modalImage.src = src;
         }
 
-        // Função para fechar o modal
         function closeModal() {
             const modal = document.getElementById('image-modal');
             modal.style.display = 'none';
         }
-         function toggleVendorList() {
-            const vendorList = document.getElementById('vendor-list');
-            vendorList.style.display = (vendorList.style.display === 'none') ? 'block' : 'none';
-        }
 
-        function enviarPedidoWhatsApp(numero) {
-            const url = `https://api.whatsapp.com/send?phone=${numero}&text=Olá, gostaria de fazer um pedido.`;
-            window.open(url, '_blank');
+        function searchProduct() {
+            const input = document.getElementById('search-input').value.toLowerCase();
+            const products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                const name = product.getAttribute('data-name').toLowerCase();
+                product.style.display = name.includes(input) ? 'block' : 'none';
+            });
         }
     </script>
 
