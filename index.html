@@ -299,7 +299,12 @@
     </div>
 
   <div id="toggle-cart" onclick="toggleCart()">🛒</div>
-        <div id="cart-indicator">🙃</div>
+        <div id="cart-indicator">🙃</div
+             <!-- Modal para visualizar imagem ampliada -->
+   <div id="image-modal">
+        <span onclick="closeModal()">&times;</span>
+        <img id="modal-image">
+    </div>                           
     <!-- Lista de vendedores oficiais -->
     <div id="vendor-list">
         <h3>Vendedores Oficiais</h3>
@@ -313,13 +318,7 @@
     <!-- Ícone do WhatsApp para enviar pedidos -->
     <div id="chat-toggle" onclick="toggleVendorList()"></div>
 
-    <!-- Modal para visualizar imagem ampliada -->
-   <div id="image-modal">
-        <span onclick="closeModal()">&times;</span>
-        <img id="modal-image">
-    </div>
-
-
+  
     <script>
         let cart = [];
 
