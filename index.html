@@ -267,19 +267,18 @@
             <div class="product" data-name="Colar de Diamantes" onclick="openModal('joia1.jpg', 'Colar de Diamantes')">
                 <img src="joia1.jpg" alt="Colar de Diamantes">
                 <div class="product-info"> </div>
-                   <div <h3>Colar de Diamantes</h3>
+                    <h3>Colar de Diamantes</h3>
                     <p>R$ 5.000,00</p>
                     <p><strong>Descrição:</strong> Colar de diamantes exclusivo com design elegante.</p>
                     <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
-                    <button onclick="addToCart('Colar de Diamantes', 5000)">Adicionar ao Carrinho</button>
+                    <button onclick="addToCart('Colar de Diamantes', 5000)event.stopPropagation()">Adicionar ao Carrinho</button>
                 </div>
         </div>
 
             <div class="product" data-name="Anel de Ouro" onclick="openModal('joia2.jpg', 'Anel de Ouro')">
                 <img src="joia2.jpg" alt="Anel de Ouro">
                 <div class="product-info"> </div>
-                
-                   <div <h3>Anel de Ouro</h3>
+                    <h3>Anel de Ouro</h3>
                     <p>R$ 2.500,00</p>
                     <p><strong>Descrição:</strong> Anel de ouro 18k com acabamento refinado.</p>
                     <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
@@ -300,7 +299,7 @@
     </div>
 
   <div id="toggle-cart" onclick="toggleCart()">🛒</div>
-        <div id="cart-indicator">🙃"</div>
+        <div id="cart-indicator">🙃</div>
     <!-- Lista de vendedores oficiais -->
     <div id="vendor-list">
         <h3>Vendedores Oficiais</h3>
