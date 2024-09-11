@@ -83,7 +83,6 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             padding: 15px;
             text-align: center;
-            cursor: pointer;
         }
 
         .product img {
@@ -143,7 +142,7 @@
             align-items: center;
         }
 
-       /* Botão para mostrar/ocultar o carrinho */
+        /* Botão para mostrar/ocultar o carrinho */
         #toggle-cart {
             position: fixed;
             bottom: 20px;
@@ -271,7 +270,7 @@
                     <p>R$ 5.000,00</p>
                     <p><strong>Descrição:</strong> Colar de diamantes exclusivo com design elegante.</p>
                     <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
-                    <button onclick="addToCart('Colar de Diamantes', 5000)">Adicionar ao Carrinho</button>
+                    <button onclick="addToCart('Colar de Diamantes', 5000); event.stopPropagation();">Adicionar ao Carrinho</button>
                 </div>
             </div>
 
@@ -282,7 +281,7 @@
                     <p>R$ 2.500,00</p>
                     <p><strong>Descrição:</strong> Anel de ouro 18k com acabamento refinado.</p>
                     <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
-                    <button onclick="addToCart('Anel de Ouro', 2500)">Adicionar ao Carrinho</button>
+                    <button onclick="addToCart('Anel de Ouro', 2500); event.stopPropagation();">Adicionar ao Carrinho</button>
                 </div>
             </div>
 
@@ -298,90 +297,59 @@
         </div>
     </div>
 
-  <div id="toggle-cart" onclick="toggleCart()">🛒</div>
-        
-    <!-- Lista de vendedores oficiais -->
-    <div id="vendor-list">
-        <h3>Vendedores Oficiais</h3>
-        <ul>
-            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567891')">Vendedor 1</a></li>
-            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567892')">Vendedor 2</a></li>
-            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567893')">Vendedor 3</a></li>
-        </ul>
-    </div>
-
-    <!-- Ícone do WhatsApp para enviar pedidos -->
-    <div id="chat-toggle" onclick="toggleVendorList()"></div>
-
-    <!-- Modal para visualizar imagem ampliada -->
-    <div id="image-modal" onclick="closeModal()">
-        <span>&times;</span>
-        <img id="modal-image" src="" alt="Imagem Ampliada">
+    <div id="toggle-cart" onclick="toggleCart()">🛒</div>
+    <div id="cart-indicator"></div>
+    <!-- Modal de Imagem Ampliada -->
+    <div id="image-modal">
+        <span onclick="closeModal()">&times;</span>
+        <img id="modal-image">
     </div>
 
     <script>
-        let cart = [];
+        let cartItems = [];
+        const cartElement = document.getElementById("cart-items");
+        const cartIndicator = document.getElementById("cart-indicator");
 
-        function addToCart(name, price) {
-            cart.push({ name, price });
+        function addToCart(productName, productPrice) {
+            cartItems.push({ name: productName, price: productPrice });
             renderCart();
-            document.getElementById('cart-indicator').style.display = cart.length > 0 ? 'block' : 'none';
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            renderCart();
-            document.getElementById('cart-indicator').style.display = cart.length > 0 ? 'block' : 'none';
         }
 
         function renderCart() {
-            const cartItems = document.getElementById('cart-items');
-            cartItems.innerHTML = '';
-
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p>Seu carrinho está vazio.</p>';
-            } else {
-                cart.forEach((item, index) => {
-                    cartItems.innerHTML += `<p>${item.name} - R$ ${item.price.toFixed(2)} <button onclick="removeFromCart(${index})">Remover</button></p>`;
+            if (cartItems.length > 0) {
+                cartElement.innerHTML = '';
+                cartItems.forEach((item, index) => {
+                    cartElement.innerHTML += `<p>${item.name} - R$ ${item.price.toFixed(2)} <button onclick="removeFromCart(${index})">Remover</button></p>`;
                 });
-
-                const totalPrice = cart.reduce((total, item) => total + item.price, 0);
-                cartItems.innerHTML += `<p><strong>Total: R$ ${totalPrice.toFixed(2)}</strong></p>`;
+                cartIndicator.style.display = 'block';
+            } else {
+                cartElement.innerHTML = '<p>Seu carrinho está vazio.</p>';
+                cartIndicator.style.display = 'none';
             }
         }
 
-        function enviarPedidoWhatsApp(phone) {
-            if (cart.length === 0) {
-                alert("Seu carrinho está vazio!");
-                return;
-            }
-
-            const message = cart.map(item => `${item.name} - R$ ${item.price.toFixed(2)}`).join('%0A');
-            const totalPrice = cart.reduce((total, item) => total + item.price, 0);
-            const encodedMessage = encodeURIComponent(`Olá, gostaria de fazer o pedido:%0A${message}%0ATotal: R$ ${totalPrice.toFixed(2)}`);
-            window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
+        function removeFromCart(index) {
+            cartItems.splice(index, 1);
+            renderCart();
         }
 
         function toggleCart() {
-            const cart = document.getElementById('cart');
-            cart.style.display = cart.style.display === 'none' || cart.style.display === '' ? 'block' : 'none';
+            const cart = document.getElementById("cart");
+            cart.style.display = cart.style.display === "none" ? "block" : "none";
         }
 
-        function toggleVendorList() {
-            const vendorList = document.getElementById('vendor-list');
-            vendorList.style.display = vendorList.style.display === 'none' || vendorList.style.display === '' ? 'block' : 'none';
-        }
-
-        function openModal(src, name) {
-            const modal = document.getElementById('image-modal');
-            const modalImage = document.getElementById('modal-image');
-            modal.style.display = 'block';
-            modalImage.src = src;
+        // Modal para ampliar imagem
+        function openModal(imageSrc, altText) {
+            const modal = document.getElementById("image-modal");
+            const modalImage = document.getElementById("modal-image");
+            modalImage.src = imageSrc;
+            modalImage.alt = altText;
+            modal.style.display = "block";
         }
 
         function closeModal() {
-            const modal = document.getElementById('image-modal');
-            modal.style.display = 'none';
+            const modal = document.getElementById("image-modal");
+            modal.style.display = "none";
         }
 
         function searchProduct() {
@@ -389,10 +357,14 @@
             const products = document.querySelectorAll('.product');
             products.forEach(product => {
                 const name = product.getAttribute('data-name').toLowerCase();
-                product.style.display = name.includes(input) ? 'block' : 'none';
+                if (name.includes(input)) {
+                    product.style.display = '';
+                } else {
+                    product.style.display = 'none';
+                }
             });
         }
-    </script>
 
+    </script>
 </body>
 </html>
