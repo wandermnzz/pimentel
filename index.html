@@ -304,6 +304,18 @@
         <span onclick="closeModal()">&times;</span>
         <img id="modal-image">
     </div>
+    <!-- Lista de vendedores oficiais -->
+    <div id="vendor-list">
+        <h3>Vendedores Oficiais</h3>
+        <ul>
+            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567891')">Vendedor 1</a></li>
+            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567892')">Vendedor 2</a></li>
+            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567893')">Vendedor 3</a></li>
+        </ul>
+    </div>
+
+    <!-- Ícone do WhatsApp para enviar pedidos -->
+    <div id="chat-toggle" onclick="toggleVendorList()"></div>
 
     <script>
         let cartItems = [];
