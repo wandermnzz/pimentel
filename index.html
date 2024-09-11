@@ -372,13 +372,13 @@
             vendorList.style.display = vendorList.style.display === 'none' || vendorList.style.display === '' ? 'block' : 'none';
         }
 
-        function openModal(src, name) {
-            const modal = document.getElementById('image-modal');
-            const modalImage = document.getElementById('modal-image');
-            modal.style.display = 'block';
-            modalImage.src = src;
+       function openModal(imageSrc, altText) {
+            const modal = document.getElementById("image-modal");
+            const modalImage = document.getElementById("modal-image");
+            modalImage.src = imageSrc;
+            modalImage.alt = altText;
+            modal.style.display = "block";
         }
-
         function closeModal() {
             const modal = document.getElementById('image-modal');
             modal.style.display = 'none';
