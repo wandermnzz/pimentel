@@ -318,31 +318,34 @@
     <div id="chat-toggle" onclick="toggleVendorList()"></div>
 
     <script>
-        let cartItems = [];
-        const cartElement = document.getElementById("cart-items");
-        const cartIndicator = document.getElementById("cart-indicator");
+        let cart = [];
 
-        function addToCart(productName, productPrice) {
-            cartItems.push({ name: productName, price: productPrice });
+        function addToCart(name, price) {
+            cart.push({ name, price });
             renderCart();
-        }
-
-        function renderCart() {
-            if (cartItems.length > 0) {
-                cartElement.innerHTML = '';
-                cartItems.forEach((item, index) => {
-                    cartElement.innerHTML += `<p>${item.name} - R$ ${item.price.toFixed(2)} <button onclick="removeFromCart(${index})">Remover</button></p>`;
-                });
-                cartIndicator.style.display = 'block';
-            } else {
-                cartElement.innerHTML = '<p>Seu carrinho está vazio.</p>';
-                cartIndicator.style.display = 'none';
-            }
+            document.getElementById('cart-indicator').style.display = cart.length > 0 ? 'block' : 'none';
         }
 
         function removeFromCart(index) {
-            cartItems.splice(index, 1);
+            cart.splice(index, 1);
             renderCart();
+            document.getElementById('cart-indicator').style.display = cart.length > 0 ? 'block' : 'none';
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Seu carrinho está vazio.</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    cartItems.innerHTML += <p>${item.name} - R$ ${item.price.toFixed(2)} <button onclick="removeFromCart(${index})">Remover</button></p>;
+                });
+
+                const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+                cartItems.innerHTML += <p><strong>Total: R$ ${totalPrice.toFixed(2)}</strong></p>;
+            }
         }
      function enviarPedidoWhatsApp(phone) {
             if (cart.length === 0) {
