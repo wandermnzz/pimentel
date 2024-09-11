@@ -314,10 +314,11 @@
     <div id="chat-toggle" onclick="toggleVendorList()"></div>
 
     <!-- Modal para visualizar imagem ampliada -->
-    <div id="image-modal" onclick="closeModal()">
-        <span>&times;</span>
-        <img id="modal-image" src="" alt="Imagem Ampliada">
+   <div id="image-modal">
+        <span onclick="closeModal()">&times;</span>
+        <img id="modal-image">
     </div>
+
 
     <script>
         let cart = [];
