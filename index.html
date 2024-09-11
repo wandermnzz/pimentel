@@ -298,7 +298,7 @@
     </div>
 
     <div id="toggle-cart" onclick="toggleCart()">🛒</div>
-    <div id="cart-indicator"></div>
+    <div id="cart-indicator">+</div>
     <!-- Modal de Imagem Ampliada -->
     <div id="image-modal">
         <span onclick="closeModal()">&times;</span>
@@ -332,7 +332,17 @@
             cartItems.splice(index, 1);
             renderCart();
         }
+     function enviarPedidoWhatsApp(phone) {
+            if (cart.length === 0) {
+                alert("Seu carrinho está vazio!");
+                return;
+            }
 
+            const message = cart.map(item => ${item.name} - R$ ${item.price.toFixed(2)}).join('%0A');
+            const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+            const encodedMessage = encodeURIComponent(Olá, gostaria de fazer o pedido:%0A${message}%0ATotal: R$ ${totalPrice.toFixed(2)});
+            window.open(https://wa.me/${phone}?text=${encodedMessage}, '_blank');
+        
         function toggleCart() {
             const cart = document.getElementById("cart");
             cart.style.display = cart.style.display === "none" ? "block" : "none";
