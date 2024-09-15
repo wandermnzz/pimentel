@@ -90,6 +90,7 @@
             width: 100%;
             height: auto;
             border-radius: 8px;
+            margin-bottom: 15px; /* Adiciona espaçamento entre a imagem e o botão */
         }
 
         .product-info {
@@ -112,10 +113,18 @@
             cursor: pointer;
             border-radius: 5px;
             width: 100%;
+            margin-top: 10px; /* Adiciona espaçamento entre o texto e o botão */
         }
 
         .product button:hover {
             background: #555;
+        }
+
+        /* Centralizar os produtos na página */
+        .product-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         /* Carrinho Flutuante */
@@ -263,7 +272,8 @@
         </div>
 
         <!-- Lista de Produtos -->
-         <div class="product" data-name="Anel de Ouro" onclick="openModal('joia1.jpg', 'Anel de Ouro')">
+        <div class="product-list">
+            <div class="product" data-name="Anel de Ouro" onclick="openModal('joia1.jpg', 'Anel de Ouro')">
                 <img src="joia1.jpg" alt="Anel de Ouro">
                 <div class="product-info"> 
                     <h3>Anel de Ouro</h3>
@@ -273,7 +283,6 @@
                     <button onclick="addToCart('Anel de Ouro', 2500); event.stopPropagation();">Adicionar ao Carrinho</button>
                 </div>
             </div>
-
 
             <div class="product" data-name="Anel de Ouro" onclick="openModal('joia2.jpg', 'Anel de Ouro')">
                 <img src="joia2.jpg" alt="Anel de Ouro">
@@ -285,20 +294,11 @@
                     <button onclick="addToCart('Anel de Ouro', 2500); event.stopPropagation();">Adicionar ao Carrinho</button>
                 </div>
             </div>
-               <div class="product" data-name="Anel de Ouro" onclick="openModal('joia2.jpg', 'Anel de Ouro')">
-                <img src="joia2.jpg" alt="Anel de Ouro">
-                <div class="product-info"> 
-                    <h3>Anel de Ouro</h3>
-                    <p>R$ 2.500,00</p>
-                    <p><strong>Descrição:</strong> Anel de ouro 18k com acabamento refinado.</p>
-                    <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
-                    <button onclick="addToCart('Anel de Ouro', 2500); event.stopPropagation();">Adicionar ao Carrinho</button>
-                </div>
- 
 
             <!-- Adicione mais produtos conforme necessário -->
 
         </div>
+    </div>
 
     <!-- Carrinho Flutuante -->
     <div id="cart">
@@ -308,13 +308,15 @@
         </div>
     </div>
 
-  <div id="toggle-cart" onclick="toggleCart()">🛒</div>
-        <div id="cart-indicator">🙃</div
-             <!-- Modal para visualizar imagem ampliada -->
-   <div id="image-modal">
+    <div id="toggle-cart" onclick="toggleCart()">🛒</div>
+    <div id="cart-indicator">🙃</div>
+
+    <!-- Modal para visualizar imagem ampliada -->
+    <div id="image-modal">
         <span onclick="closeModal()">&times;</span>
         <img id="modal-image">
-    </div>                           
+    </div>
+
     <!-- Lista de vendedores oficiais -->
     <div id="vendor-list">
         <h3>Vendedores Oficiais</h3>
@@ -328,7 +330,6 @@
     <!-- Ícone do WhatsApp para enviar pedidos -->
     <div id="chat-toggle" onclick="toggleVendorList()"></div>
 
-  
     <script>
         let cart = [];
 
@@ -382,13 +383,14 @@
             vendorList.style.display = vendorList.style.display === 'none' || vendorList.style.display === '' ? 'block' : 'none';
         }
 
-       function openModal(imageSrc, altText) {
+        function openModal(imageSrc, altText) {
             const modal = document.getElementById("image-modal");
             const modalImage = document.getElementById("modal-image");
             modalImage.src = imageSrc;
             modalImage.alt = altText;
             modal.style.display = "block";
         }
+
         function closeModal() {
             const modal = document.getElementById('image-modal');
             modal.style.display = 'none';
@@ -406,4 +408,3 @@
 
 </body>
 </html>
-
