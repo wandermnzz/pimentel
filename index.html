@@ -255,10 +255,12 @@
                 
         <h1>MULTI MOVEIS AJU</h1>
         <p>Encontre preço e qualidade em um lugar so!!</p>
-        <!-- Ícone do Instagram -->
-        <a href="https://www.instagram.com/seu_perfil" target="_blank">
-            <img src="instagram-icon.png" alt="Instagram">
-        </a>
+        <!-- Barra de pesquisa -->
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Digite para pesquisar..." onkeyup="searchProduct()">
+            <button onclick="searchProduct()">Pesquisar</button>
+        </div>
+      
     </header>
 
     <div class="container">
@@ -271,7 +273,7 @@
 
         <!-- Barra de pesquisa -->
         <div class="search-container">
-            <input type="text" id="search-input" placeholder="Digite para pesquisar..." onkeyup="searchProduct()">
+            <input type="text" id="search-input" placeholder="Buscar produto...." onkeyup="searchProduct()">
             <button onclick="searchProduct()">Pesquisar</button>
         </div>
 
