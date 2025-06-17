@@ -259,30 +259,29 @@ header a img {
 
     header h1 {
         font-size: 20px;
-        white-space: nowrap;
     }
 
-  .search-container button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 45px;
-    height: 45px;
-    padding: 0;
-    background-color: #8B3A3A; /* Cor marrom elegante */
-    color: #fff;
-    border: none;
-    border-radius: 50%; /* Deixa redondo */
-    font-size: 18px;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+    .search-container {
+        flex-direction: column;
+        align-items: stretch;
+        margin-top: 10px;
+    }
 
-.search-container button:hover {
-    background-color: #a94444;
-    transform: scale(1.05);
-}
+    .search-container input {
+        width: 90%;
+        font-size: 14px;
+    }
+
+    .search-container button {
+        width: 90%;
+        font-size: 14px;
+    }
+
+    .container {
+        width: 95%;
+        padding: 0 10px;
+    }
+
     .product {
         width: 100%;
     }
@@ -319,7 +318,7 @@ header a img {
     #chat-toggle {
         right: 20px;
         bottom: 150px
-
+        
     </style>
 </head>
 <body>
