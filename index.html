@@ -1,204 +1,404 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MULTI MOVEIS</title>
-    <style>
-        /* Seu CSS atual permanece igual */
-        /* ... (mantive o CSS original para não ficar muito longo) */
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MULTI MOVEIS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f5f5;
+      color: #333;
+    }
+    header {
+      background: #6b3e0e;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0 0 5px;
+    }
+    .search-container {
+      margin: 10px auto;
+      text-align: center;
+    }
+    .search-container input {
+      padding: 8px;
+      width: 250px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    .search-container button {
+      padding: 8px 12px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-left: 5px;
+      background: #6b3e0e;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+    .container {
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 0 10px;
+    }
+    .product-list {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .product {
+      background: white;
+      width: 280px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .product:hover {
+      transform: scale(1.03);
+    }
+    .product img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      pointer-events: none; /* evita conflito com click do card */
+    }
+    .product-info {
+      padding: 12px 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-info h3 {
+      margin: 0 0 5px;
+      font-size: 20px;
+    }
+    .product-info p {
+      margin: 4px 0;
+      font-size: 14px;
+      line-height: 1.3;
+    }
+    .product-info button {
+      margin-top: 10px;
+      padding: 10px;
+      background: #6b3e0e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 15px;
+      transition: background-color 0.3s ease;
+    }
+    .product-info button:hover {
+      background: #8b5e16;
+    }
+    #cart {
+      position: fixed;
+      right: 20px;
+      top: 80px;
+      background: white;
+      width: 280px;
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: none;
+      z-index: 1000;
+    }
+    #cart h2 {
+      margin-top: 0;
+      font-size: 18px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 6px;
+    }
+    #cart p {
+      margin: 8px 0;
+      font-size: 14px;
+    }
+    #cart button {
+      background: #c0392b;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 7px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-left: 8px;
+    }
+    #toggle-cart {
+      position: fixed;
+      right: 20px;
+      top: 20px;
+      background: #6b3e0e;
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      font-size: 28px;
+      line-height: 45px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      z-index: 1100;
+    }
+    #cart-indicator {
+      position: fixed;
+      right: 10px;
+      top: 10px;
+      background: red;
+      color: white;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      font-size: 13px;
+      line-height: 18px;
+      text-align: center;
+      font-weight: bold;
+      display: none;
+      z-index: 1101;
+    }
+    #image-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.75);
+      justify-content: center;
+      align-items: center;
+    }
+    #image-modal img {
+      max-width: 90vw;
+      max-height: 80vh;
+      border-radius: 8px;
+      box-shadow: 0 0 12px white;
+    }
+    #image-modal span {
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+    }
+    #vendor-list {
+      display: none;
+      position: fixed;
+      bottom: 10px;
+      right: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      padding: 10px 15px;
+      max-width: 220px;
+      font-size: 14px;
+      z-index: 1500;
+    }
+    #vendor-list h3 {
+      margin-top: 0;
+    }
+    #vendor-list ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+    #vendor-list li {
+      margin-bottom: 6px;
+    }
+    #vendor-list a {
+      color: #6b3e0e;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    #vendor-list a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <div style="display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
-            <img src="MULTIMOVEIS-ICON.png" alt="Logo Multi Moveis" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;" />
-            <div style="text-align: center;">
-                <h1>MULTI MOVEIS AJU</h1>
-                <p>Encontre preço e qualidade em um lugar só!!</p>
-            </div>
-        </div>
-        <!-- Barra de pesquisa -->
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Buscar produto..." onkeyup="searchProduct()" aria-label="Buscar produto" />
-            <button onclick="searchProduct()" aria-label="Pesquisar">🔎</button>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="description">
-            <h2>Bem-vindo à MULTI MOVEIS</h2>
-            <p>Explore nossa coleção exclusiva de móveis. Cada peça é feita com qualidade e estilo,
-               perfeita para todas as ocasiões.</p>
-        </div>
-
-        <div class="product-list">
-            <div class="product" data-name="escrivaninha">
-                <img src="joia1.jpg" alt="Escrivaninha" onclick="openModal('joia1.jpg', 'Escrivaninha')" />
-                <div class="product-info">
-                    <h3>ESCRIVANINHA</h3>
-                    <p>R$ 2.500,00</p>
-                    <p><strong>Descrição:</strong> Com acabamento refinado.</p>
-                    <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
-                    <button onclick="addToCart('Escrivaninha', 2500); event.stopPropagation();">Adicionar ao Carrinho</button>
-                </div>
-            </div>
-
-            <div class="product" data-name="painel para tv">
-                <img src="painel.jpg" alt="Painel para TV" onclick="openModal('painel.jpg', 'Painel para TV')" />
-                <div class="product-info">
-                    <h3>Painel para TV</h3>
-                    <p>R$ 599,90</p>
-                    <p><strong>Descrição:</strong> Painel completo para sua sala com acabamento refinado.</p>
-                    <p><strong>Formas de pagamento:</strong> Cartão de crédito, débito, transferência, pix.</p>
-                    <button onclick="addToCart('Painel para TV', 599.90); event.stopPropagation();">Adicionar ao Carrinho</button>
-                </div>
-            </div>
-        </div>
+  <header>
+    <h1>MULTI MOVEIS AJU</h1>
+    <p>Encontre preço e qualidade em um lugar só!!</p>
+    <div class="search-container">
+      <input type="text" id="search-input" placeholder="Buscar produto..." onkeyup="searchProduct()" aria-label="Buscar produto" />
+      <button onclick="searchProduct()" aria-label="Pesquisar">🔎</button>
     </div>
+  </header>
 
-    <div id="cart">
-        <h2>Carrinho de Compras</h2>
-        <div id="cart-items">
-            <p>Seu carrinho está vazio.</p>
+  <div class="container">
+    <div class="product-list">
+
+      <div class="product" data-name="escrivaninha" onclick="openModal('joia1.jpg')">
+        <img src="joia1.jpg" alt="Escrivaninha" />
+        <div class="product-info">
+          <h3>ESCRIVANINHA</h3>
+          <p>R$ 2.500,00</p>
+          <p><strong>Descrição:</strong> Com acabamento refinado.</p>
+          <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
+          <button 
+            onclick="addToCart('Escrivaninha', 2500); event.stopPropagation()" 
+            title="Adicionar Escrivaninha ao Carrinho"
+          >
+            Adicionar ao Carrinho
+          </button>
         </div>
+      </div>
+
+      <div class="product" data-name="painel para tv" onclick="openModal('painel.jpg')">
+        <img src="painel.jpg" alt="Painel para TV" />
+        <div class="product-info">
+          <h3>Painel para TV</h3>
+          <p>R$ 599,90</p>
+          <p><strong>Descrição:</strong> Painel completo para sua sala com acabamento refinado.</p>
+          <p><strong>Formas de pagamento:</strong> Cartão de crédito, débito, transferência, pix.</p>
+          <button 
+            onclick="addToCart('Painel para TV', 599.90); event.stopPropagation()" 
+            title="Adicionar Painel para TV ao Carrinho"
+          >
+            Adicionar ao Carrinho
+          </button>
+        </div>
+      </div>
+
     </div>
+  </div>
 
-    <div id="toggle-cart" onclick="toggleCart()" aria-label="Mostrar/Ocultar carrinho">🛒</div>
-    <div id="cart-indicator"></div>
+  <div id="toggle-cart" onclick="toggleCart()" title="Mostrar/Ocultar carrinho">🛒</div>
+  <div id="cart-indicator"></div>
 
-    <div id="image-modal" role="dialog" aria-modal="true" aria-labelledby="modal-image">
-        <span onclick="closeModal()" aria-label="Fechar modal">&times;</span>
-        <img id="modal-image" />
+  <div id="cart">
+    <h2>Carrinho</h2>
+    <div id="cart-items">
+      <p>Seu carrinho está vazio.</p>
     </div>
+  </div>
 
-    <div id="vendor-list">
-        <h3>Vendedores Oficiais</h3>
-        <ul>
-            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567891')">Vendedor 1</a></li>
-            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567892')">Vendedor 2</a></li>
-            <li><a href="#" onclick="enviarPedidoWhatsApp('551234567893')">Vendedor 3</a></li>
-        </ul>
-    </div>
+  <div id="image-modal" onclick="closeModal()">
+    <span aria-label="Fechar modal" title="Fechar modal">&times;</span>
+    <img id="modal-image" alt="Imagem do produto" />
+  </div>
 
-    <div id="chat-toggle" onclick="toggleVendorList()" aria-label="Abrir lista de vendedores"></div>
+  <div id="vendor-list">
+    <h3>Vendedores Oficiais</h3>
+    <ul>
+      <li><a href="#" onclick="enviarPedidoWhatsApp('551234567891'); return false;">Vendedor 1</a></li>
+      <li><a href="#" onclick="enviarPedidoWhatsApp('551234567892'); return false;">Vendedor 2</a></li>
+      <li><a href="#" onclick="enviarPedidoWhatsApp('551234567893'); return false;">Vendedor 3</a></li>
+    </ul>
+  </div>
 
-    <script>
-        let cart = [];
+  <script>
+    const cart = [];
 
-        function addToCart(name, price) {
-            cart.push({ name, price });
-            renderCart();
-            updateCartIndicator();
-        }
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      renderCart();
+      updateCartIndicator();
+    }
 
-        function removeFromCart(index) {
-            if (index >= 0 && index < cart.length) {
-                cart.splice(index, 1);
-                renderCart();
-                updateCartIndicator();
-            }
-        }
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      renderCart();
+      updateCartIndicator();
+    }
 
-        function renderCart() {
-            const cartItems = document.getElementById('cart-items');
-            cartItems.innerHTML = '';
+    function renderCart() {
+      const cartItems = document.getElementById('cart-items');
+      cartItems.innerHTML = '';
 
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p>Seu carrinho está vazio.</p>';
-                return;
-            }
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<p>Seu carrinho está vazio.</p>';
+        return;
+      }
 
-            cart.forEach((item, index) => {
-                const p = document.createElement('p');
-                p.textContent = `${item.name} - R$ ${item.price.toFixed(2)}`;
+      cart.forEach((item, i) => {
+        const p = document.createElement('p');
+        p.textContent = `${item.name} - R$ ${item.price.toFixed(2)}`;
 
-                const btnRemove = document.createElement('button');
-                btnRemove.textContent = 'Remover';
-                btnRemove.onclick = () => removeFromCart(index);
-                p.appendChild(btnRemove);
+        const btn = document.createElement('button');
+        btn.textContent = 'Remover';
+        btn.onclick = () => removeFromCart(i);
+        p.appendChild(btn);
 
-                cartItems.appendChild(p);
-            });
+        cartItems.appendChild(p);
+      });
 
-            const totalPrice = cart.reduce((total, item) => total + item.price, 0);
-            const totalP = document.createElement('p');
-            totalP.innerHTML = `<strong>Total: R$ ${totalPrice.toFixed(2)}</strong>`;
-            cartItems.appendChild(totalP);
-        }
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      const totalP = document.createElement('p');
+      totalP.style.fontWeight = 'bold';
+      totalP.textContent = `Total: R$ ${total.toFixed(2)}`;
+      cartItems.appendChild(totalP);
+    }
 
-        function updateCartIndicator() {
-            const indicator = document.getElementById('cart-indicator');
-            if (cart.length > 0) {
-                indicator.style.display = 'block';
-            } else {
-                indicator.style.display = 'none';
-            }
-        }
+    function updateCartIndicator() {
+      const indicator = document.getElementById('cart-indicator');
+      if (cart.length > 0) {
+        indicator.textContent = cart.length;
+        indicator.style.display = 'block';
+      } else {
+        indicator.style.display = 'none';
+      }
+    }
 
-        function enviarPedidoWhatsApp(phone) {
-            if (cart.length === 0) {
-                alert("Seu carrinho está vazio!");
-                return;
-            }
+    function toggleCart() {
+      const cartDiv = document.getElementById('cart');
+      cartDiv.style.display = (cartDiv.style.display === 'block') ? 'none' : 'block';
+    }
 
-            const message = cart.map(item => `${item.name} - R$ ${item.price.toFixed(2)}`).join('\n');
-            const totalPrice = cart.reduce((total, item) => total + item.price, 0);
-            const fullMessage = `Olá, gostaria de fazer o pedido:\n${message}\nTotal: R$ ${totalPrice.toFixed(2)}`;
-            const encodedMessage = encodeURIComponent(fullMessage);
-            window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
-        }
+    function openModal(imgSrc) {
+      const modal = document.getElementById('image-modal');
+      const modalImage = document.getElementById('modal-image');
+      modalImage.src = imgSrc;
+      modal.style.display = 'flex';
+    }
 
-        function toggleCart() {
-            const cartDiv = document.getElementById('cart');
-            if (cartDiv.style.display === 'block') {
-                cartDiv.style.display = 'none';
-            } else {
-                cartDiv.style.display = 'block';
-            }
-        }
+    function closeModal() {
+      const modal = document.getElementById('image-modal');
+      modal.style.display = 'none';
+      document.getElementById('modal-image').src = '';
+    }
 
-        function toggleVendorList() {
-            const vendorList = document.getElementById('vendor-list');
-            if (vendorList.style.display === 'block') {
-                vendorList.style.display = 'none';
-            } else {
-                vendorList.style.display = 'block';
-            }
-        }
+    document.querySelector('#image-modal span').onclick = closeModal;
 
-        function openModal(imageSrc, altText) {
-            const modal = document.getElementById("image-modal");
-            const modalImage = document.getElementById("modal-image");
-            modalImage.src = imageSrc;
-            modalImage.alt = altText;
-            modal.style.display = "block";
-        }
+    document.getElementById('image-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
 
-        function closeModal() {
-            const modal = document.getElementById('image-modal');
-            modal.style.display = 'none';
-            document.getElementById("modal-image").src = '';
-        }
+    function searchProduct() {
+      const input = document.getElementById('search-input').value.toLowerCase().trim();
+      document.querySelectorAll('.product').forEach(product => {
+        const name = product.getAttribute('data-name').toLowerCase();
+        product.style.display = name.includes(input) ? 'flex' : 'none';
+      });
+    }
 
-        function searchProduct() {
-            const input = document.getElementById('search-input').value.trim().toLowerCase();
-            const products = document.querySelectorAll('.product');
-            products.forEach(product => {
-                const name = product.getAttribute('data-name').toLowerCase();
-                product.style.display = name.includes(input) ? 'block' : 'none';
-            });
-        }
-
-        // Fecha o modal ao clicar fora da imagem
-        window.onclick = function(event) {
-            const modal = document.getElementById('image-modal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-    </script>
+    function enviarPedidoWhatsApp(phone) {
+      if (cart.length === 0) {
+        alert("Seu carrinho está vazio!");
+        return;
+      }
+      const msg = cart.map(i => `${i.name} - R$ ${i.price.toFixed(2)}`).join('%0A');
+      const url = `https://wa.me/${phone}?text=Olá,%20gostaria%20de%20fazer%20o%20pedido:%0A${msg}`;
+      window.open(url, '_blank');
+    }
+  </script>
 
 </body>
 </html>
