@@ -1,404 +1,302 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MULTI MOVEIS</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f5f5f5;
-      color: #333;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MULTI MOVEIS AJU</title>
+    <style>
+        body {
+            font-family: Lora, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }header {
+        background: #8B3A3A;
+        color: #fff;
+        padding: 15px;
+        text-align: center;
     }
-    header {
-      background: #6b3e0e;
-      color: white;
-      padding: 15px 20px;
-      text-align: center;
+
+    .header-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
     }
-    header h1 {
-      margin: 0 0 5px;
+
+    .header-container img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
     }
+
+    .header-container div {
+        text-align: center;
+    }
+
     .search-container {
-      margin: 10px auto;
-      text-align: center;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 15px auto;
+        flex-wrap: wrap;
     }
+
     .search-container input {
-      padding: 8px;
-      width: 250px;
-      font-size: 16px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
+        width: 300px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
     }
+
     .search-container button {
-      padding: 8px 12px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-left: 5px;
-      background: #6b3e0e;
-      color: white;
-      border: none;
-      border-radius: 4px;
+        background-color: #FF6600;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
     }
+
+    .search-container button:hover {
+        background-color: #e65c00;
+    }
+
     .container {
-      max-width: 960px;
-      margin: 20px auto;
-      padding: 0 10px;
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
     }
+
     .product-list {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
     }
+
     .product {
-      background: white;
-      width: 280px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transition: transform 0.2s;
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        width: 200px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    .product:hover {
-      transform: scale(1.03);
-    }
+
     .product img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      pointer-events: none; /* evita conflito com click do card */
+        width: 100%;
+        border-radius: 8px;
     }
-    .product-info {
-      padding: 12px 15px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+
     .product-info h3 {
-      margin: 0 0 5px;
-      font-size: 20px;
+        margin: 10px 0 5px;
     }
+
     .product-info p {
-      margin: 4px 0;
-      font-size: 14px;
-      line-height: 1.3;
+        margin: 5px 0;
     }
-    .product-info button {
-      margin-top: 10px;
-      padding: 10px;
-      background: #6b3e0e;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 15px;
-      transition: background-color 0.3s ease;
+
+    .product button {
+        margin-top: 10px;
+        background: #222;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        cursor: pointer;
     }
-    .product-info button:hover {
-      background: #8b5e16;
+
+    .product button:hover {
+        background: #555;
     }
+
     #cart {
-      position: fixed;
-      right: 20px;
-      top: 80px;
-      background: white;
-      width: 280px;
-      max-height: 400px;
-      overflow-y: auto;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      padding: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      display: none;
-      z-index: 1000;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
+        width: 300px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        display: none;
+        z-index: 999;
     }
-    #cart h2 {
-      margin-top: 0;
-      font-size: 18px;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 6px;
-    }
-    #cart p {
-      margin: 8px 0;
-      font-size: 14px;
-    }
-    #cart button {
-      background: #c0392b;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 4px 7px;
-      cursor: pointer;
-      font-size: 12px;
-      margin-left: 8px;
-    }
+
     #toggle-cart {
-      position: fixed;
-      right: 20px;
-      top: 20px;
-      background: #6b3e0e;
-      color: white;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      font-size: 28px;
-      line-height: 45px;
-      text-align: center;
-      cursor: pointer;
-      user-select: none;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      z-index: 1100;
+        position: fixed;
+        bottom: 20px;
+        right: 330px;
+        background: #222;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
     }
-    #cart-indicator {
-      position: fixed;
-      right: 10px;
-      top: 10px;
-      background: red;
-      color: white;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      font-size: 13px;
-      line-height: 18px;
-      text-align: center;
-      font-weight: bold;
-      display: none;
-      z-index: 1101;
+
+    #chat-toggle {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background: url('whatsapp-icon.png') no-repeat center center;
+        background-size: cover;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1000;
     }
-    #image-modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.75);
-      justify-content: center;
-      align-items: center;
-    }
-    #image-modal img {
-      max-width: 90vw;
-      max-height: 80vh;
-      border-radius: 8px;
-      box-shadow: 0 0 12px white;
-    }
-    #image-modal span {
-      position: absolute;
-      top: 15px;
-      right: 25px;
-      font-size: 40px;
-      color: white;
-      cursor: pointer;
-      user-select: none;
-    }
+
     #vendor-list {
-      display: none;
-      position: fixed;
-      bottom: 10px;
-      right: 20px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      padding: 10px 15px;
-      max-width: 220px;
-      font-size: 14px;
-      z-index: 1500;
+        position: fixed;
+        bottom: 160px;
+        right: 20px;
+        background: white;
+        padding: 10px;
+        border-radius: 5px;
+        display: none;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    #vendor-list h3 {
-      margin-top: 0;
-    }
+
     #vendor-list ul {
-      padding-left: 20px;
-      margin: 0;
+        margin: 0;
+        padding: 0;
+        list-style: none;
     }
-    #vendor-list li {
-      margin-bottom: 6px;
+
+    #vendor-list ul li a {
+        color: #8B3A3A;
+        text-decoration: none;
     }
-    #vendor-list a {
-      color: #6b3e0e;
-      text-decoration: none;
-      cursor: pointer;
+
+    .social {
+        position: absolute;
+        top: 15px;
+        right: 15px;
     }
-    #vendor-list a:hover {
-      text-decoration: underline;
+
+    .social a img {
+        width: 30px;
+        height: 30px;
     }
-  </style>
+
+</style>
+
 </head>
 <body>
-
-  <header>
-    <h1>MULTI MOVEIS AJU</h1>
-    <p>Encontre preço e qualidade em um lugar só!!</p>
-    <div class="search-container">
-      <input type="text" id="search-input" placeholder="Buscar produto..." onkeyup="searchProduct()" aria-label="Buscar produto" />
-      <button onclick="searchProduct()" aria-label="Pesquisar">🔎</button>
-    </div>
-  </header>
-
-  <div class="container">
+    <header>
+        <div class="header-container">
+            <img src="MULTIMOVEIS-ICON.png" alt="Logo">
+            <div>
+                <h1>MULTI MOVEIS AJU</h1>
+                <p>Encontre preço e qualidade em um lugar só!</p>
+            </div>
+            <div class="social">
+                <a href="https://instagram.com/seuinsta" target="_blank">
+                    <img src="instagram-icon.png" alt="Instagram">
+                </a>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Buscar produto...">
+            <button onclick="searchProduct()">🔍 Buscar</button>
+        </div>
+    </header><div class="container">
     <div class="product-list">
-
-      <div class="product" data-name="escrivaninha" onclick="openModal('joia1.jpg')">
-        <img src="joia1.jpg" alt="Escrivaninha" />
-        <div class="product-info">
-          <h3>ESCRIVANINHA</h3>
-          <p>R$ 2.500,00</p>
-          <p><strong>Descrição:</strong> Com acabamento refinado.</p>
-          <p><strong>Formas de pagamento:</strong> Cartão de crédito, boleto bancário, transferência.</p>
-          <button 
-            onclick="addToCart('Escrivaninha', 2500); event.stopPropagation()" 
-            title="Adicionar Escrivaninha ao Carrinho"
-          >
-            Adicionar ao Carrinho
-          </button>
+        <div class="product" data-name="escrivaninha">
+            <img src="joia1.jpg" alt="Escrivaninha">
+            <div class="product-info">
+                <h3>ESCRIVANINHA</h3>
+                <p>R$ 2.500,00</p>
+                <button onclick="addToCart('Escrivaninha', 2500)">Adicionar ao Carrinho</button>
+            </div>
         </div>
-      </div>
-
-      <div class="product" data-name="painel para tv" onclick="openModal('painel.jpg')">
-        <img src="painel.jpg" alt="Painel para TV" />
-        <div class="product-info">
-          <h3>Painel para TV</h3>
-          <p>R$ 599,90</p>
-          <p><strong>Descrição:</strong> Painel completo para sua sala com acabamento refinado.</p>
-          <p><strong>Formas de pagamento:</strong> Cartão de crédito, débito, transferência, pix.</p>
-          <button 
-            onclick="addToCart('Painel para TV', 599.90); event.stopPropagation()" 
-            title="Adicionar Painel para TV ao Carrinho"
-          >
-            Adicionar ao Carrinho
-          </button>
+        <div class="product" data-name="painel para tv">
+            <img src="painel.jpg" alt="Painel para TV">
+            <div class="product-info">
+                <h3>Painel para TV</h3>
+                <p>R$ 599,90</p>
+                <button onclick="addToCart('Painel para TV', 599.90)">Adicionar ao Carrinho</button>
+            </div>
         </div>
-      </div>
-
     </div>
-  </div>
+</div>
 
-  <div id="toggle-cart" onclick="toggleCart()" title="Mostrar/Ocultar carrinho">🛒</div>
-  <div id="cart-indicator"></div>
-
-  <div id="cart">
+<div id="cart">
     <h2>Carrinho</h2>
-    <div id="cart-items">
-      <p>Seu carrinho está vazio.</p>
-    </div>
-  </div>
-
-  <div id="image-modal" onclick="closeModal()">
-    <span aria-label="Fechar modal" title="Fechar modal">&times;</span>
-    <img id="modal-image" alt="Imagem do produto" />
-  </div>
-
-  <div id="vendor-list">
-    <h3>Vendedores Oficiais</h3>
+    <div id="cart-items"><p>Seu carrinho está vazio.</p></div>
+</div>
+<div id="toggle-cart" onclick="toggleCart()">🛒</div>
+<div id="chat-toggle" onclick="toggleVendorList()"></div>
+<div id="vendor-list">
+    <h4>Vendedores Oficiais</h4>
     <ul>
-      <li><a href="#" onclick="enviarPedidoWhatsApp('551234567891'); return false;">Vendedor 1</a></li>
-      <li><a href="#" onclick="enviarPedidoWhatsApp('551234567892'); return false;">Vendedor 2</a></li>
-      <li><a href="#" onclick="enviarPedidoWhatsApp('551234567893'); return false;">Vendedor 3</a></li>
+        <li><a href="#" onclick="enviarPedidoWhatsApp('551234567891')">Vendedor 1</a></li>
+        <li><a href="#" onclick="enviarPedidoWhatsApp('551234567892')">Vendedor 2</a></li>
+        <li><a href="#" onclick="enviarPedidoWhatsApp('551234567893')">Vendedor 3</a></li>
     </ul>
-  </div>
+</div>
 
-  <script>
-    const cart = [];
+<script>
+    let cart = [];
 
     function addToCart(name, price) {
-      cart.push({ name, price });
-      renderCart();
-      updateCartIndicator();
-    }
-
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      renderCart();
-      updateCartIndicator();
+        cart.push({ name, price });
+        renderCart();
     }
 
     function renderCart() {
-      const cartItems = document.getElementById('cart-items');
-      cartItems.innerHTML = '';
-
-      if (cart.length === 0) {
-        cartItems.innerHTML = '<p>Seu carrinho está vazio.</p>';
-        return;
-      }
-
-      cart.forEach((item, i) => {
-        const p = document.createElement('p');
-        p.textContent = `${item.name} - R$ ${item.price.toFixed(2)}`;
-
-        const btn = document.createElement('button');
-        btn.textContent = 'Remover';
-        btn.onclick = () => removeFromCart(i);
-        p.appendChild(btn);
-
-        cartItems.appendChild(p);
-      });
-
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
-      const totalP = document.createElement('p');
-      totalP.style.fontWeight = 'bold';
-      totalP.textContent = `Total: R$ ${total.toFixed(2)}`;
-      cartItems.appendChild(totalP);
-    }
-
-    function updateCartIndicator() {
-      const indicator = document.getElementById('cart-indicator');
-      if (cart.length > 0) {
-        indicator.textContent = cart.length;
-        indicator.style.display = 'block';
-      } else {
-        indicator.style.display = 'none';
-      }
+        const cartItems = document.getElementById('cart-items');
+        cartItems.innerHTML = '';
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<p>Seu carrinho está vazio.</p>';
+            return;
+        }
+        let total = 0;
+        cart.forEach((item, i) => {
+            total += item.price;
+            cartItems.innerHTML += `<p>${item.name} - R$ ${item.price.toFixed(2)}</p>`;
+        });
+        cartItems.innerHTML += `<p><strong>Total: R$ ${total.toFixed(2)}</strong></p>`;
     }
 
     function toggleCart() {
-      const cartDiv = document.getElementById('cart');
-      cartDiv.style.display = (cartDiv.style.display === 'block') ? 'none' : 'block';
+        const cartEl = document.getElementById('cart');
+        cartEl.style.display = cartEl.style.display === 'block' ? 'none' : 'block';
     }
-
-    function openModal(imgSrc) {
-      const modal = document.getElementById('image-modal');
-      const modalImage = document.getElementById('modal-image');
-      modalImage.src = imgSrc;
-      modal.style.display = 'flex';
-    }
-
-    function closeModal() {
-      const modal = document.getElementById('image-modal');
-      modal.style.display = 'none';
-      document.getElementById('modal-image').src = '';
-    }
-
-    document.querySelector('#image-modal span').onclick = closeModal;
-
-    document.getElementById('image-modal').addEventListener('click', function(e) {
-      if (e.target === this) closeModal();
-    });
 
     function searchProduct() {
-      const input = document.getElementById('search-input').value.toLowerCase().trim();
-      document.querySelectorAll('.product').forEach(product => {
-        const name = product.getAttribute('data-name').toLowerCase();
-        product.style.display = name.includes(input) ? 'flex' : 'none';
-      });
+        const input = document.getElementById('search-input').value.toLowerCase();
+        const products = document.querySelectorAll('.product');
+        products.forEach(product => {
+            const name = product.getAttribute('data-name');
+            product.style.display = name.includes(input) ? 'block' : 'none';
+        });
+    }
+
+    function toggleVendorList() {
+        const list = document.getElementById('vendor-list');
+        list.style.display = list.style.display === 'block' ? 'none' : 'block';
     }
 
     function enviarPedidoWhatsApp(phone) {
-      if (cart.length === 0) {
-        alert("Seu carrinho está vazio!");
-        return;
-      }
-      const msg = cart.map(i => `${i.name} - R$ ${i.price.toFixed(2)}`).join('%0A');
-      const url = `https://wa.me/${phone}?text=Olá,%20gostaria%20de%20fazer%20o%20pedido:%0A${msg}`;
-      window.open(url, '_blank');
+        if (cart.length === 0) {
+            alert("Seu carrinho está vazio!");
+            return;
+        }
+        const message = cart.map(item => `${item.name} - R$ ${item.price.toFixed(2)}`).join('%0A');
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        const fullMessage = encodeURIComponent(`Olá, quero comprar:%0A${message}%0ATotal: R$ ${total.toFixed(2)}`);
+        window.open(`https://wa.me/${phone}?text=${fullMessage}`, '_blank');
     }
-  </script>
+</script>
 
 </body>
 </html>
