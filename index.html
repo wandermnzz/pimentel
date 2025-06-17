@@ -48,26 +48,32 @@
             margin-bottom: 20px;
         }
 
-        .search-container input {
-            width: 50%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .search-container button {
-            padding: 10px 20px;
-            background-color: #222;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .search-container button:hover {
-            background-color: #555;
-        }
-
+        .search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* espaço entre o input e o botão */
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+.search-container input {
+    width: 300px;
+    max-width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.search-container button {
+    padding: 10px 20px;
+    background-color: #222;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.search-container button:hover {
+    background-color: #555;
+}
         /* Estilos para os produtos */
         .product-list {
             display: flex;
