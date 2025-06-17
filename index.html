@@ -5,64 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MULTI MOVEIS</title>
     <style>
-        body {
-            font-family: Lora, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            color: #333;
-        }
+       body {
+    font-family: Lora, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+    font-size: 16px; /* <-- adicionado */
+}
 
-        header {
-            background: #8B3A3A;
-            color: #fff;
-            padding: 15px;
-            text-align: center;
-            position: relative;
-        }
+header {
+    background: #8B3A3A;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+}
 
-        header a {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-        }
+header a {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
 
-        header a img {
-            width: 30px;
-            height: 30px;
-        }
+header a img {
+    width: 30px;
+    height: 30px;
+}
 
-        .container {
-            width: 80%;
-            margin: 20px auto;
-        }
+.container {
+    width: 80%;
+    margin: 20px auto;
+}
 
-        .description {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+.description {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        /* Barra de pesquisa */
-        .search-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .search-container {
+/* Barra de pesquisa */
+.search-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px; /* espaço entre o input e o botão */
+    gap: 10px;
     margin-top: 15px;
     flex-wrap: wrap;
 }
+
 .search-container input {
     width: 400px;
     max-width: 80%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 16px; /* <-- adicionado */
 }
+
 .search-container button {
     padding: 10px 20px;
     background-color: #222;
@@ -70,194 +69,195 @@
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    font-size: 16px; /* <-- adicionado */
 }
+
 .search-container button:hover {
     background-color: #555;
 }
-        /* Estilos para os produtos */
-        .product-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
 
-        .product {
-            width: 200px;
-            margin: 10px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-        }
+/* Estilos para os produtos */
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
-        .product img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 15px; /* Adiciona espaçamento entre a imagem e o botão */
-        }
+.product {
+    width: 200px;
+    margin: 10px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+}
 
-        .product-info {
-            margin-top: 10px;
-        }
+.product img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
 
-        .product-info h3 {
-            margin: 10px 0;
-        }
+.product-info {
+    margin-top: 10px;
+}
 
-        .product-info p {
-            margin: 5px 0;
-        }
+.product-info h3 {
+    margin: 10px 0;
+    font-size: 18px; /* <-- adicionado */
+}
 
-        .product button {
-            background: #222;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            width: 100%;
-            margin-top: 10px; /* Adiciona espaçamento entre o texto e o botão */
-        }
+.product-info p {
+    margin: 5px 0;
+    font-size: 16px; /* <-- adicionado */
+}
 
-        .product button:hover {
-            background: #555;
-        }
+.product button {
+    background: #222;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 16px; /* <-- adicionado */
+}
 
-        /* Centralizar os produtos na página */
-        .product-list {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+.product button:hover {
+    background: #555;
+}
 
-        /* Carrinho Flutuante */
-        #cart {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 300px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            z-index: 1000;
-            display: none;
-        }
+/* Carrinho Flutuante */
+#cart {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    z-index: 1000;
+    display: none;
+}
 
-        #cart h2 {
-            margin-top: 0;
-        }
+#cart h2 {
+    margin-top: 0;
+}
 
-        #cart-items p {
-            margin: 10px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+#cart-items p {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-       /* Botão para mostrar/ocultar o carrinho */
-        #toggle-cart {
-            position: fixed;
-            bottom: 20px;
-            right: 340px;
-            background: #222;
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1000;
-        }
+#toggle-cart {
+    position: fixed;
+    bottom: 20px;
+    right: 340px;
+    background: #222;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+}
 
-        /* Ponto laranja no carrinho */
-        #cart-indicator {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            width: 12px;
-            height: 12px;
-            background: orange;
-            border-radius: 50%;
-            display: none; /* Aparece quando houver itens no carrinho */
-        }
+#cart-indicator {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 12px;
+    height: 12px;
+    background: orange;
+    border-radius: 50%;
+    display: none;
+}
 
-        /* Modal de imagem ampliada */
-        #image-modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            padding-top: 60px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-        }
+/* Modal de imagem ampliada */
+#image-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
 
-        #image-modal img {
-            margin: auto;
-            display: block;
-            max-width: 80%;
-            max-height: 80%;
-        }
+#image-modal img {
+    margin: auto;
+    display: block;
+    max-width: 80%;
+    max-height: 80%;
+}
 
-        #image-modal span {
-            position: absolute;
-            top: 20px;
-            right: 35px;
-            color: white;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+#image-modal span {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-        /* Lista de vendedores oficiais */
-        #vendor-list {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            padding: 12px;
-            z-index: 1000;
-            display: none;
-        }
+/* Lista de vendedores oficiais */
+#vendor-list {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    z-index: 1000;
+    display: none;
+}
 
-        #vendor-list ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+#vendor-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 
-        #vendor-list ul li {
-            margin: 10px 0;
-        }
+#vendor-list ul li {
+    margin: 10px 0;
+}
 
-        /* Ícone do WhatsApp */
-        #chat-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: url('whatsapp-icon.png') no-repeat center center;
-            background-size: cover;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 1000;
-        }
-        
-       
-       @media (max-width: 700px) {
+/* Ícone do WhatsApp */
+#chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: url('whatsapp-icon.png') no-repeat center center;
+    background-size: cover;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* MOBILE: Ajustes de responsividade */
+@media (max-width: 700px) {
+    body {
+        font-size: 14px; /* <-- menor para mobile */
+    }
+
     header {
         padding: 10px;
     }
 
     header h1 {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .search-container {
@@ -268,6 +268,11 @@
 
     .search-container input {
         width: 60%;
+        font-size: 14px;
+    }
+
+    .search-container button {
+        font-size: 14px;
     }
 
     .container {
@@ -277,6 +282,18 @@
 
     .product {
         width: 100%;
+    }
+
+    .product-info h3 {
+        font-size: 16px;
+    }
+
+    .product-info p {
+        font-size: 14px;
+    }
+
+    .product button {
+        font-size: 14px;
     }
 
     #cart {
