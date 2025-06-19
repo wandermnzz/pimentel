@@ -1,6 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <div id="status-loja" style="text-align: center; margin: 20px; font-weight: bold; font-size: 18px;"></div>
+
+<script>
+fetch('https://api.sheetbest.com/sheets/f60570b1-0d71-46aa-bb42-173ffd2a0c8d')
+  .then(response => response.json())
+  .then(data => {
+    const status = data[0].status.toLowerCase();
+    const statusDiv = document.getElementById('status-loja');
+    
+    if (status === 'aberto') {
+      statusDiv.textContent = '🟢 Loja Aberta';
+      statusDiv.style.color = 'green';
+    } else if (status === 'fechado') {
+      statusDiv.textContent = '🔴 Loja Fechada';
+      statusDiv.style.color = 'red';
+    } else {
+      statusDiv.textContent = 'Status indisponível';
+    }
+  })
+  .catch(error => {
+    console.error('Erro ao buscar status:', error);
+    document.getElementById('status-loja').textContent = 'Erro ao carregar o status';
+  });
+</script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MULTI MOVEIS</title>
