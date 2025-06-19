@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+s<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <div id="status-loja" style="text-align: center; margin: 20px; font-weight: bold; font-size: 18px;"></div>
@@ -11,7 +11,7 @@ fetch('https://api.sheetbest.com/sheets/f60570b1-0d71-46aa-bb42-173ffd2a0c8d')
     const statusDiv = document.getElementById('status-loja');
     
     if (status === 'aberto') {
-      statusDiv.textContent = '🟢 Loja Aberta';
+      statusDiv.textContent = '🟢 Loja Aberta. fecha as 19:00';
       statusDiv.style.color = 'green';
     } else if (status === 'fechado') {
       statusDiv.textContent = '🔴 Loja Fechada';
