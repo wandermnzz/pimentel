@@ -322,7 +322,19 @@ fetch('https://api.sheetbest.com/sheets/f60570b1-0d71-46aa-bb42-173ffd2a0c8d')
     console.error('Erro ao buscar status:', error);
     document.getElementById('status-loja').textContent = 'Erro ao carregar o status';
   });
+    
 </script>
+<!-- Botão para abrir o menu lateral -->
+<div id="menu-button" onclick="abrirMenu()">Login</div>
+
+<!-- Menu lateral escondido -->
+<div id="side-menu">
+  <span onclick="fecharMenu()">✖️</span>
+  <h3>Login</h3>
+  <input type="text" id="username" placeholder="Usuário">
+  <input type="password" id="password" placeholder="Senha">
+  <button onclick="fazerLogin()">Entrar</button>
+</div>
 
   <header>
     <h1>MULTI MOVEIS AJU</h1>
@@ -524,12 +536,14 @@ carregarProdutos();
 
 <script>
 function abrirMenu() {
-  document.getElementById('side-menu').style.left = '0';
-  document.body.style.overflow = 'hidden';  // Impede rolagem do fundo
+  const menu = document.getElementById('side-menu');
+  menu.classList.add('show');
+  document.body.style.overflow = 'hidden';
 }
 
 function fecharMenu() {
-  document.getElementById('side-menu').style.left = '-300px';
+  const menu = document.getElementById('side-menu');
+  menu.classList.remove('show');
   document.body.style.overflow = 'auto';
 }
 
@@ -540,12 +554,13 @@ function fazerLogin() {
   if (user === 'admin' && pass === '1234') {
     alert('Login feito com sucesso!');
     fecharMenu();
-    window.open('orcamento.html', '_blank');  // Abre a página de orçamento
+    window.open('orcamento.html', '_blank');  // Abre nova aba
   } else {
     alert('Usuário ou senha inválidos!');
   }
 }
 </script>
+
 
 </body>
 </html>
