@@ -271,93 +271,32 @@ s<!DOCTYPE html>
 #side-menu {
   position: fixed;
   top: 0;
-  left: -300px;
+  left: -300px;          /* Começa totalmente fora da tela */
   width: 300px;
   height: 100vh;
   background: white;
   border-right: 1px solid #ccc;
   box-shadow: 2px 0 5px rgba(0,0,0,0.3);
   padding: 20px;
-  transition: left 0.3s;
+  transition: left 0.3s ease;   /* Faz o efeito de slide suave */
   overflow-y: auto;
   z-index: 2001;
+  visibility: hidden;          /* << IMPORTANTE: Faz o conteúdo realmente invisível */
+  opacity: 0;                  /* << Some também no visual */
 }
 
-#side-menu span {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 20px;
-  cursor: pointer;
+#side-menu.show {
+  left: 0;
+  visibility: visible;
+  opacity: 1;
 }
 
-#side-menu input, #side-menu select, #side-menu button {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
-}
-    #menu-button {
-  position: fixed;
-  left: 10px;
-  top: 10px;
-  background: #6b3e0e;
-  color: white;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 4px;
-  z-index: 2000;
-}
-
-#side-menu {
-  position: fixed;
-  top: 0;
-  left: -300px;  /* Escondido fora da tela inicialmente */
-  width: 300px;
-  height: 100vh;
-  background: white;
-  border-right: 1px solid #ccc;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.3);
-  padding: 20px;
-  transition: left 0.3s ease;
-  overflow-y: auto;
-  z-index: 2001;
-}
-
-#side-menu span {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-#side-menu input, #side-menu button {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-#side-menu button {
-  background: #6b3e0e;
-  color: white;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-}
 
 
 
   </style>
 </head>
 <body>
-  <div id="login-section">
-    <h3>Login</h3>
-    <input type="text" id="username" placeholder="Usuário">
-    <input type="password" id="password" placeholder="Senha">
-    <button onclick="fazerLogin()">Entrar</button>
-  </div>
 
   <script>
     
