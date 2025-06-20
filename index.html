@@ -301,8 +301,28 @@ s<!DOCTYPE html>
   </style>
 </head>
 <body>
-   <div id="status-loja" style="text-align: center; margin: 20px; font-weight: bold; font-size: 18px;"></div>
+  <div id="login-section">
+    <h3>Login</h3>
+    <input type="text" id="username" placeholder="Usuário">
+    <input type="password" id="password" placeholder="Senha">
+    <button onclick="fazerLogin()">Entrar</button>
+  </div>
 
+  <script>
+    function fazerLogin() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+
+      if (user === 'admin' && pass === '1234') {
+        alert("Login feito com sucesso!");
+
+        // Abre o orçamento em nova aba / nova tela
+        window.open('orcamento.html', '_blank');
+      } else {
+        alert("Login inválido!");
+      }
+    }
+   <div id="status-loja" style="text-align: center; margin: 20px; font-weight: bold; font-size: 18px;"></div>
 <script>
 fetch('https://api.sheetbest.com/sheets/f60570b1-0d71-46aa-bb42-173ffd2a0c8d')
   .then(response => response.json())
