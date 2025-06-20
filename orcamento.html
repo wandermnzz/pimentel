@@ -2,84 +2,101 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Orçamento de Materiais</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    h1, h3 { color: #6b3e0e; }
-    button { margin: 5px; padding: 10px 15px; background: #6b3e0e; color: white; border: none; border-radius: 5px; cursor: pointer; }
-    button:hover { background: #8b5e16; }
-    #lista { margin-top: 20px; }
-    .item { margin-bottom: 8px; }
-    .remover { background: #c0392b; margin-left: 10px; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      padding: 20px;
+    }
+    h1 {
+      color: #6b3e0e;
+    }
+    select, input, button {
+      padding: 8px;
+      margin: 5px 0;
+      width: 100%;
+      max-width: 300px;
+    }
+    #itens-adicionados {
+      margin-top: 20px;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+    }
+    .item {
+      margin-bottom: 8px;
+    }
+    .total {
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 15px;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Orçamento de Materiais</h1>
+  <h1>Calculadora de Orçamento</h1>
 
-  <div>
-    <h3>Materiais Disponíveis:</h3>
-    <button onclick="adicionarMaterial('Corrediça', 13)">Corrediça - R$ 13,00</button>
-    <button onclick="adicionarMaterial('Dobradiça com Pistão', 3)">Dobradiça com Pistão - R$ 3,00</button>
-    <button onclick="adicionarMaterial('Parafuso', 0.5)">Parafuso - R$ 0,50</button>
-    <!-- Você pode adicionar mais materiais aqui -->
-  </div>
+  <label for="material">Material:</label>
+  <select id="material">
+    <option value="corredica" data-preco="13">Corrediça - R$ 13,00 (unitário)</option>
+    <option value="dobradica" data-preco="3">Dobradiça com Pistão - R$ 3,00 (unitário)</option>
+  </select>
 
-  <div id="lista">
-    <h3>Itens no Orçamento:</h3>
-    <div id="materiais-listados"></div>
-    <h3 id="total">Total: R$ 0,00</h3>
-  </div>
+  <label for="quantidade">Quantidade:</label>
+  <input type="number" id="quantidade" min="1" value="1">
 
-  <button onclick="limparOrcamento()">Limpar Orçamento</button>
+  <button onclick="adicionarItem()">➕ Adicionar Material</button>
+
+  <div id="itens-adicionados"></div>
+
+  <div class="total" id="total-geral">Total: R$ 0,00</div>
 
   <script>
-    let materiais = [];
+    const listaItens = [];
 
-    window.onload = function() {
-      const salvo = localStorage.getItem('orcamento');
-      if (salvo) {
-        materiais = JSON.parse(salvo);
-        renderizar();
+    function adicionarItem() {
+      const select = document.getElementById('material');
+      const materialNome = select.options[select.selectedIndex].text;
+      const precoUnitario = parseFloat(select.options[select.selectedIndex].getAttribute('data-preco'));
+      const quantidade = parseInt(document.getElementById('quantidade').value);
+
+      if (quantidade <= 0 || isNaN(quantidade)) {
+        alert("Digite uma quantidade válida.");
+        return;
       }
-    };
 
-    function adicionarMaterial(nome, preco) {
-      materiais.push({ nome, preco });
-      salvar();
-      renderizar();
+      const subtotal = precoUnitario * quantidade;
+
+      listaItens.push({ nome: materialNome, quantidade, precoUnitario, subtotal });
+
+      renderizarItens();
     }
 
-    function renderizar() {
-      const div = document.getElementById('materiais-listados');
-      div.innerHTML = "";
+    function renderizarItens() {
+      const div = document.getElementById('itens-adicionados');
+      div.innerHTML = '';
+
       let total = 0;
 
-      materiais.forEach((item, index) => {
-        total += item.preco;
-        div.innerHTML += `<div class="item">${item.nome} - R$ ${item.preco.toFixed(2).replace('.', ',')}
-          <button class="remover" onclick="remover(${index})">Remover</button></div>`;
+      listaItens.forEach((item, index) => {
+        total += item.subtotal;
+
+        div.innerHTML += `
+          <div class="item">
+            ${item.quantidade}x ${item.nome} - R$ ${item.subtotal.toFixed(2).replace('.', ',')}
+            <button onclick="removerItem(${index})">Remover</button>
+          </div>
+        `;
       });
 
-      document.getElementById('total').innerText = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+      document.getElementById('total-geral').innerText = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
     }
 
-    function salvar() {
-      localStorage.setItem('orcamento', JSON.stringify(materiais));
-    }
-
-    function remover(index) {
-      materiais.splice(index, 1);
-      salvar();
-      renderizar();
-    }
-
-    function limparOrcamento() {
-      if (confirm('Tem certeza que deseja limpar o orçamento?')) {
-        materiais = [];
-        localStorage.removeItem('orcamento');
-        renderizar();
-      }
+    function removerItem(index) {
+      listaItens.splice(index, 1);
+      renderizarItens();
     }
   </script>
 
