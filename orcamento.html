@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Orçamento de Materiais</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1, h3 { color: #6b3e0e; }
+    button { margin: 5px; padding: 10px 15px; background: #6b3e0e; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #8b5e16; }
+    #lista { margin-top: 20px; }
+    .item { margin-bottom: 8px; }
+    .remover { background: #c0392b; margin-left: 10px; }
+  </style>
+</head>
+<body>
+
+  <h1>Orçamento de Materiais</h1>
+
+  <div>
+    <h3>Materiais Disponíveis:</h3>
+    <button onclick="adicionarMaterial('Corrediça', 13)">Corrediça - R$ 13,00</button>
+    <button onclick="adicionarMaterial('Dobradiça com Pistão', 3)">Dobradiça com Pistão - R$ 3,00</button>
+    <button onclick="adicionarMaterial('Parafuso', 0.5)">Parafuso - R$ 0,50</button>
+    <!-- Você pode adicionar mais materiais aqui -->
+  </div>
+
+  <div id="lista">
+    <h3>Itens no Orçamento:</h3>
+    <div id="materiais-listados"></div>
+    <h3 id="total">Total: R$ 0,00</h3>
+  </div>
+
+  <button onclick="limparOrcamento()">Limpar Orçamento</button>
+
+  <script>
+    let materiais = [];
+
+    window.onload = function() {
+      const salvo = localStorage.getItem('orcamento');
+      if (salvo) {
+        materiais = JSON.parse(salvo);
+        renderizar();
+      }
+    };
+
+    function adicionarMaterial(nome, preco) {
+      materiais.push({ nome, preco });
+      salvar();
+      renderizar();
+    }
+
+    function renderizar() {
+      const div = document.getElementById('materiais-listados');
+      div.innerHTML = "";
+      let total = 0;
+
+      materiais.forEach((item, index) => {
+        total += item.preco;
+        div.innerHTML += `<div class="item">${item.nome} - R$ ${item.preco.toFixed(2).replace('.', ',')}
+          <button class="remover" onclick="remover(${index})">Remover</button></div>`;
+      });
+
+      document.getElementById('total').innerText = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+    }
+
+    function salvar() {
+      localStorage.setItem('orcamento', JSON.stringify(materiais));
+    }
+
+    function remover(index) {
+      materiais.splice(index, 1);
+      salvar();
+      renderizar();
+    }
+
+    function limparOrcamento() {
+      if (confirm('Tem certeza que deseja limpar o orçamento?')) {
+        materiais = [];
+        localStorage.removeItem('orcamento');
+        renderizar();
+      }
+    }
+  </script>
+
+</body>
+</html>
