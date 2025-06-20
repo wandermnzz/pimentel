@@ -369,34 +369,6 @@ fetch('https://api.sheetbest.com/sheets/f60570b1-0d71-46aa-bb42-173ffd2a0c8d')
     <img src="whatsapp-icon.png" alt="WhatsApp" style="width: 28px; height: 28px; margin-top: 8px;">
 </div>
 
-<!-- BOTÃO MENU HAMBÚRGUER -->
-<div id="menu-button" onclick="abrirMenu()">☰ Menu</div>
-
-<!-- MENU LATERAL -->
-<div id="side-menu">
-  <span onclick="fecharMenu()">✖</span>
-  
-  <div id="login-section">
-    <h3>Login</h3>
-    <input type="text" id="username" placeholder="Usuário">
-    <input type="password" id="password" placeholder="Senha">
-    <button onclick="fazerLogin()">Entrar</button>
-  </div>
-
-  <div id="orcamento-section" style="display:none;">
-    <h3>Orçamento</h3>
-    <select id="material">
-      <option value="corredica" data-preco="13">Corrediça - R$ 13,00</option>
-      <option value="dobradica" data-preco="3">Dobradiça com Pistão - R$ 3,00</option>
-    </select>
-    <input type="number" id="quantidade" placeholder="Quantidade" min="1" value="1">
-    <button onclick="adicionarMaterial()">Adicionar Material</button>
-
-    <div id="lista-materials"></div>
-    <div id="total-orcamento">Total: R$ 0,00</div>
-  </div>
-</div>
-
 
   <div id="cart">
     <h2>Carrinho</h2>
@@ -571,92 +543,7 @@ async function carregarProdutos() {
 
 carregarProdutos();
   </script>
-<script>
-let usuarioLogado = false;
-let materiais = [];
 
-function abrirMenu() {
-  document.getElementById('side-menu').style.left = '0';
-}
-
-function fecharMenu() {
-  document.getElementById('side-menu').style.left = '-300px';
-}
-
-function fazerLogin() {
-  const user = document.getElementById('username').value;
-  const pass = document.getElementById('password').value;
-
-  if (user === 'admin' && pass === '1234') {
-    usuarioLogado = true;
-    localStorage.setItem('usuario', JSON.stringify({ user }));
-    alert("Login feito com sucesso!");
-    document.getElementById('orcamento-section').style.display = 'block';
-    document.getElementById('login-section').style.display = 'none';
-    carregarOrcamentoSalvo();
-  } else {
-    alert("Login inválido!");
-  }
-}
-
-function adicionarMaterial() {
-  if (!usuarioLogado) {
-    alert("Você precisa estar logado para adicionar materiais.");
-    return;
-  }
-
-  const select = document.getElementById('material');
-  const nome = select.options[select.selectedIndex].text;
-  const preco = parseFloat(select.options[select.selectedIndex].getAttribute('data-preco'));
-  const qtd = parseInt(document.getElementById('quantidade').value);
-
-  if (qtd <= 0 || isNaN(qtd)) {
-    alert("Quantidade inválida.");
-    return;
-  }
-
-  materiais.push({ nome, preco, qtd });
-  salvarOrcamentoLocal();
-  renderizarOrcamento();
-}
-
-function renderizarOrcamento() {
-  const div = document.getElementById('lista-materials');
-  div.innerHTML = "";
-  let total = 0;
-
-  materiais.forEach(item => {
-    total += item.preco * item.qtd;
-    div.innerHTML += `<p>${item.qtd}x ${item.nome} - R$ ${(item.preco * item.qtd).toFixed(2).replace('.', ',')}</p>`;
-  });
-
-  document.getElementById('total-orcamento').innerText = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
-}
-
-function salvarOrcamentoLocal() {
-  localStorage.setItem('orcamento', JSON.stringify(materiais));
-}
-
-function carregarOrcamentoSalvo() {
-  const salvo = localStorage.getItem('orcamento');
-  if (salvo) {
-    materiais = JSON.parse(salvo);
-    renderizarOrcamento();
-  }
-}
-
-window.onload = function() {
-  const user = localStorage.getItem('usuario');
-  if (user) {
-    usuarioLogado = true;
-    document.getElementById('orcamento-section').style.display = 'block';
-    document.getElementById('login-section').style.display = 'none';
-    carregarOrcamentoSalvo();
-  }
-}
-</script>
-
- 
 
 </body>
 </html>
