@@ -313,7 +313,7 @@ fetch('https://api.sheetbest.com/sheets/f60570b1-0d71-46aa-bb42-173ffd2a0c8d')
 
   <div id="cart">
     <h2>Carrinho</h2>
-    <div id="cart-items">
+    <div id="cart-items">s
       <p>Seu carrinho está vazio.</p>
     </div>
   </div>
@@ -409,7 +409,7 @@ fetch('https://api.sheetbest.com/sheets/f60570b1-0d71-46aa-bb42-173ffd2a0c8d')
       if (e.target === this) closeModal();
     });
 
-   function searchProduct() {
+  function searchProduct() {
   const input = document.getElementById('search-input').value.toLowerCase().trim();
 
   if (input === "") {
@@ -419,9 +419,15 @@ fetch('https://api.sheetbest.com/sheets/f60570b1-0d71-46aa-bb42-173ffd2a0c8d')
 
   document.querySelectorAll('.product').forEach(product => {
     const name = product.getAttribute('data-name').toLowerCase();
-    product.style.display = name.includes(input) ? 'flex' : 'none';
+
+    if (name.includes(input)) {
+      product.style.display = 'flex';
+    } else {
+      product.style.display = 'none';
+    }
   });
 }
+
 
 
     function enviarPedidoWhatsApp(phone) {
