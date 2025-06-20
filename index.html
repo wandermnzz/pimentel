@@ -296,6 +296,57 @@ s<!DOCTYPE html>
   margin-bottom: 10px;
   padding: 8px;
 }
+    #menu-button {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  background: #6b3e0e;
+  color: white;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  z-index: 2000;
+}
+
+#side-menu {
+  position: fixed;
+  top: 0;
+  left: -300px;  /* Escondido fora da tela inicialmente */
+  width: 300px;
+  height: 100vh;
+  background: white;
+  border-right: 1px solid #ccc;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+  padding: 20px;
+  transition: left 0.3s ease;
+  overflow-y: auto;
+  z-index: 2001;
+}
+
+#side-menu span {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#side-menu input, #side-menu button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+#side-menu button {
+  background: #6b3e0e;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
 
 
   </style>
@@ -309,19 +360,7 @@ s<!DOCTYPE html>
   </div>
 
   <script>
-    function fazerLogin() {
-      const user = document.getElementById('username').value;
-      const pass = document.getElementById('password').value;
-
-      if (user === 'admin' && pass === '1234') {
-        alert("Login feito com sucesso!");
-
-        // Abre o orçamento em nova aba / nova tela
-        window.open('orcamento.html', '_blank');
-      } else {
-        alert("Login inválido!");
-      }
-    }
+    
    <div id="status-loja" style="text-align: center; margin: 20px; font-weight: bold; font-size: 18px;"></div>
 <script>
 fetch('https://api.sheetbest.com/sheets/f60570b1-0d71-46aa-bb42-173ffd2a0c8d')
@@ -345,6 +384,17 @@ fetch('https://api.sheetbest.com/sheets/f60570b1-0d71-46aa-bb42-173ffd2a0c8d')
     document.getElementById('status-loja').textContent = 'Erro ao carregar o status';
   });
 </script>
+  
+  <div id="menu-button" onclick="abrirMenu()">☰ Login Vendedor</div>
+<div id="side-menu">
+  <span onclick="fecharMenu()">❌ Fechar</span>
+
+  <h3>Login do Vendedor</h3>
+  <input type="text" id="username" placeholder="Usuário">
+  <input type="password" id="password" placeholder="Senha">
+  <button onclick="fazerLogin()">Entrar</button>
+</div>
+
 
   <header>
     <h1>MULTI MOVEIS AJU</h1>
@@ -544,6 +594,30 @@ async function carregarProdutos() {
 carregarProdutos();
   </script>
 
+<script>
+function abrirMenu() {
+  document.getElementById('side-menu').style.left = '0';
+  document.body.style.overflow = 'hidden';  // Impede rolagem do fundo
+}
+
+function fecharMenu() {
+  document.getElementById('side-menu').style.left = '-300px';
+  document.body.style.overflow = 'auto';
+}
+
+function fazerLogin() {
+  const user = document.getElementById('username').value;
+  const pass = document.getElementById('password').value;
+
+  if (user === 'admin' && pass === '1234') {
+    alert('Login feito com sucesso!');
+    fecharMenu();
+    window.open('orcamento.html', '_blank');  // Abre a página de orçamento
+  } else {
+    alert('Usuário ou senha inválidos!');
+  }
+}
+</script>
 
 </body>
 </html>
