@@ -549,8 +549,11 @@ async function carregarProdutos() {
   }
 }
 
+<script>
 carregarProdutos();
-    <script>
+</script>
+
+<script>
 let usuarioLogado = false;
 let materiais = [];
 
@@ -566,13 +569,13 @@ function fazerLogin() {
   const user = document.getElementById('username').value;
   const pass = document.getElementById('password').value;
 
-  // Login simples: usuário = admin / senha = 1234
   if (user === 'admin' && pass === '1234') {
     usuarioLogado = true;
     localStorage.setItem('usuario', JSON.stringify({ user }));
     alert("Login feito com sucesso!");
     document.getElementById('orcamento-section').style.display = 'block';
     document.getElementById('login-section').style.display = 'none';
+    carregarOrcamentoSalvo();
   } else {
     alert("Login inválido!");
   }
@@ -624,7 +627,6 @@ function carregarOrcamentoSalvo() {
   }
 }
 
-// Se já tinha login antes, recupera
 window.onload = function() {
   const user = localStorage.getItem('usuario');
   if (user) {
@@ -636,7 +638,6 @@ window.onload = function() {
 }
 </script>
 
-</script>
  
 
 </body>
