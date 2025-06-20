@@ -291,6 +291,20 @@
   opacity: 1;
 }
 
+#login-button {
+  position: fixed;
+  top: 80px;           /* Distância do topo, você pode ajustar */
+  left: 20px;          /* Distância da esquerda */
+  background: #6b3e0e;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  z-index: 1500;
+  font-weight: bold;
+  user-select: none;
+}
 
 
 
@@ -298,8 +312,7 @@
 </head>
 <body>
     
-<!-- Botão para abrir o menu lateral -->
-<div id="menu-button" onclick="abrirMenu()">(III)</div>
+<div id="login-button" onclick="abrirMenu()">🔑 Login</div>
 
 <!-- Menu lateral escondido -->
 <div id="side-menu">
