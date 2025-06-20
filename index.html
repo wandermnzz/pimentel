@@ -324,9 +324,13 @@ fetch('https://api.sheetbest.com/sheets/f60570b1-0d71-46aa-bb42-173ffd2a0c8d')
   });
 </script>
   
-  <div id="menu-button" onclick="abrirMenu()">☰ Login Vendedor</div>
-<div id="side-menu">
-  <span onclick="fecharMenu()">❌ Fechar</span>
+ <div id="side-menu">
+  <span onclick="fecharMenu()">✖ Fechar</span>
+  <h3>Login</h3>
+  <input type="text" id="username" placeholder="Usuário">
+  <input type="password" id="password" placeholder="Senha">
+  <button onclick="fazerLogin()">Entrar</button>
+</div>
 
   <header>
     <h1>MULTI MOVEIS AJU</h1>
