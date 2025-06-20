@@ -296,52 +296,10 @@ fetch('https://api.sheetbest.com/sheets/f60570b1-0d71-46aa-bb42-173ffd2a0c8d')
   </header>
 
   <div class="container">
-    <div class="product-list">
+  <div class="product-list"></div>
 
-      <div class="product" data-name="escrivaninha" onclick="openModal('nichobanheiro.jpg')">
-        <img src="nichobanheiro.jpg" alt="Nicho para banheiro"loading="lazy" /> 
-        <div class="product-info">
-          <h3>Nicho para banheiro</h3>
-          <p>R$ 49.90</p>
-          <p><strong>Descrição:</strong> Com acabamento refinado.</p>
-          <p><strong>Formas de pagamento:</strong> Cartão de crédito,debito, transferência,pix.</p>
-          <button 
-            onclick="addToCart('Nicho para banheiro', 49.90); event.stopPropagation()" 
-            title="Adicionar Nicho ao carrrinho"
-          >
-            Adicionar ao Carrinho
-          </button>
-        </div>
-      </div>
 
-      <div class="product" data-name="painel para tv" onclick="openModal('painel.jpg')">
-        <img src="painel.jpg" alt="Painel para TV" loading="lazy"/>
-        <div class="product-info">
-          <h3>Painel para TV</h3>
-          <p>R$ 599,90</p>
-          <p><strong>Descrição:</strong> Painel completo para sua sala com acabamento refinado.</p>
-          <p><strong>Formas de pagamento:</strong> Cartão de crédito, débito, transferência, pix.</p>
-          <button 
-            onclick="addToCart('Painel para TV', 599.90); event.stopPropagation()" 
-            title="Adicionar Painel para TV ao Carrinho"
-          >
-            Adicionar ao Carrinho
-          </button>
-        </div>
-      </div>
-
-      
-      <div class="product" data-name="repositor" onclick="openModal('repositor1.jpg')">
-        <img src="repositor1.jpg" alt="Nicho para banheiro"loading="lazy" /> 
-        <div class="product-info">
-          <h3>Repositor </h3>
-          <p>R$ 69.90</p>
-          <p><strong>Descrição:</strong> Com acabamento refinado.</p>
-          <p><strong>Formas de pagamento:</strong> Cartão de crédito,debito, transferência,pix.</p>
-          <button 
-            onclick="addToCart('Repositor', 69.90); event.stopPropagation()" 
-            title="Adicionar repositor"
-          >
+    
             Adicionar ao Carrinho
           </button>
         </div>
@@ -490,6 +448,42 @@ fetch('https://api.sheetbest.com/sheets/f60570b1-0d71-46aa-bb42-173ffd2a0c8d')
 <footer style="background: #6b3e0e; color: white; text-align: center; padding: 10px 0; margin-top: 40px;">
   &copy; 2025 WanderTEC - Todos os direitos reservados.
 </footer>
+  <script>
+async function carregarProdutos() {
+  const url = "https://api.sheetbest.com/sheets/82fed6d7-219b-4900-b187-5451e0b5371f";  // Sua API da SheetBest
+  try {
+    const resposta = await fetch(url);
+    const produtos = await resposta.json();
+
+    const lista = document.querySelector('.product-list');
+    lista.innerHTML = "";  // Limpa os produtos fixos
+
+    produtos.forEach(prod => {
+      const card = document.createElement('div');
+      card.className = 'product';
+      card.setAttribute('data-name', (prod.nome || '').toLowerCase());
+      card.setAttribute('onclick', `openModal('${prod.imagem}')`);
+
+      card.innerHTML = `
+        <img src="${prod.imagem}" alt="${prod.nome}" loading="lazy">
+        <div class="product-info">
+          <h3>${prod.nome}</h3>
+          <p>R$ ${parseFloat(prod.preco).toFixed(2)}</p>
+          <p><strong>Descrição:</strong> ${prod.descricao || ''}</p>
+          <button onclick="addToCart('${prod.nome}', ${parseFloat(prod.preco).toFixed(2)}); event.stopPropagation()">Adicionar ao Carrinho</button>
+        </div>
+      `;
+
+      lista.appendChild(card);
+    });
+  } catch (error) {
+    console.error("Erro ao carregar produtos:", error);
+  }
+}
+
+carregarProdutos();
+</script>
+ 
 
 </body>
 </html>
