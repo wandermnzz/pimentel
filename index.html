@@ -230,11 +230,11 @@
     #vendor-list a:hover {
       text-decoration: underline;
     }
-     #toggle-whatsapp img {
+   #toggle-whatsapp img {
   position: fixed;
+  bottom: 20px;       /* Agora fica lá embaixo */
   right: 20px;
-  top: 80px;
-  background: #25D366; /* cor de fundo só por segurança, mas vai ser coberto pela imagem */
+  background: #25D366;
   color: white;
   width: 65px;
   height: 65px;
@@ -242,13 +242,14 @@
   cursor: pointer;
   user-select: none;
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  z-index: 1100;
-  padding: 0; /* tira qualquer padding interno */
-  overflow: hidden; /* garante que a imagem não ultrapasse o círculo */
+  padding: 0;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  object-fit: cover;
 }
+
 
 #toggle-whatsapp img {
   width: 100%;
@@ -293,12 +294,12 @@
 
 #login-button {
   position: fixed;
-  top: 80px;           /* Distância do topo, você pode ajustar */
+  bottom: 20px;        /* Distância da parte de baixo */
   left: 20px;          /* Distância da esquerda */
   background: #6b3e0e;
   color: white;
-  padding: 10px 15px;
-  border-radius: 6px;
+  padding: 12px 18px;
+  border-radius: 8px;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   z-index: 1500;
@@ -308,9 +309,13 @@
 
 
 
+
   </style>
 </head>
 <body>
+  
+   <div id="login-button" onclick="abrirMenu()">🔑 Login</div>
+  
 
 <!-- Menu lateral escondido -->
 <div id="side-menu">
@@ -343,8 +348,6 @@
   <div id="toggle-whatsapp" onclick="toggleVendorList()" title="Vendedores no WhatsApp">
     <img src="whatsapp-icon.png" alt="WhatsApp" style="width: 28px; height: 28px; margin-top: 8px;">
 </div>
- <div id="login-button" onclick="abrirMenu()">🔑 Login</div>
-    
 
   <div id="cart">
     <h2>Carrinho</h2>
