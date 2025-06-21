@@ -230,14 +230,15 @@
     #vendor-list a:hover {
       text-decoration: underline;
     }
-   #toggle-whatsapp img {
+  #toggle-whatsapp img {
   position: fixed;
-  bottom: 20px;       /* Agora fica lá embaixo */
-  right: 20px;
+  top: 50%;               /* Meio da tela na vertical */
+  right: 20px;            /* Distância da lateral direita */
+  transform: translateY(-50%);  /* Centraliza exatamente no meio */
   background: #25D366;
   color: white;
-  width: 95px;
-  height: 95px;
+  width: 65px;
+  height: 65px;
   border-radius: 50%;
   cursor: pointer;
   user-select: none;
@@ -249,6 +250,7 @@
   justify-content: center;
   object-fit: cover;
 }
+
 
 
 #toggle-whatsapp img {
