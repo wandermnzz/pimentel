@@ -13,11 +13,16 @@
       color: #333;
     }
     header {
-      background: #6b3e0e;
-      color: white;
-      padding: 15px 20px;
-      text-align: center;
-    }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+body {
+  padding-top: 100px; /* Dá espaço para o header fixo não cobrir o conteúdo */
+}
+
     header h1 {
       margin: 0 0 5px;
       font-size: 20px;
@@ -332,6 +337,13 @@
   border: 2px solid white;
   transition: all 0.3s ease;
 }
+    footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
 
   </style>
 </head>
@@ -530,7 +542,7 @@
   });
   
 </script>
-<footer style="background: #6b3e0e; color: white; text-align: center; padding: 10px 0; margin-top: 40px;">
+<footer* Footer fixo *
   &copy; 2025 WanderTEC - Todos os direitos reservados.
 </footer>
   <script>
