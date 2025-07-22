@@ -1,93 +1,121 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Inscrição - Torneio de Xadrez</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #1a1a1a, #2e2e2e);
-      color: #fff;
-      margin: 0;
-      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #f6f6f6, #ccc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
-    header {
+    .container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 450px;
+    }
+    h2 {
       text-align: center;
-      padding: 2rem;
-      background-color: #111;
-    }
-    header h1 {
-      font-size: 2rem;
-      color: #FFD700;
-    }
-    form {
-      max-width: 500px;
-      margin: 2rem auto;
-      background-color: #222;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      margin-bottom: 20px;
     }
     label {
       display: block;
-      margin-bottom: 0.5rem;
-      margin-top: 1rem;
+      margin-top: 10px;
     }
-    input, select, button {
+    input, select, textarea {
       width: 100%;
-      padding: 0.75rem;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
       border-radius: 6px;
-      border: none;
-      font-size: 1rem;
-      margin-bottom: 1rem;
-    }
-    input, select {
-      background-color: #333;
-      color: #fff;
     }
     button {
-      background-color: #FFD700;
-      color: #000;
+      width: 100%;
+      margin-top: 20px;
+      background-color: #333;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
       cursor: pointer;
-      font-weight: bold;
     }
     button:hover {
-      background-color: #e6c200;
+      background-color: #555;
     }
-    @media (max-width: 600px) {
-      form {
-        margin: 1rem;
-        padding: 1.5rem;
-      }
+    .success-message {
+      margin-top: 15px;
+      color: green;
+      font-weight: bold;
+      text-align: center;
+      display: none;
+    }
+    .error-message {
+      margin-top: 15px;
+      color: red;
+      font-weight: bold;
+      text-align: center;
+      display: none;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h2>Inscrição - Torneio de Xadrez</h2>
+    <form id="chessForm">
+      <label for="nome">Nome completo:</label>
+      <input type="text" name="nome" id="nome" required />
 
-  <header>
-    <h1>Inscrição - Torneio Online de Xadrez Blitz</h1>
-    <p>Participe do torneio! Preencha os dados abaixo:</p>
-  </header>
+      <label for="email">E-mail:</label>
+      <input type="email" name="email" id="email" required />
 
-  <form action="https://formsubmit.co/wanderlandsonlimaleitemenezes@gmail.com" method="POST">
-    <label for="nome">Nome completo:</label>
-    <input type="text" name="nome" id="nome" required>
+      <label for="categoria">Categoria:</label>
+      <select name="categoria" id="categoria" required>
+        <option value="">Selecione</option>
+        <option value="adulto">Adulto</option>
+        <option value="sub18">Sub-18</option>
+      </select>
 
-    <label for="lichess">Usuário no Lichess:</label>
-    <input type="text" name="lichess_id" id="lichess" required>
+      <label for="mensagem">Mensagem adicional (opcional):</label>
+      <textarea name="mensagem" id="mensagem" rows="3"></textarea>
 
-    <label for="categoria">Categoria:</label>
-    <select name="categoria" id="categoria">
-      <option value="Adulto">Adulto</option>
-      <option value="Sub 18">Sub 18</option>
-    </select>
+      <button type="submit">Enviar inscrição</button>
+    </form>
 
-    <label for="whatsapp">Número de WhatsApp:</label>
-    <input type="text" name="whatsapp" id="whatsapp" placeholder="(XX) XXXXX-XXXX">
+    <div class="success-message" id="successMessage">Inscrição enviada com sucesso! Obrigado.</div>
+    <div class="error-message" id="errorMessage">Erro ao enviar a inscrição. Tente novamente.</div>
+  </div>
 
-    <button type="submit">Enviar Inscrição</button>
-  </form>
+  <!-- Importa o SDK do EmailJS -->
+  <script src="https://cdn.emailjs.com/sdk/3.2/email.min.js"></script>
+<script>
+  (function() {
+    emailjs.init("rXNgE8nJI-v6FDyR4"); // Seu User ID (chave pública)
 
-</body>
-</html>
+    const form = document.getElementById('chessForm');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      emailjs.sendForm('service_igivs66', 'template_477e2cl', this)
+        .then(() => {
+          successMessage.style.display = 'block';
+          errorMessage.style.display = 'none';
+          form.reset();
+        }, (error) => {
+          console.error('Erro:', error);
+          successMessage.style.display = 'none';
+          errorMessage.style.display = 'block';
+        });
+    });
+  })();
+</script>
