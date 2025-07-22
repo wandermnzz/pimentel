@@ -1,604 +1,93 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="google-site-verification" content="6caC-89shQCJhg3Rk9hyABpz_wIYsJ7-p0O81dZMOa8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Loja de móveis em Aracaju com qualidade e preço justo. Sofás, camas, armários e muito mais! Confira nossas promoções.">
-  <title>MULTI MOVEIS AJU | Loja de Móveis em Aracaju</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inscrição - Torneio de Xadrez</title>
   <style>
-
-    body 
-    {
-      font-family: Arial, sans-serif;
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #1a1a1a, #2e2e2e);
+      color: #fff;
       margin: 0;
-      background: #f5f5f5;
-      color: #333;
+      padding: 0;
     }
     header {
-      background: #6b3e0e;
-      color: white;
-      padding: 15px 20px;
       text-align: center;
+      padding: 2rem;
+      background-color: #111;
     }
     header h1 {
-      margin: 0 0 5px;
-      font-size: 20px;
+      font-size: 2rem;
+      color: #FFD700;
     }
-    .search-container {
-      margin: 10px auto;
-      text-align: center;
+    form {
+      max-width: 500px;
+      margin: 2rem auto;
+      background-color: #222;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
     }
-    .search-container input {
-      padding: 8px;
-      width: 250px;
-      font-size: 16px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      margin-top: 1rem;
     }
-    .search-container button {
-      padding: 8px 12px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-left: 5px;
-      background: #6b3e0e;
-      color: white;
-      border: none;
-      border-radius: 4px;
-    }
-    .container {
-      max-width: 960px;
-      margin: 20px auto;
-      padding: 0 10px;
-    }
-    .product-list {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .product {
-      background: white;
-      width: 280px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transition: transform 0.2s;
-    }
-    .product:hover {
-      transform: scale(1.03);
-    }
-    .product img {
+    input, select, button {
       width: 100%;
-      height: 180px;
-      object-fit: cover;
-      pointer-events: none; /* evita conflito com click do card */
-    }
-    .product-info {
-      padding: 12px 15px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .product-info h3 {
-      margin: 0 0 5px;
-      font-size: 20px;
-    }
-    .product-info p {
-      margin: 4px 0;
-      font-size: 14px;
-      line-height: 1.3;
-    }
-    .product-info button {
-      margin-top: 10px;
-      padding: 10px;
-      background: #6b3e0e;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 15px;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-    .product-info button:hover {
-      background: #8b5e16;
-    }
-    #cart {
-      position: fixed;
-      right: 20px;
-      top: 80px;
-      background: white;
-      width: 280px;
-      max-height: 400px;
-      overflow-y: auto;
-      border: 1px solid #ccc;
+      padding: 0.75rem;
       border-radius: 6px;
-      padding: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      display: none;
-      z-index: 1000;
-    }
-    #cart h2 {
-      margin-top: 0;
-      font-size: 18px;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 6px;
-    }
-    #cart p {
-      margin: 8px 0;
-      font-size: 14px;
-    }
-    #cart button {
-      background: #c0392b;
-      color: white;
       border: none;
-      border-radius: 4px;
-      padding: 4px 7px;
-      cursor: pointer;
-      font-size: 12px;
-      margin-left: 8px;
+      font-size: 1rem;
+      margin-bottom: 1rem;
     }
-    #toggle-cart {
-      position: fixed;
-      right: 20px;
-      top: 20px;
-      background: #6b3e0e;
-      color: white;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      font-size: 28px;
-      line-height: 45px;
-      text-align: center;
-      cursor: pointer;
-      user-select: none;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      z-index: 1100;
+    input, select {
+      background-color: #333;
+      color: #fff;
     }
-    #cart-indicator {
-      position: fixed;
-      right: 10px;
-      top: 10px;
-      background: red;
-      color: white;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      font-size: 13px;
-      line-height: 18px;
-      text-align: center;
+    button {
+      background-color: #FFD700;
+      color: #000;
+      cursor: pointer;
       font-weight: bold;
-      display: none;
-      z-index: 1101;
     }
-    #image-modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.75);
-      justify-content: center;
-      align-items: center;
+    button:hover {
+      background-color: #e6c200;
     }
-    #image-modal img {
-      max-width: 90vw;
-      max-height: 80vh;
-      border-radius: 8px;
-      box-shadow: 0 0 12px white;
+    @media (max-width: 600px) {
+      form {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
     }
-    #image-modal span {
-      position: absolute;
-      top: 15px;
-      right: 25px;
-      font-size: 40px;
-      color: white;
-      cursor: pointer;
-      user-select: none;
-    }
-    #vendor-list {
-      display: none;
-      position: fixed;
-      bottom: 10px;
-      right: 20px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      padding: 10px 15px;
-      max-width: 220px;
-      font-size: 14px;
-      z-index: 1500;
-    }
-    #vendor-list h3 {
-      margin-top: 0;
-    }
-    #vendor-list ul {
-      padding-left: 20px;
-      margin: 0;
-    }
-    #vendor-list li {
-      margin-bottom: 6px;
-    }
-    #vendor-list a {
-      color: #6b3e0e;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    #vendor-list a:hover {
-      text-decoration: underline;
-    }
-  #toggle-whatsapp img {
-  position: fixed;
-  top: 50%;               /* Meio da tela na vertical */
-  right: 20px;            /* Distância da lateral direita */
-  transform: translateY(-50%);  /* Centraliza exatamente no meio */
-  background: #25D366;
-  color: white;
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  cursor: pointer;
-  user-select: none;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  padding: 0;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  object-fit: cover;
-}
-
-
-
-#toggle-whatsapp img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* ou 'contain' se quiser que não corte */
-}
-#menu-button {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  background: #6b3e0e;
-  color: white;
-  padding: 12px 18px;
-  cursor: pointer;
-  border-radius: 8px;
-  z-index: 3000;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-#menu-button:hover {
-  background-color: #8b5e16;
-}
-
-
-#side-menu {
-  position: fixed;
-  top: 0;
-  left: -300px;          /* Começa totalmente fora da tela */
-  width: 300px;
-  height: 100vh;
-  background: white;
-  border-right: 1px solid #ccc;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.3);
-  padding: 20px;
-  transition: left 0.3s ease;   /* Faz o efeito de slide suave */
-  overflow-y: auto;
-  z-index: 2001;
-  visibility: hidden;          /* << IMPORTANTE: Faz o conteúdo realmente invisível */
-  opacity: 0;                  /* << Some também no visual */
-}
-
-#side-menu.show {
-  left: 0;
-  visibility: visible;
-  opacity: 1;
-}
-
-#login-button {
-  position: fixed;
-  bottom: 20px;        /* Distância da parte de baixo */
-  left: 20px;          /* Distância da esquerda */
-  background: #6b3e0e;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  z-index: 1500;
-  font-weight: bold;
-  user-select: none;
-}
-
-#status-loja {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background-color: green;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  font-weight: bold;
-  font-size: 16px;
-  z-index: 3000;
-  border: 2px solid white;
-  transition: all 0.3s ease;
-}
-
   </style>
 </head>
 <body>
-  
-   <div id="login-button" onclick="abrirMenu()">(!)</div>
-  
-<!-- Menu lateral escondido -->
-<div id="side-menu">
-  <span onclick="fecharMenu()">✖️</span>
-  <h3>Login</h3>
-  <input type="text" id="username" placeholder="Usuário">
-  <input type="password" id="password" placeholder="Senha">
-  <button onclick="fazerLogin()">Entrar</button>
-</div>
-<div id="status-loja">Carregando status...</div>
 
   <header>
-    <h1>MULTI MOVEIS AJU</h1> 
-    <p>Encontre preço e qualidade em um lugar só!!</p>
-    <div class="search-container">
-      <input type="text" id="search-input" placeholder="Buscar produto..." aria-label="Buscar produto" />
-      <button onclick="searchProduct()" aria-label="Pesquisar">🔎</button>
-    </div>
+    <h1>Inscrição - Torneio Online de Xadrez Blitz</h1>
+    <p>Participe do torneio! Preencha os dados abaixo:</p>
   </header>
-  <div class="container">
-  <div class="product-list"></div>
-          </button>
-        </div>
-      </div>
 
-    </div>
-  </div>
+  <form action="https://formsubmit.co/wanderlandsonlimaleitemenezes@gmail.com" method="POST">
+    <label for="nome">Nome completo:</label>
+    <input type="text" name="nome" id="nome" required>
 
-  <div id="toggle-cart" onclick="toggleCart()" title="Mostrar/Ocultar carrinho">🛒</div>
-  <div id="cart-indicator"></div>
-  <div id="toggle-whatsapp" onclick="toggleVendorList()" title="Vendedores no WhatsApp">
-    <img src="whatsapp-icon.png" alt="WhatsApp" style="width: 28px; height: 28px; margin-top: 8px;">
-</div>
+    <label for="lichess">Usuário no Lichess:</label>
+    <input type="text" name="lichess_id" id="lichess" required>
 
-  <div id="cart">
-    <h2>Carrinho</h2>
-    <div id="cart-items">s
-      <p>Seu carrinho está vazio.</p>
-    </div>
-  </div>
+    <label for="categoria">Categoria:</label>
+    <select name="categoria" id="categoria">
+      <option value="Adulto">Adulto</option>
+      <option value="Sub 18">Sub 18</option>
+    </select>
 
-  <div id="image-modal" onclick="closeModal()">
-    <span aria-label="Fechar modal" title="Fechar modal">&times;</span>
-    <img id="modal-image" alt="Imagem do produto" />
-  </div>
+    <label for="whatsapp">Número de WhatsApp:</label>
+    <input type="text" name="whatsapp" id="whatsapp" placeholder="(XX) XXXXX-XXXX">
 
-  <div id="vendor-list">
-    <h3>Vendedores Oficiais</h3>
-    <ul>
-      <li><a href="#" onclick="enviarPedidoWhatsApp('557996466287'); return false;">MULTI MOVEIS</a></li>
-    </ul>
-  </div>
-
-  <script>
-    const cart = [];
-
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      renderCart();
-      updateCartIndicator();
-    }
-
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      renderCart();
-      updateCartIndicator();
-    }
-
-    function renderCart() {
-      const cartItems = document.getElementById('cart-items');
-      cartItems.innerHTML = '';
-
-      if (cart.length === 0) {
-        cartItems.innerHTML = '<p>Seu carrinho está vazio.</p>';
-        return;
-      }
-
-      cart.forEach((item, i) => {
-        const p = document.createElement('p');
-        p.textContent = `${item.name} - R$ ${item.price.toFixed(2)}`;
-
-        const btn = document.createElement('button');
-        btn.textContent = 'Remover';
-        btn.onclick = () => removeFromCart(i);
-        p.appendChild(btn);
-
-        cartItems.appendChild(p);
-      });
-
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
-      const totalP = document.createElement('p');
-      totalP.style.fontWeight = 'bold';
-      totalP.textContent = `Total: R$ ${total.toFixed(2)}`;
-      cartItems.appendChild(totalP);
-    }
-
-    function updateCartIndicator() {
-      const indicator = document.getElementById('cart-indicator');
-      if (cart.length > 0) {
-        indicator.textContent = cart.length;
-        indicator.style.display = 'block';
-      } else {
-        indicator.style.display = 'none';
-      }
-    }
-
-    function toggleCart() {
-      const cartDiv = document.getElementById('cart');
-      cartDiv.style.display = (cartDiv.style.display === 'block') ? 'none' : 'block';
-    }
-
-    function openModal(imgSrc) {
-      const modal = document.getElementById('image-modal');
-      const modalImage = document.getElementById('modal-image');
-      modalImage.src = imgSrc;
-      modal.style.display = 'flex';
-    }
-
-    function closeModal() {
-      const modal = document.getElementById('image-modal');
-      modal.style.display = 'none';
-      document.getElementById('modal-image').src = '';
-    }
-
-    document.querySelector('#image-modal span').onclick = closeModal;
-
-    document.getElementById('image-modal').addEventListener('click', function(e) {
-      if (e.target === this) closeModal();
-    });
-
-  function searchProduct() {
-  const input = document.getElementById('search-input').value.toLowerCase().trim();
-
-  if (input === "") {
-    alert("Por favor, digite algo para pesquisar.");
-    return;
-  }
-
-  document.querySelectorAll('.product').forEach(product => {
-    const name = product.getAttribute('data-name').toLowerCase();
-
-    if (name.includes(input)) {
-      product.style.display = 'flex';
-    } else {
-      product.style.display = 'none';
-    }
-  });
-}
-
-
-
-    function enviarPedidoWhatsApp(phone) {
-      if (cart.length === 0) {
-        alert("Seu carrinho está vazio!");
-        return;
-      }
-      const msg = cart.map(i => `${i.name} - R$ ${i.price.toFixed(2)}`).join('%0A');
-      const url = `https://wa.me/${phone}?text=Olá,%20gostaria%20de%20fazer%20o%20pedido:%0A${msg}`;
-      window.open(url, '_blank');
-    }
-    function toggleVendorList() {
-  const vendorList = document.getElementById('vendor-list');
-  vendorList.style.display = (vendorList.style.display === 'block') ? 'none' : 'block';
-}
-
-  </script>
-  <script>
-  fetch('https://api.sheetbest.com/sheets/f60570b1-0d71-46aa-bb42-173ffd2a0c8d')
-  .then(response => response.json())
-  .then(data => {
-    const status = data[0].status.toLowerCase();
-    const statusDiv = document.getElementById('status-loja');
-    
-    if (status === 'aberto') {
-      statusDiv.textContent = ' Fechada';
-      statusDiv.style.backgroundColor = 'red';
-    } else if (status === 'fechado') {
-      statusDiv.textContent = 'Fechada';
-      statusDiv.style.backgroundColor = 'red';
-    } else {
-      statusDiv.textContent = '⚪ Status Indisponível';
-      statusDiv.style.backgroundColor = '#555';
-    }
-  })
-  .catch(error => {
-    console.error('Erro ao buscar status:', error);
-    const statusDiv = document.getElementById('status-loja');
-    statusDiv.textContent = '⚪ Erro ao carregar status';
-    statusDiv.style.backgroundColor = '#555';
-  });
-  
-</script>
-<footer style="background: #6b3e0e; color: white; text-align: center; padding: 10px 0; margin-top: 40px;">
-  &copy; 2025 WanderTEC - Todos os direitos reservados. +5579996283715 @Wander_mnz
-</footer>
-  <script>
-async function carregarProdutos() {
-  const url = "https://api.sheetbest.com/sheets/10a20398-e614-4eec-a7d1-2a874f35ed0a";  // Sua API da SheetBest
-  try {
-    const resposta = await fetch(url);
-    const produtos = await resposta.json();
-
-    const lista = document.querySelector('.product-list');
-    lista.innerHTML = "";  // Limpa os produtos fixos
-
-    produtos.forEach(prod => {
-      const card = document.createElement('div');
-      card.className = 'product';
-      card.setAttribute('data-name', (prod.nome || '').toLowerCase());
-      card.setAttribute('onclick', `openModal('${prod.imagem}')`);
-
-      card.innerHTML = `
-        <img src="${prod.imagem}" alt="${prod.nome}" loading="lazy">
-        <div class="product-info">
-          <h3>${prod.nome}</h3>
-          <p>R$ ${parseFloat(prod.preco).toFixed(2)}</p>
-          <p><strong>Descrição:</strong> ${prod.descricao || ''}</p>
-          <button onclick="addToCart('${prod.nome}', ${parseFloat(prod.preco).toFixed(2)}); event.stopPropagation()">Adicionar ao Carrinho</button>
-        </div>
-      `;
-
-      lista.appendChild(card);
-    });
-  } catch (error) {
-    console.error("Erro ao carregar produtos:", error);
-  }
-}
-
-carregarProdutos();
-  </script>
-
-<script>
-function abrirMenu() {
-  const menu = document.getElementById('side-menu');
-  menu.classList.add('show');
-  document.body.style.overflow = 'hidden';
-}
-
-function fecharMenu() {
-  const menu = document.getElementById('side-menu');
-  menu.classList.remove('show');
-  document.body.style.overflow = 'auto';
-}
-
-function fazerLogin() {
-  const user = document.getElementById('username').value;
-  const pass = document.getElementById('password').value;
-
-  if (user === 'admin' && pass === '1234') {
-    alert('Login feito com sucesso!');
-    fecharMenu();
-    window.open('orcamento.html', '_blank');  // Abre nova aba
-  } else {
-    alert('Usuário ou senha inválidos!');
-  }
-}
-</script>
-
+    <button type="submit">Enviar Inscrição</button>
+  </form>
 
 </body>
 </html>
