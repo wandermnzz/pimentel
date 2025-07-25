@@ -74,13 +74,13 @@
   </style>
 </head>
 <body>
-  <script>
-  const senha = prompt("Digite a senha de acesso:");
 
-  if (senha !== "defesa2024") {
-    document.body.innerHTML = "<h2 style='text-align:center;margin-top:100px;'>❌ Acesso negado.</h2>";
-  }
-</script>
+  <script>
+    const senha = prompt("Digite a senha de acesso:");
+    if (senha !== "defesa2024") {
+      document.body.innerHTML = "<h2 style='text-align:center;margin-top:100px;'>❌ Acesso negado.</h2>";
+    }
+  </script>
 
   <header>
     <h1>CURSO DE DEFESA MODERNA</h1>
@@ -96,13 +96,11 @@
   </footer>
 
   <script>
-    // Adicione aqui os links COMPLETOS do Google Drive
     const links = [
       "https://drive.google.com/file/d/11KKIefDQ1N-xvNQLnJJKF6AMZflcVhMC/view?usp=drivesdk",
       "https://drive.google.com/file/d/1shKN3SiWOS_wnvJ57eJ8eMfpIXAhWZ5Z/view?usp=drivesdk",
-      "https://drive.google.com/file/d/1OKO4tpKPMVLci-2PdmR_SuvItToYgUiv/view?usp=drivesdk", //icione mais links abaixo:
-      // "https://drive.google.com/file/d/ID_DO_VIDEO/view",
-      // "https://drive.google.com/file/d/OUTRO_ID/view"
+      "https://drive.google.com/file/d/1OKO4tpKPMVLci-2PdmR_SuvItToYgUiv/view?usp=drivesdk"
+      // Adicione mais links aqui se quiser
     ];
 
     const container = document.getElementById("videos");
@@ -116,7 +114,11 @@
         div.className = "video";
         div.innerHTML = `
           <h3>Aula ${index + 1}</h3>
-          <iframe src="https://drive.google.com/file/d/${id}/preview" allow="autoplay"allowfullscreen></iframe>
+          <iframe 
+            src="https://drive.google.com/file/d/${id}/preview" 
+            allow="autoplay; fullscreen" 
+            allowfullscreen>
+          </iframe>
         `;
         container.appendChild(div);
       }
