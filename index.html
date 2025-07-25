@@ -1,121 +1,119 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Inscrição - Torneio de Xadrez</title>
+  <meta charset="UTF-8">
+  <title>Curso de Defesa Moderna</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #f6f6f6, #ccc);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #f1f1f1, #e0e7ff);
+      margin: 0;
+      padding: 0;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
       min-height: 100vh;
-      padding: 20px;
     }
-    .container {
-      background: #fff;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 450px;
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      margin-top: 10px;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-    button {
-      width: 100%;
-      margin-top: 20px;
-      background-color: #333;
+
+    header {
+      background-color: #4f46e5;
       color: white;
-      padding: 10px;
+      text-align: center;
+      padding: 25px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 16px;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 30px;
+      width: 90%;
+    }
+
+    .video {
+      margin-top: 30px;
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 450px;
+      border-radius: 8px;
       border: none;
-      border-radius: 6px;
-      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
-    button:hover {
-      background-color: #555;
-    }
-    .success-message {
-      margin-top: 15px;
-      color: green;
-      font-weight: bold;
+
+    footer {
+      margin-top: auto;
+      background-color: #4f46e5;
+      color: white;
       text-align: center;
-      display: none;
+      padding: 15px 10px;
+      font-size: 14px;
     }
-    .error-message {
-      margin-top: 15px;
-      color: red;
-      font-weight: bold;
-      text-align: center;
-      display: none;
+
+    @media (max-width: 600px) {
+      iframe {
+        height: 300px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Inscrição - Torneio de Xadrez</h2>
-    <form id="chessForm">
-      <label for="nome">Nome completo:</label>
-      <input type="text" name="nome" id="nome" required />
 
-      <label for="email">E-mail:</label>
-      <input type="email" name="email" id="email" required />
+  <header>
+    <h1>CURSO DE DEFESA MODERNA</h1>
+    <p>Assista às aulas gravadas abaixo</p>
+  </header>
 
-      <label for="categoria">Categoria:</label>
-      <select name="categoria" id="categoria" required>
-        <option value="">Selecione</option>
-        <option value="adulto">Adulto</option>
-        <option value="sub18">Sub-18</option>
-      </select>
+  <main id="videos">
+    <!-- Vídeos serão inseridos automaticamente aqui -->
+  </main>
 
-      <label for="mensagem">Mensagem adicional (opcional):</label>
-      <textarea name="mensagem" id="mensagem" rows="3"></textarea>
+  <footer>
+    WanderTec - Todos os direitos reservados ©
+  </footer>
 
-      <button type="submit">Enviar inscrição</button>
-    </form>
+  <script>
+    // Adicione aqui os links COMPLETOS do Google Drive
+    const links = [
+      "https://drive.google.com/file/d/11KKIefDQ1N-xvNQLnJJKF6AMZflcVhMC/view?usp=drivesdk",
+      // Adicione mais links abaixo:
+      // "https://drive.google.com/file/d/ID_DO_VIDEO/view",
+      // "https://drive.google.com/file/d/OUTRO_ID/view"
+    ];
 
-    <div class="success-message" id="successMessage">Inscrição enviada com sucesso! Obrigado.</div>
-    <div class="error-message" id="errorMessage">Erro ao enviar a inscrição. Tente novamente.</div>
-  </div>
+    const container = document.getElementById("videos");
 
-  <!-- Importa o SDK do EmailJS -->
-  <script src="https://cdn.emailjs.com/sdk/3.2/email.min.js"></script>
-<script>
-  (function() {
-    emailjs.init("rXNgE8nJI-v6FDyR4"); // Seu User ID (chave pública)
+    links.forEach((link, index) => {
+      const match = link.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      const id = match ? match[1] : null;
 
-    const form = document.getElementById('chessForm');
-    const successMessage = document.getElementById('successMessage');
-    const errorMessage = document.getElementById('errorMessage');
-
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      emailjs.sendForm('service_igivs66', 'template_477e2cl', this)
-        .then(() => {
-          successMessage.style.display = 'block';
-          errorMessage.style.display = 'none';
-          form.reset();
-        }, (error) => {
-          console.error('Erro:', error);
-          successMessage.style.display = 'none';
-          errorMessage.style.display = 'block';
-        });
+      if (id) {
+        const div = document.createElement("div");
+        div.className = "video";
+        div.innerHTML = `
+          <h3>Aula ${index + 1}</h3>
+          <iframe src="https://drive.google.com/file/d/${id}/preview" allow="autoplay"></iframe>
+        `;
+        container.appendChild(div);
+      }
     });
-  })();
-</script>
+  </script>
+
+</body>
+</html>
