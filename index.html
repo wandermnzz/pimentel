@@ -90,7 +90,7 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
   position: fixed;
   bottom: 20px;
   left: 20px;
-  padding: 8px 16px;
+  padding: 5px 13px;
   border-radius: 12px;
   color: #fff;
   font-weight: bold;
@@ -306,12 +306,24 @@ function atualizarStatusLoja() {
 document.addEventListener('DOMContentLoaded', atualizarStatusLoja);
 // Atualiza a cada 5 minutos
 setInterval(atualizarStatusLoja, 300000);
+  // Evita que o botão voltar do celular feche o site quando a categoria estiver aberta
+window.addEventListener('popstate', function() {
+  const categoryPage = document.getElementById('categoryPage');
+  if(categoryPage.style.display === 'flex') {
+    closeCategoryPage(); // fecha apenas a categoria
+    history.pushState(null, ''); // mantém o site aberto
+  }
+});
+
+// Inicializa o histórico para interceptar o botão voltar
+history.pushState(null, '');
 
 // Inicializa categorias
 renderCategories();
 </script>
 </body>
 </html>
+
 
 
 
