@@ -36,30 +36,43 @@ header h1 img { height:50px; border-radius:8px; }
   z-index: 900; /* Tela da categoria */
   overflow-y: auto;
 }
-
-#cartDrawer {
-  position: fixed; /* fixo na tela, não importa a categoria */
-  top: 80px;
-  right: 20px;
+  #cartDrawer {
+  position: fixed;
+  top: 20px;         /* distancia do topo */
+  right: 20px;       /* distancia da direita */
   width: 280px;
   max-height: 60vh;
   background: #FFF3CD;
-  z-index: 1000; /* maior que a categoria */
-  border-radius: 12px;
+  border-radius: 50px; /* estilo de "bolinha" */
   border: 2px solid #D90429;
-  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 1100;      /* acima da categoria */
   display: flex;
   flex-direction: column;
   opacity: 0;
-  transform: translateY(20px);
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
+  overflow: hidden;
+  padding: 10px;
 }
 
 #cartDrawer.open {
   opacity: 1;
-  transform: translateY(0);
   pointer-events: all;
+  transform: translateY(0);
+}
+
+#cartDrawerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#cartDrawer #cartItems {
+  overflow-y: auto;
+  max-height: 50vh;
 }
 .cart-item { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #eee; }
 .cart-item img { width:50px; height:50px; object-fit:cover; border-radius:8px; }
@@ -85,7 +98,13 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
 
 <header>
 <h1><img src="logo.png" alt="Logo">Giba's Salgados</h1>
-<button class="cart-button" onclick="toggleCart()">🛒 <span id="cartCount">0</span></button>
+<header>
+  <h1>
+    <img src="logo.png" alt="Logo">
+    Giba's Salgados
+  </h1>
+  <!-- Botão do carrinho -->
+  <button class="cart-button" onclick="toggleCart()">🛒 <span id="cartCount">0</span></button>
 </header>
 
 <div id="categoryMenu" class="categories"></div>
@@ -110,12 +129,11 @@ Giba's Salgados © 2025
 <a href="https://wa.me/5579996283715" class="whatsapp">💬</a>
 
 <div id="cartDrawer">
-<h2>Carrinho</h2>
-<div id="cartItems"></div>
-<button id="checkoutBtn">Finalizar Pedido</button>
-<button id="closeCartBtn">Continuar Comprando</button>
+  <div id="cartDrawerHeader" onclick="toggleCart()">🛒 <span id="cartCount">0</span></div>
+  <div id="cartItems"></div>
+  <button id="checkoutBtn">Finalizar Pedido</button>
 </div>
-
+  
 <script>
 const categorias = [
   {nome:'Salgados Assados', img:'assados.jpg'},
@@ -305,5 +323,6 @@ history.pushState(null,'');
 </script>
 </body>
 </html>
+
 
 
