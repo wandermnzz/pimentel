@@ -26,24 +26,33 @@ header h1 img { height:50px; border-radius:8px; }
 .card-body p { font-size:14px; color:#555; }
 .price { color:#D90429; font-weight:bold; margin-top:5px; }
 .btn { background:#D90429; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; margin-top:8px; width:100%; }
-#cartDrawer {
+#categoryPage {
   position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #fff8ef;
+  display: none;
+  flex-direction: column;
+  z-index: 900; /* Tela da categoria */
+  overflow-y: auto;
+}
+
+#cartDrawer {
+  position: fixed; /* fixo na tela, não importa a categoria */
   top: 80px;
   right: 20px;
   width: 280px;
   max-height: 60vh;
   background: #FFF3CD;
-  box-shadow: -4px 4px 20px rgba(0,0,0,0.2);
-  display: flex;
-  flex-direction: column;
-  z-index: 1000;
+  z-index: 1000; /* maior que a categoria */
   border-radius: 12px;
   border: 2px solid #D90429;
   overflow-y: auto;
-
-  opacity: 0;           /* invisível */
-  transform: translateY(20px);  /* fora da tela */
-  pointer-events: none;  /* não clicável */
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
@@ -296,4 +305,5 @@ history.pushState(null,'');
 </script>
 </body>
 </html>
+
 
