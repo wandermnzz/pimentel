@@ -26,8 +26,32 @@ header h1 img { height:50px; border-radius:8px; }
 .card-body p { font-size:14px; color:#555; }
 .price { color:#D90429; font-weight:bold; margin-top:5px; }
 .btn { background:#D90429; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; margin-top:8px; width:100%; }
+#cartDrawer {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 280px;
+  max-height: 60vh;
+  background: #FFF3CD;
+  box-shadow: -4px 4px 20px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  border-radius: 12px;
+  border: 2px solid #D90429;
+  overflow-y: auto;
 
-#cartDrawer { position:fixed; top:80px; right:20px; width:280px; max-height:60vh; background:#FFF3CD; box-shadow:-4px 4px 20px rgba(0,0,0,0.2); display:flex; flex-direction:column; z-index:1000; border-radius:12px; border:2px solid #D90429; overflow-y:auto; }
+  opacity: 0;           /* invisível */
+  transform: translateY(20px);  /* fora da tela */
+  pointer-events: none;  /* não clicável */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#cartDrawer.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
 .cart-item { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #eee; }
 .cart-item img { width:50px; height:50px; object-fit:cover; border-radius:8px; }
 .cart-item-details { flex:1; }
@@ -272,3 +296,4 @@ history.pushState(null,'');
 </script>
 </body>
 </html>
+
