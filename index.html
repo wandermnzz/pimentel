@@ -9,8 +9,6 @@ body { margin:0; font-family: Arial, sans-serif; background:#fff8ef; color:#1f1f
 header { background:#D90429; color:#fff; padding:10px 20px; display:flex; justify-content:space-between; align-items:center; }
 header h1 { margin:0; font-size:24px; display:flex; align-items:center; gap:10px; }
 header h1 img { height:50px; border-radius:8px; }
-.cart-button { background:#fff; color:#D90429; border:2px solid #D90429; padding:6px 12px; border-radius:8px; cursor:pointer; font-weight:bold; position:relative; }
-.cart-button #cartCount { position:absolute; top:-5px; right:-5px; background:#D90429; color:#fff; font-size:12px; font-weight:bold; padding:2px 6px; border-radius:50%; }
 
 .categories { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:15px; padding:20px; }
 .category-card { width:200px; height:200px; position:relative; border-radius:12px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.1); cursor:pointer; transition: transform 0.2s; }
@@ -26,6 +24,7 @@ header h1 img { height:50px; border-radius:8px; }
 .card-body p { font-size:14px; color:#555; }
 .price { color:#D90429; font-weight:bold; margin-top:5px; }
 .btn { background:#D90429; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; margin-top:8px; width:100%; }
+
 .cart-item { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #eee; }
 .cart-item img { width:50px; height:50px; object-fit:cover; border-radius:8px; }
 .cart-item-details { flex:1; }
@@ -33,8 +32,7 @@ header h1 img { height:50px; border-radius:8px; }
 .cart-item-details .qty { display:flex; gap:5px; align-items:center; margin-top:4px; }
 .cart-item-details button { padding:2px 6px; border:none; background:#D90429; color:#fff; border-radius:6px; cursor:pointer; }
 
-#checkoutBtn, #closeCartBtn { background:#D90429; color:#fff; border:none; padding:10px; margin:10px; border-radius:8px; cursor:pointer; font-weight:bold; }
-#closeCartBtn { background:#555; }
+#checkoutBtn { background:#D90429; color:#fff; border:none; padding:10px; margin:10px; border-radius:8px; cursor:pointer; font-weight:bold; }
 
 #cartDrawer{
   position: fixed;
@@ -46,7 +44,7 @@ header h1 img { height:50px; border-radius:8px; }
   border-radius: 50px;
   border: 2px solid #D90429;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  z-index: 1100;  /* deve ser maior que #categoryPage (900) */
+  z-index: 1100;
   display: flex;
   flex-direction: column;
   opacity: 0;
@@ -56,8 +54,25 @@ header h1 img { height:50px; border-radius:8px; }
   padding: 10px;
 }
 
-#cartDrawer.open {
-  opacity: 1;
+#cartDrawerHeader{
+  cursor:pointer;
+  font-weight:bold;
+  font-size:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+#cartCountDrawer {
+  background:#D90429;
+  color:#fff;
+  padding:2px 6px;
+  border-radius:50%;
+  font-size:12px;
+}
+
+#cartDrawer.open{
+  opacity:1;
   pointer-events: all;
   transform: translateY(0);
 }
@@ -69,15 +84,17 @@ header h1 img { height:50px; border-radius:8px; }
   background: #fff8ef;
   display: none;
   flex-direction: column;
-  z-index: 900;  /* menor que o carrinho */
+  z-index: 900;
   overflow-y: auto;
-    }
+}
+
 #categoryHeader { background:#D90429; color:#fff; padding:15px; display:flex; align-items:center; gap:10px; font-size:18px; }
 #categoryHeader span { cursor:pointer; font-size:22px; font-weight:bold; }
 
 footer { background:#fff8ef; padding:15px; text-align:center; border-top:1px solid #FFD166; }
 footer .links { margin-top:10px; }
 footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weight:bold; }
+
 .whatsapp { position:fixed; bottom:20px; right:20px; background:#25D366; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; color:#fff; font-size:24px; z-index:1100; }
 </style>
 </head>
@@ -85,19 +102,28 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
 
 <header>
 <h1><img src="logo.png" alt="Logo">Giba's Salgados</h1>
-  <!-- Botão do carrinho -->
-  <button class="cart-button" onclick="toggleCart()">🛒 <span id="cartCount">0</span></button>
 </header>
 
+<!-- Categorias -->
 <div id="categoryMenu" class="categories"></div>
+
+<!-- Produtos principais -->
 <div id="menuContainer" class="grid"></div>
 
+<!-- Tela de categoria -->
 <div id="categoryPage">
   <div id="categoryHeader">
     <span onclick="closeCategoryPage()">←</span>
     <div id="categoryTitle"></div>
   </div>
   <div id="categoryContent" class="grid"></div>
+</div>
+
+<!-- Carrinho fixo -->
+<div id="cartDrawer">
+  <div id="cartDrawerHeader" onclick="toggleCart()">🛒 <span id="cartCountDrawer">0</span></div>
+  <div id="cartItems"></div>
+  <button id="checkoutBtn">Finalizar Pedido</button>
 </div>
 
 <footer>
@@ -110,12 +136,6 @@ Giba's Salgados © 2025
 
 <a href="https://wa.me/5579996283715" class="whatsapp">💬</a>
 
-<div id="cartDrawer">
-  <div id="cartDrawerHeader" onclick="toggleCart()">🛒 <span id="cartCount">0</span></div>
-  <div id="cartItems"></div>
-  <button id="checkoutBtn">Finalizar Pedido</button>
-</div>
-  
 <script>
 const categorias = [
   {nome:'Salgados Assados', img:'assados.jpg'},
@@ -139,24 +159,24 @@ let selectedCategory = '';
 function renderCategories() {
   const menu = document.getElementById('categoryMenu');
   menu.innerHTML = '';
-  categorias.forEach(cat => {
+  categorias.forEach(cat=>{
     const card = document.createElement('div');
-    card.className = 'category-card';
+    card.className='category-card';
     card.innerHTML = `<img src="${cat.img}" alt="${cat.nome}"><div class="nome-categoria">${cat.nome}</div>`;
-    card.onclick = () => openCategoryPage(cat.nome);
+    card.onclick = ()=>openCategoryPage(cat.nome);
     menu.appendChild(card);
   });
 }
 
-function openCategoryPage(categoria) {
+function openCategoryPage(categoria){
   selectedCategory = categoria;
   document.getElementById('categoryTitle').innerText = categoria;
   const content = document.getElementById('categoryContent');
   content.innerHTML = '';
-  produtos.filter(p => p.categoria === categoria).forEach(p => {
+  produtos.filter(p=>p.categoria===categoria).forEach(p=>{
     const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
+    card.className='card';
+    card.innerHTML=`
       <img src="${p.img}" alt="${p.nome}" onclick="zoomImage('${p.img}')">
       <div class="card-body">
         <h3>${p.nome}</h3>
@@ -167,22 +187,23 @@ function openCategoryPage(categoria) {
     `;
     content.appendChild(card);
   });
-  document.getElementById('categoryPage').style.display = 'flex';
-  document.getElementById('menuContainer').style.display = 'none';
-  document.getElementById('categoryMenu').style.display = 'none';
+  document.getElementById('categoryPage').style.display='flex';
+  document.getElementById('menuContainer').style.display='none';
+  document.getElementById('categoryMenu').style.display='none';
 }
 
-function closeCategoryPage() {
-  document.getElementById('categoryPage').style.display = 'none';
-  document.getElementById('menuContainer').style.display = 'grid';
-  document.getElementById('categoryMenu').style.display = 'grid';
+function closeCategoryPage(){
+  document.getElementById('categoryPage').style.display='none';
+  document.getElementById('menuContainer').style.display='grid';
+  document.getElementById('categoryMenu').style.display='grid';
 }
 
-function addToCart(id) {
+function addToCart(id){
   if(cart[id]) cart[id].qty += 1;
-  else cart[id] = {...produtos.find(p => p.id===id), qty:1};
+  else cart[id] = {...produtos.find(p=>p.id===id), qty:1};
   renderCart();
-  updateCartCount();}
+  updateCartCount();
+}
 
 function removeFromCart(id){
   if(cart[id]){
@@ -205,11 +226,11 @@ function renderCart(){
   const itemsDiv = document.getElementById('cartItems');
   itemsDiv.innerHTML = '';
   let total = 0;
-  Object.values(cart).forEach(item => {
+  Object.values(cart).forEach(item=>{
     total += item.preco * item.qty;
     const div = document.createElement('div');
-    div.className = 'cart-item';
-    div.innerHTML = `
+    div.className='cart-item';
+    div.innerHTML=`
       <img src="${item.img}">
       <div class="cart-item-details">
         <p>${item.nome} - R$${item.preco.toFixed(2)}</p>
@@ -223,19 +244,19 @@ function renderCart(){
     `;
     itemsDiv.appendChild(div);
   });
-  if(total > 0){
+  if(total>0){
     const totalDiv = document.createElement('div');
-    totalDiv.style.textAlign = 'right';
-    totalDiv.style.fontWeight = 'bold';
-    totalDiv.style.margin = '10px 0';
-    totalDiv.innerText = `Total: R$${total.toFixed(2)}`;
+    totalDiv.style.textAlign='right';
+    totalDiv.style.fontWeight='bold';
+    totalDiv.style.margin='10px 0';
+    totalDiv.innerText=`Total: R$${total.toFixed(2)}`;
     itemsDiv.appendChild(totalDiv);
   }
 }
 
 function updateCartCount(){
   const count = Object.values(cart).reduce((sum,item)=>sum+item.qty,0);
-  document.getElementById('cartCount').innerText = count;
+  document.getElementById('cartCountDrawer').innerText=count;
 }
 
 function toggleCart(){
@@ -247,10 +268,10 @@ document.getElementById('checkoutBtn').onclick = function(){
     alert('Seu carrinho está vazio!');
     return;
   }
-  let total = 0;
-  let message = 'Olá! Gostaria de fazer o pedido:\n';
+  let total=0;
+  let message='Olá! Gostaria de fazer o pedido:\n';
   Object.values(cart).forEach(i=>{
-    total += i.preco * i.qty;
+    total += i.preco*i.qty;
     message += `- ${i.nome} x${i.qty}\n`;
   });
   message += `\nTotal: R$${total.toFixed(2)}`;
@@ -260,12 +281,10 @@ document.getElementById('checkoutBtn').onclick = function(){
   renderCart();
   updateCartCount();
   toggleCart();
-};
-
-document.getElementById('closeCartBtn').onclick = toggleCart;
+}
 
 function zoomImage(src){
-  const modal = document.createElement('div');
+  const modal=document.createElement('div');
   modal.style.position='fixed';
   modal.style.top='0';
   modal.style.left='0';
@@ -278,8 +297,8 @@ function zoomImage(src){
   modal.style.zIndex='2000';
   modal.onclick=function(){ document.body.removeChild(modal); };
 
-  const img = document.createElement('img');
-  img.src = src;
+  const img=document.createElement('img');
+  img.src=src;
   img.style.maxWidth='90%';
   img.style.maxHeight='80%';
   img.style.borderRadius='12px';
@@ -294,7 +313,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   updateCartCount();
 });
 
-// Botão voltar do navegador fecha categoria, não o site
+// Botão voltar do navegador fecha a categoria, não o site
 window.addEventListener('popstate', function(){
   if(document.getElementById('categoryPage').style.display==='flex'){
     closeCategoryPage();
@@ -302,11 +321,7 @@ window.addEventListener('popstate', function(){
   }
 });
 history.pushState(null,'');
+
 </script>
 </body>
 </html>
-
-
-
-
-
