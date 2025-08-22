@@ -5,82 +5,247 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Giba's Salgados</title>
   <style>
-    body{margin:0;font-family:Arial,sans-serif;background:#fff8ef;color:#1f1f1f}
-    header{background:#D90429;color:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center}
-    header h1{margin:0;font-size:24px;display:flex;align-items:center;gap:10px}
-    header h1 img{height:40px;border-radius:8px}
-    .category-menu{display:flex;gap:15px;padding:10px 20px;background:#FFD166;flex-wrap:wrap}
-    .category-menu button{padding:8px 12px;border:none;border-radius:8px;cursor:pointer;background:#D90429;color:#fff;font-weight:bold}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:15px;padding:20px}
-    .card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
-    .card img{width:100%;height:150px;object-fit:cover;cursor:pointer}
-    .card-body{padding:10px}
-    .card-body h3{margin:0;font-size:18px}
-    .card-body p{font-size:14px;color:#555}
-    .price{color:#D90429;font-weight:bold;margin-top:5px}
-    .btn{background:#D90429;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;margin-top:8px;width:100%}
-    footer{background:#fff8ef;padding:15px;text-align:center;border-top:1px solid #FFD166}
-    footer .links{margin-top:10px}
-    footer .links a{color:#D90429;margin:0 10px;text-decoration:none;font-weight:bold}
-    .whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;font-size:24px}
-    
-    /* Carrinho estilizado */
-    #cartDrawer{
-      position:fixed;
-      top:0;
-      right:-400px;
-      width:350px;
-      height:100%;
-      background:#FFF3CD; /* amarelo suave */
-      box-shadow:-8px 0 20px rgba(0,0,0,0.2);
-      transition:right 0.4s ease-in-out;
-      display:flex;
-      flex-direction:column;
-      z-index:100;
-      border-left:4px solid #D90429; /* detalhe vermelho */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff8ef;
+      color: #1f1f1f;
     }
-    #cartDrawer.open{right:0}
-    #cartDrawer h2{margin:10px;padding:0 15px}
-    #cartItems{flex:1;overflow-y:auto;padding:0 15px}
-    .cart-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #eee}
-    .cart-item img{width:50px;height:50px;object-fit:cover;border-radius:8px}
-    .cart-item-details{flex:1}
-    .cart-item-details p{margin:0;font-size:14px}
-    .cart-item-details .qty{display:flex;gap:5px;align-items:center;margin-top:4px}
-    .cart-item-details button{padding:2px 6px;border:none;background:#D90429;color:#fff;border-radius:6px;cursor:pointer}
-    #checkoutBtn{background:#D90429;color:#fff;border:none;padding:10px;margin:10px;border-radius:8px;cursor:pointer;font-weight:bold}
-    #closeCartBtn{background:#555;color:#fff;border:none;padding:10px;margin:10px;border-radius:8px;cursor:pointer;font-weight:bold}
-    
-    .cart-button{background:#fff;color:#D90429;border:2px solid #D90429;padding:6px 12px;border-radius:8px;cursor:pointer;font-weight:bold}
-    .logo {
-  height: 80px; /* aumenta ou diminui aqui */
-  margin-right: 10px;
+    header {
+      background: #D90429;
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    header h1 img {
+      height: 50px;
+      border-radius: 8px;
+    }
+    .cart-button {
+      background: #fff;
+      color: #D90429;
+      border: 2px solid #D90429;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Categorias em cards com imagens */
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+    .category-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+      text-align: center;
+    }
+    .category-card:hover { transform: scale(1.05); }
+    .category-card img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+    }
+    .category-card p {
+      margin: 8px 0;
+      font-weight: bold;
+      color: #D90429;
+    }
+
+    /* Produtos em grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .card-body {
+      padding: 10px;
+    }
+    .card-body h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .card-body p {
+      font-size: 14px;
+      color: #555;
+    }
+    .price {
+      color: #D90429;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+    .btn {
+      background: #D90429;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 8px;
+      width: 100%;
+    }
+
+    /* Carrinho flutuante */
+    #cartDrawer {
+      position: fixed;
+      top: 70px; /* abaixo do header */
+      right: 20px;
+      width: 320px;
+      height: 80vh;
+      background: #FFF3CD;
+      box-shadow: -4px 4px 20px rgba(0,0,0,0.2);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      border-radius: 12px;
+      border: 2px solid #D90429;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+    }
+    #cartDrawer.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+    #cartDrawer h2 {
+      margin: 10px;
+      font-size: 20px;
+    }
+    #cartItems {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 15px;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .cart-item img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .cart-item-details { flex: 1; }
+    .cart-item-details p { margin: 0; font-size: 14px; }
+    .cart-item-details .qty {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      margin-top: 4px;
+    }
+    .cart-item-details button {
+      padding: 2px 6px;
+      border: none;
+      background: #D90429;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #checkoutBtn, #closeCartBtn {
+      background: #D90429;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #closeCartBtn { background: #555; }
+
+    footer {
+      background: #fff8ef;
+      padding: 15px;
+      text-align: center;
+      border-top: 1px solid #FFD166;
+    }
+    footer .links {
+      margin-top: 10px;
+    }
+    footer .links a {
+      color: #D90429;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .whatsapp {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #fff;
+      font-size: 24px;
+      z-index: 1100;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>
-      <img src="logo.png" 
-      alt="Logo" class="logo">
+      <img src="logo.png" alt="Logo">
       Giba's Salgados
     </h1>
     <button class="cart-button" onclick="toggleCart()">🛒</button>
   </header>
 
-  <div class="category-menu" id="categoryMenu"></div>
+  <!-- Categorias -->
+  <div id="categoryMenu"></div>
+  <!-- Produtos -->
   <div id="menuContainer"></div>
 
   <footer>
     Giba's Salgados © 2025
     <div class="links">
-      <a href="https://www.instagram.com/gibassalgados?igsh=cnAxaHg0M3YyMWM3">Instagram</a>
+      <a href="https://www.instagram.com/gibassalgados">Instagram</a>
       <a href="https://wa.me/5579996283715">WhatsApp</a>
     </div>
   </footer>
 
   <a href="https://wa.me/5579996283715" class="whatsapp">💬</a>
 
+  <!-- Carrinho -->
   <div id="cartDrawer">
     <h2>Produtos</h2>
     <div id="cartItems"></div>
@@ -90,77 +255,49 @@
 
   <script>
     const categorias = [
-  'Salgados Assados',
-  'Tortas',
-  'Salgados Fritos',
-  'Big Coxinha 600g',
-  'Salgados para festas'
-];
+      {nome:'Salgados Assados', img:'imagens/cat_assados.jpg'},
+      {nome:'Tortas', img:'imagens/cat_tortas.jpg'},
+      {nome:'Salgados Fritos', img:'imagens/cat_fritos.jpg'},
+      {nome:'Big Coxinha 600g', img:'imagens/cat_bigcoxinha.jpg'},
+      {nome:'Salgados para festas', img:'imagens/cat_festas.jpg'}
+    ];
 
     const produtos = [
-  // SALGADOS ASSADOS
-  {id:'sa1', nome:'Esfirra de Carne', preco:9, categoria:'Salgados Assados', desc:'Deliciosa esfirra de carne.', img:'imagens/esfirra.jpg'},
-  {id:'sa2', nome:'Presunto, Queijo e Cheddar', preco:9, categoria:'Salgados Assados', desc:'Salgado assado com presunto, queijo e cheddar.', img:'imagens/assado2.jpg'},
-  {id:'sa3', nome:'Hamburguer c/ Catupiry', preco:9, categoria:'Salgados Assados', desc:'Hambúrguer saboroso com Catupiry.', img:'imagens/assado3.jpg'},
-  // ... continue para todos os "Salgados Assados"
+      {id:'sa1', nome:'Esfirra de Carne', preco:9, categoria:'Salgados Assados', desc:'Deliciosa esfirra de carne.', img:'imagens/esfirra.jpg'},
+      {id:'t1', nome:'Torta de Frango', preco:80, categoria:'Tortas', desc:'Torta caseira deliciosa.', img:'imagens/torta1.jpg'},
+      {id:'sf1', nome:'Coxinha de Frango', preco:9, categoria:'Salgados Fritos', desc:'Coxinha crocante de frango.', img:'imagens/coxinha.jpg'},
+      {id:'bc1', nome:'Big Coxinha Frango', preco:23, categoria:'Big Coxinha 600g', desc:'Coxinha gigante 600g de frango.', img:'imagens/bigcoxinha_frango.jpg'},
+      {id:'sfest1', nome:'Coxinha Festa', preco:90, categoria:'Salgados para festas', desc:'Cento de mini coxinhas.', img:'imagens/festa_coxinha.jpg'},
+    ];
 
-  // TORTAS
-  {id:'t1', nome:'Presunto, Queijo e Cheddar', preco:80, categoria:'Tortas', desc:'Torta saborosa com presunto, queijo e cheddar.', img:'imagens/torta1.jpg'},
-  {id:'t2', nome:'Frango c/ Palmito, Queijo e Catupiry', preco:80, categoria:'Tortas', desc:'Torta de frango com palmito e catupiry.', img:'imagens/torta2.jpg'},
-  {id:'t3', nome:'Frango, Bacon, Queijo e Catupiry', preco:80, categoria:'Tortas', desc:'Torta de frango, bacon, queijo e catupiry.', img:'imagens/torta3.jpg'},
-  {id:'t4', nome:'Costela c/ Catupiry', preco:90, categoria:'Tortas', desc:'Torta de costela com catupiry.', img:'imagens/torta4.jpg'},
-  {id:'t5', nome:'Brocolis c/ Bacon e Queijo', preco:80, categoria:'Tortas', desc:'Torta de brócolis com bacon e queijo.', img:'imagens/torta5.jpg'},
-  {id:'t6', nome:'Calabresa c/ Queijo e Cheddar', preco:80, categoria:'Tortas', desc:'Torta de calabresa com queijo e cheddar.', img:'imagens/torta6.jpg'},
-
-  // SALGADOS FRITOS
-  {id:'sf1', nome:'Coxinha de Frango', preco:9, categoria:'Salgados Fritos', desc:'Coxinha de frango deliciosa.', img:'imagens/coxinha.jpg'},
-  {id:'sf2', nome:'Coxinha de Frango c/ Catupiry', preco:9, categoria:'Salgados Fritos', desc:'Coxinha de frango com Catupiry.', img:'imagens/coxinha_catupiry.jpg'},
-  {id:'sf3', nome:'Coxinha de Frango c/ Bacon e Queijo', preco:9, categoria:'Salgados Fritos', desc:'Coxinha de frango com bacon e queijo.', img:'imagens/coxinha_bacon.jpg'},
-  {id:'sf4', nome:'Coxinha de Costela c/ Bacon e Queijo', preco:10, categoria:'Salgados Fritos', desc:'Coxinha de costela com bacon e queijo.', img:'imagens/coxinha_costela.jpg'},
-  {id:'sf5', nome:'Kibe c/ Queijo', preco:9, categoria:'Salgados Fritos', desc:'Kibe com queijo.', img:'imagens/kibe.jpg'},
-  {id:'sf6', nome:'Kibe c/ Carne', preco:9, categoria:'Salgados Fritos', desc:'Kibe tradicional de carne.', img:'imagens/kibe_carne.jpg'},
-  // ... continue com todos os fritos
-
-  // BIG COXINHA 600G
-  {id:'bc1', nome:'Frango', preco:23, categoria:'Big Coxinha 600g', desc:'Coxinha gigante de frango 600g.', img:'imagens/bigcoxinha_frango.jpg'},
-  {id:'bc2', nome:'Presunto e Queijo', preco:23, categoria:'Big Coxinha 600g', desc:'Coxinha gigante de presunto e queijo.', img:'imagens/bigcoxinha_presunto.jpg'},
-  // ... e assim por diante
-
-  // SALGADOS PARA FESTAS
-  {id:'sfest1', nome:'Coxinha', preco:90, categoria:'Salgados para festas', desc:'Coxinhas em grande quantidade (por cento).', img:'imagens/festa_coxinha.jpg'},
-  {id:'sfest2', nome:'Risolís Presunto e Queijo', preco:90, categoria:'Salgados para festas', desc:'Risolís em grande quantidade.', img:'imagens/festa_risoli.jpg'},
-  // ... complete todos
-];
     let cart = {};
     let selectedCategory = '';
 
     function renderCategories() {
       const menu = document.getElementById('categoryMenu');
+      menu.className = 'categories';
       menu.innerHTML = '';
 
-      const allBtn = document.createElement('button');
-      allBtn.innerText = 'Todos';
-      allBtn.onclick = () => {
-        selectedCategory = '';
-        renderMenu();
-      };
-      menu.appendChild(allBtn);
-
       categorias.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.innerText = cat;
-        btn.onclick = () => {
-          selectedCategory = cat;
+        const card = document.createElement('div');
+        card.className = 'category-card';
+        card.innerHTML = `
+          <img src="${cat.img}" alt="${cat.nome}">
+          <p>${cat.nome}</p>
+        `;
+        card.onclick = () => {
+          selectedCategory = cat.nome;
           renderMenu();
         };
-        menu.appendChild(btn);
+        menu.appendChild(card);
       });
     }
 
     function renderMenu() {
       const container = document.getElementById('menuContainer');
       container.innerHTML = '';
-      const filtered = selectedCategory ? produtos.filter(p => p.categoria === selectedCategory) : produtos;
+      const filtered = produtos.filter(p => p.categoria === selectedCategory);
+
       const grid = document.createElement('div');
       grid.className = 'grid';
 
@@ -173,7 +310,7 @@
             <h3>${p.nome}</h3>
             <p>${p.desc}</p>
             <div class="price">R$${p.preco.toFixed(2)}</div>
-            <button class="btn" onclick="addToCart('${p.id}')">Adicionar ao Carrinho</button>
+            <button class="btn" onclick="addToCart('${p.id}')">Adicionar</button>
           </div>
         `;
         grid.appendChild(card);
@@ -293,11 +430,6 @@
     }
 
     renderCategories();
-    renderMenu();
   </script>
 </body>
 </html>
-
-
-
-
