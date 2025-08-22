@@ -58,9 +58,11 @@
     }
     .category-card:hover { transform: scale(1.05); }
     .category-card img {
-      width: 100%;
-      height: 100px;
-      object-fit: cover;
+  width: 100%;        /* ocupa toda a largura do card */
+  height: 100px;      /* ajusta a altura para caber no layout */
+  object-fit: contain; /* mantém toda a imagem sem cortar */
+  background: #fff;   /* se houver espaço vazio, fica branco */
+  border-bottom: 1px solid #D90429; /* opcional, separa do texto */
     }
     .category-card p {
       margin: 8px 0;
@@ -466,6 +468,7 @@
   </script>
 </body>
 </html>
+
 
 
 
