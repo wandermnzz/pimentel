@@ -282,41 +282,37 @@ window.addEventListener("popstate", (event) => {
     history.pushState(null, null, window.location.pathname);
   }
 });
+
 function atualizarStatusLoja() {
-  // Pega a hora atual de São Paulo
-  const nowSP = new Date(new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }));
-  const diaSemana = nowSP.getDay(); // 0 = domingo, 1 = segunda...
-  const hora = nowSP.getHours();
+  const statusDiv = document.getElementById('lojaStatus');
+  
+  // Hora em São Paulo
+  const sp = new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"});
+  const agora = new Date(sp);
 
-  const statusDiv = document.getElementById("lojaStatus");
+  const dia = agora.getDay(); // 0 = domingo
+  const hora = agora.getHours();
 
-  if (diaSemana === 0) {
-    // Domingo fechado
-    statusDiv.innerHTML = "📕 Fechado hoje (Domingo)";
-    statusDiv.style.color = "red";
-  } else if (hora >= 9 && hora < 22) {
-    // Aberto
-    statusDiv.innerHTML = "📗 Aberto";
-    statusDiv.style.color = "green";
+  if(dia === 0 || hora < 9 || hora >= 22) {
+    statusDiv.className = 'fechado';
+    statusDiv.innerText = 'Fechada📕';
   } else {
-    // Fora do horário
-    statusDiv.innerHTML = "📕 Fechado";
-    statusDiv.style.color = "red";
+    statusDiv.className = 'aberto';
+    statusDiv.innerText = 'Aberta📗 ';
   }
 }
 
-// Atualiza imediatamente
-atualizarStatusLoja();
-
-// Atualiza a cada minuto caso o usuário fique na página
-setInterval(atualizarStatusLoja, 60000);
-
+// Atualiza ao carregar
+document.addEventListener('DOMContentLoaded', atualizarStatusLoja);
+// Atualiza a cada 5 minutos
+setInterval(atualizarStatusLoja, 300000);
 
 // Inicializa categorias
 renderCategories();
 </script>
 </body>
 </html>
+
 
 
 
