@@ -89,17 +89,48 @@
   </div>
 
   <script>
-    const categorias = ['Esfirra', 'Pastel', 'Coxinha', 'Hambúrguer', 'Torta sob encomenda', 'Bebidas'];
+    const categorias = [
+  'Salgados Assados',
+  'Tortas',
+  'Salgados Fritos',
+  'Big Coxinha 600g',
+  'Salgados para festas'
+];
 
     const produtos = [
-      {id:'e1', nome:'Esfirra de Carne', preco:6.50, categoria:'Esfirra', desc:'Carne temperada, massa leve.', img:'imagens/esfirra.jpg'},
-      {id:'ps1', nome:'Pastel de Carne', preco:7.00, categoria:'Pastel', desc:'Recheio suculento e massa crocante.', img:'imagens/pastel.jpg'},
-      {id:'cx1', nome:'Coxinha de Frango', preco:6.00, categoria:'Coxinha', desc:'Massa crocante e recheio suculento.', img:'imagens/coxinha.jpg'},
-      {id:'hb1', nome:'Hambúrguer Clássico', preco:12.00, categoria:'Hambúrguer', desc:'Pão, carne e queijo deliciosos.', img:'imagens/hamburguer.jpg'},
-      {id:'ts1', nome:'Torta de Frango sob Encomenda', preco:35.00, categoria:'Torta sob encomenda', desc:'Torta grande, saborosa e fresquinha.', img:'imagens/torta.jpg'},
-      {id:'bv1', nome:'Refrigerante Lata', preco:5.00, categoria:'Bebidas', desc:'350ml gelado, Coca-Cola, Fanta ou Guaraná.', img:'imagens/refrigerante.jpg'}
-    ];
+  // SALGADOS ASSADOS
+  {id:'sa1', nome:'Esfirra de Carne', preco:9, categoria:'Salgados Assados', desc:'Deliciosa esfirra de carne.', img:'imagens/esfirra.jpg'},
+  {id:'sa2', nome:'Presunto, Queijo e Cheddar', preco:9, categoria:'Salgados Assados', desc:'Salgado assado com presunto, queijo e cheddar.', img:'imagens/assado2.jpg'},
+  {id:'sa3', nome:'Hamburguer c/ Catupiry', preco:9, categoria:'Salgados Assados', desc:'Hambúrguer saboroso com Catupiry.', img:'imagens/assado3.jpg'},
+  // ... continue para todos os "Salgados Assados"
 
+  // TORTAS
+  {id:'t1', nome:'Presunto, Queijo e Cheddar', preco:80, categoria:'Tortas', desc:'Torta saborosa com presunto, queijo e cheddar.', img:'imagens/torta1.jpg'},
+  {id:'t2', nome:'Frango c/ Palmito, Queijo e Catupiry', preco:80, categoria:'Tortas', desc:'Torta de frango com palmito e catupiry.', img:'imagens/torta2.jpg'},
+  {id:'t3', nome:'Frango, Bacon, Queijo e Catupiry', preco:80, categoria:'Tortas', desc:'Torta de frango, bacon, queijo e catupiry.', img:'imagens/torta3.jpg'},
+  {id:'t4', nome:'Costela c/ Catupiry', preco:90, categoria:'Tortas', desc:'Torta de costela com catupiry.', img:'imagens/torta4.jpg'},
+  {id:'t5', nome:'Brocolis c/ Bacon e Queijo', preco:80, categoria:'Tortas', desc:'Torta de brócolis com bacon e queijo.', img:'imagens/torta5.jpg'},
+  {id:'t6', nome:'Calabresa c/ Queijo e Cheddar', preco:80, categoria:'Tortas', desc:'Torta de calabresa com queijo e cheddar.', img:'imagens/torta6.jpg'},
+
+  // SALGADOS FRITOS
+  {id:'sf1', nome:'Coxinha de Frango', preco:9, categoria:'Salgados Fritos', desc:'Coxinha de frango deliciosa.', img:'imagens/coxinha.jpg'},
+  {id:'sf2', nome:'Coxinha de Frango c/ Catupiry', preco:9, categoria:'Salgados Fritos', desc:'Coxinha de frango com Catupiry.', img:'imagens/coxinha_catupiry.jpg'},
+  {id:'sf3', nome:'Coxinha de Frango c/ Bacon e Queijo', preco:9, categoria:'Salgados Fritos', desc:'Coxinha de frango com bacon e queijo.', img:'imagens/coxinha_bacon.jpg'},
+  {id:'sf4', nome:'Coxinha de Costela c/ Bacon e Queijo', preco:10, categoria:'Salgados Fritos', desc:'Coxinha de costela com bacon e queijo.', img:'imagens/coxinha_costela.jpg'},
+  {id:'sf5', nome:'Kibe c/ Queijo', preco:9, categoria:'Salgados Fritos', desc:'Kibe com queijo.', img:'imagens/kibe.jpg'},
+  {id:'sf6', nome:'Kibe c/ Carne', preco:9, categoria:'Salgados Fritos', desc:'Kibe tradicional de carne.', img:'imagens/kibe_carne.jpg'},
+  // ... continue com todos os fritos
+
+  // BIG COXINHA 600G
+  {id:'bc1', nome:'Frango', preco:23, categoria:'Big Coxinha 600g', desc:'Coxinha gigante de frango 600g.', img:'imagens/bigcoxinha_frango.jpg'},
+  {id:'bc2', nome:'Presunto e Queijo', preco:23, categoria:'Big Coxinha 600g', desc:'Coxinha gigante de presunto e queijo.', img:'imagens/bigcoxinha_presunto.jpg'},
+  // ... e assim por diante
+
+  // SALGADOS PARA FESTAS
+  {id:'sfest1', nome:'Coxinha', preco:90, categoria:'Salgados para festas', desc:'Coxinhas em grande quantidade (por cento).', img:'imagens/festa_coxinha.jpg'},
+  {id:'sfest2', nome:'Risolís Presunto e Queijo', preco:90, categoria:'Salgados para festas', desc:'Risolís em grande quantidade.', img:'imagens/festa_risoli.jpg'},
+  // ... complete todos
+];
     let cart = {};
     let selectedCategory = '';
 
@@ -266,6 +297,7 @@
   </script>
 </body>
 </html>
+
 
 
 
