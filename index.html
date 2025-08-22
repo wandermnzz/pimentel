@@ -188,6 +188,32 @@
     }
     #closeCartBtn { background: #555; }
 
+    /* Tela da categoria */
+    #categoryPage {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #fff8ef;
+      display: none;
+      flex-direction: column;
+      z-index: 900;
+      overflow-y: auto;
+    }
+    #categoryHeader {
+      background: #D90429;
+      color: #fff;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+    }
+    #categoryHeader span {
+      cursor: pointer;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
     footer {
       background: #fff8ef;
       padding: 15px;
@@ -234,6 +260,15 @@
   <div id="categoryMenu"></div>
   <!-- Produtos -->
   <div id="menuContainer"></div>
+
+  <!-- Tela de categoria -->
+  <div id="categoryPage">
+    <div id="categoryHeader">
+      <span onclick="closeCategoryPage()">←</span>
+      <div id="categoryTitle"></div>
+    </div>
+    <div id="categoryContent" class="grid"></div>
+  </div>
 
   <footer>
     Giba's Salgados © 2025
@@ -285,23 +320,18 @@
           <img src="${cat.img}" alt="${cat.nome}">
           <p>${cat.nome}</p>
         `;
-        card.onclick = () => {
-          selectedCategory = cat.nome;
-          renderMenu();
-        };
+        card.onclick = () => openCategoryPage(cat.nome);
         menu.appendChild(card);
       });
     }
 
-    function renderMenu() {
-      const container = document.getElementById('menuContainer');
-      container.innerHTML = '';
-      const filtered = produtos.filter(p => p.categoria === selectedCategory);
+    function openCategoryPage(categoria) {
+      selectedCategory = categoria;
+      document.getElementById('categoryTitle').innerText = categoria;
+      const content = document.getElementById('categoryContent');
+      content.innerHTML = '';
 
-      const grid = document.createElement('div');
-      grid.className = 'grid';
-
-      filtered.forEach(p => {
+      produtos.filter(p => p.categoria === categoria).forEach(p => {
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
@@ -313,25 +343,27 @@
             <button class="btn" onclick="addToCart('${p.id}')">Adicionar</button>
           </div>
         `;
-        grid.appendChild(card);
+        content.appendChild(card);
       });
 
-      container.appendChild(grid);
+      document.getElementById('categoryPage').style.display = 'flex';
+      document.getElementById('menuContainer').style.display = 'none';
+      document.getElementById('categoryMenu').style.display = 'none';
+    }
+
+    function closeCategoryPage() {
+      document.getElementById('categoryPage').style.display = 'none';
+      document.getElementById('menuContainer').style.display = 'block';
+      document.getElementById('categoryMenu').style.display = 'grid';
     }
 
     function addToCart(id) {
-      if (cart[id]) {
-        cart[id].qty += 1;
-      } else {
-        cart[id] = { ...produtos.find(p => p.id === id), qty: 1 };
-      }
+      if (cart[id]) { cart[id].qty += 1; }
+      else { cart[id] = {...produtos.find(p => p.id===id), qty:1}; }
       updateCart();
     }
 
-    function removeFromCart(id) {
-      delete cart[id];
-      updateCart();
-    }
+    function removeFromCart(id) { delete cart[id]; updateCart(); }
 
     function changeQty(id, delta) {
       cart[id].qty += delta;
@@ -429,6 +461,7 @@
       document.body.appendChild(modal);
     }
 
+    // Inicializa categorias
     renderCategories();
   </script>
 </body>
