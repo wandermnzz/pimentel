@@ -82,6 +82,58 @@ header h1 img { height:50px; border-radius:8px; }
 #cartDrawer.open #cartItems {
   display: flex;
 }
+  /* Ícone fixo do carrinho */
+#cartIcon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: #FFF3CD;
+  border: 2px solid #D90429;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+/* Contagem no ícone */
+#cartCount {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #D90429;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+/* Conteúdo do carrinho (escondido) */
+#cartContent {
+  position: fixed;
+  top: 90px;       /* abaixo do ícone */
+  right: 20px;
+  width: 280px;
+  max-height: 60vh;
+  background: #FFF3CD;
+  border: 2px solid #D90429;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  padding: 10px;
+  display: none;   /* escondido inicialmente */
+  flex-direction: column;
+  z-index: 1100;
+  overflow-y: auto;
+}
+
+/* Mostrar ao abrir */
+#cartContent.open {
+  display: flex;
+}
 
 /* Contador sobre o ícone */
 #cartCount {
@@ -348,7 +400,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
   renderCategories();
   updateCartCount();
 });
+const cartIcon = document.getElementById('cartIcon');
+const cartContent = document.getElementById('cartContent');
 
+cartIcon.onclick = () => {
+  cartContent.classList.toggle('open');
+};
 // Botão voltar do navegador fecha categoria, não o site
 window.addEventListener('popstate', function(){
   if(document.getElementById('categoryPage').style.display==='flex'){
@@ -360,6 +417,7 @@ history.pushState(null,'');
 </script>
 </body>
 </html>
+
 
 
 
