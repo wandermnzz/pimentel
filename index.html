@@ -61,6 +61,13 @@ header h1 img { height:50px; border-radius:8px; }
   border-radius: 50%;
 }
 
+
+#cartDrawer.open {
+  opacity: 1;              /* visível ao abrir */
+  pointer-events: all;     
+  transform: translateY(0); /* animação para posição correta */
+}
+
 /* Itens do carrinho */
 .cart-item {
   display: flex;
@@ -362,4 +369,5 @@ history.pushState(null,'');
 </script>
 </body>
 </html>
+
 
