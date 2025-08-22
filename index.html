@@ -1,69 +1,263 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio WanderWeb.Dev</title>
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        background-image: url('img.png'); /* fundo da página */
-        background-size: cover; 
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        font-family: Arial, sans-serif;
-        color: white;
-        text-align: center;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giba's Salgados</title>
+  <style>
+    body{margin:0;font-family:Arial,sans-serif;background:#fff8ef;color:#1f1f1f}
+    header{background:#D90429;color:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center}
+    header h1{margin:0;font-size:24px;display:flex;align-items:center;gap:10px}
+    header h1 img{height:40px;border-radius:8px}
+    .category-menu{display:flex;gap:15px;padding:10px 20px;background:#FFD166;flex-wrap:wrap}
+    .category-menu button{padding:8px 12px;border:none;border-radius:8px;cursor:pointer;background:#D90429;color:#fff;font-weight:bold}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:15px;padding:20px}
+    .card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+    .card img{width:100%;height:150px;object-fit:cover;cursor:pointer}
+    .card-body{padding:10px}
+    .card-body h3{margin:0;font-size:18px}
+    .card-body p{font-size:14px;color:#555}
+    .price{color:#D90429;font-weight:bold;margin-top:5px}
+    .btn{background:#D90429;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;margin-top:8px;width:100%}
+    footer{background:#fff8ef;padding:15px;text-align:center;border-top:1px solid #FFD166}
+    footer .links{margin-top:10px}
+    footer .links a{color:#D90429;margin:0 10px;text-decoration:none;font-weight:bold}
+    .whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;font-size:24px}
+    
+    /* Carrinho estilizado */
+    #cartDrawer{
+      position:fixed;
+      top:0;
+      right:-400px;
+      width:350px;
+      height:100%;
+      background:#FFF3CD; /* amarelo suave */
+      box-shadow:-8px 0 20px rgba(0,0,0,0.2);
+      transition:right 0.4s ease-in-out;
+      display:flex;
+      flex-direction:column;
+      z-index:100;
+      border-left:4px solid #D90429; /* detalhe vermelho */
     }
-
-    h1 {
-        margin-top: 40px;
-    }
-
-    /* imagem dos serviços/produtos */
-    .produtos {
-        margin: 30px auto;
-        width: 130px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        cursor: zoom-in;
-        transition: transform 0.3s ease;
-    }
-    .produtos:active {
-        transform: scale(1.8); /* dá zoom ao clicar */
-        cursor: zoom-out;
-    }
-
-    /* botão whatsapp */
-    .btn-whatsapp {
-        display: inline-block;
-        margin: 40px auto;
-        padding: 12px 24px;
-        background-color: #25D366; /* cor do WhatsApp */
-        color: white;
-        text-decoration: none;
-        border-radius: 8px; /* arredondado/retangular */
-        font-size: 18px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        transition: background 0.3s ease;
-    }
-    .btn-whatsapp:hover {
-        background-color: #1EBE57;
-    }
-</style>
+    #cartDrawer.open{right:0}
+    #cartDrawer h2{margin:10px;padding:0 15px}
+    #cartItems{flex:1;overflow-y:auto;padding:0 15px}
+    .cart-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #eee}
+    .cart-item img{width:50px;height:50px;object-fit:cover;border-radius:8px}
+    .cart-item-details{flex:1}
+    .cart-item-details p{margin:0;font-size:14px}
+    .cart-item-details .qty{display:flex;gap:5px;align-items:center;margin-top:4px}
+    .cart-item-details button{padding:2px 6px;border:none;background:#D90429;color:#fff;border-radius:6px;cursor:pointer}
+    #checkoutBtn{background:#D90429;color:#fff;border:none;padding:10px;margin:10px;border-radius:8px;cursor:pointer;font-weight:bold}
+    #closeCartBtn{background:#555;color:#fff;border:none;padding:10px;margin:10px;border-radius:8px;cursor:pointer;font-weight:bold}
+    
+    .cart-button{background:#fff;color:#D90429;border:2px solid #D90429;padding:6px 12px;border-radius:8px;cursor:pointer;font-weight:bold}
+  </style>
 </head>
 <body>
-    <h1>Portfolio WanderWeb.Dev</h1>
+  <header>
+    <h1>
+      <img src="logo.png" alt="Logo">
+      Giba's Salgados
+    </h1>
+    <button class="cart-button" onclick="toggleCart()">🛒</button>
+  </header>
 
-    <!-- imagem dos seus serviços/produtos -->
-    <img src="produtos.jpg" alt="Meus Serviços" class="produtos">
+  <div class="category-menu" id="categoryMenu"></div>
+  <div id="menuContainer"></div>
 
-    <!-- botão whatsapp -->
-    <br>
-    <a href="https://wa.me/5579996283715" class="btn-whatsapp" target="_blank">Fale comigo no WhatsApp</a>
+  <footer>
+    Giba's Salgados © 2025
+    <div class="links">
+      <a href="https://www.instagram.com/gibassalgados?igsh=cnAxaHg0M3YyMWM3">Instagram</a>
+      <a href="https://wa.me/5579996283715">WhatsApp</a>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/5579996283715" class="whatsapp">💬</a>
+
+  <div id="cartDrawer">
+    <h2>Seu Carrinho</h2>
+    <div id="cartItems"></div>
+    <button id="checkoutBtn">Finalizar Pedido</button>
+    <button id="closeCartBtn">Continuar Comprando</button>
+  </div>
+
+  <script>
+    const categorias = ['Esfirra', 'Pastel', 'Coxinha', 'Hambúrguer', 'Torta sob encomenda', 'Bebidas'];
+
+    const produtos = [
+      {id:'e1', nome:'Esfirra de Carne', preco:6.50, categoria:'Esfirra', desc:'Carne temperada, massa leve.', img:'imagens/esfirra.jpg'},
+      {id:'ps1', nome:'Pastel de Carne', preco:7.00, categoria:'Pastel', desc:'Recheio suculento e massa crocante.', img:'imagens/pastel.jpg'},
+      {id:'cx1', nome:'Coxinha de Frango', preco:6.00, categoria:'Coxinha', desc:'Massa crocante e recheio suculento.', img:'imagens/coxinha.jpg'},
+      {id:'hb1', nome:'Hambúrguer Clássico', preco:12.00, categoria:'Hambúrguer', desc:'Pão, carne e queijo deliciosos.', img:'imagens/hamburguer.jpg'},
+      {id:'ts1', nome:'Torta de Frango sob Encomenda', preco:35.00, categoria:'Torta sob encomenda', desc:'Torta grande, saborosa e fresquinha.', img:'imagens/torta.jpg'},
+      {id:'bv1', nome:'Refrigerante Lata', preco:5.00, categoria:'Bebidas', desc:'350ml gelado, Coca-Cola, Fanta ou Guaraná.', img:'imagens/refrigerante.jpg'}
+    ];
+
+    let cart = {};
+    let selectedCategory = '';
+
+    function renderCategories() {
+      const menu = document.getElementById('categoryMenu');
+      menu.innerHTML = '';
+
+      const allBtn = document.createElement('button');
+      allBtn.innerText = 'Todos';
+      allBtn.onclick = () => {
+        selectedCategory = '';
+        renderMenu();
+      };
+      menu.appendChild(allBtn);
+
+      categorias.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.innerText = cat;
+        btn.onclick = () => {
+          selectedCategory = cat;
+          renderMenu();
+        };
+        menu.appendChild(btn);
+      });
+    }
+
+    function renderMenu() {
+      const container = document.getElementById('menuContainer');
+      container.innerHTML = '';
+      const filtered = selectedCategory ? produtos.filter(p => p.categoria === selectedCategory) : produtos;
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+
+      filtered.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.nome}" onclick="zoomImage('${p.img}')">
+          <div class="card-body">
+            <h3>${p.nome}</h3>
+            <p>${p.desc}</p>
+            <div class="price">R$${p.preco.toFixed(2)}</div>
+            <button class="btn" onclick="addToCart('${p.id}')">Adicionar ao Carrinho</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      container.appendChild(grid);
+    }
+
+    function addToCart(id) {
+      if (cart[id]) {
+        cart[id].qty += 1;
+      } else {
+        cart[id] = { ...produtos.find(p => p.id === id), qty: 1 };
+      }
+      updateCart();
+    }
+
+    function removeFromCart(id) {
+      delete cart[id];
+      updateCart();
+    }
+
+    function changeQty(id, delta) {
+      cart[id].qty += delta;
+      if (cart[id].qty < 1) delete cart[id];
+      updateCart();
+    }
+
+    function updateCart() {
+      const itemsDiv = document.getElementById('cartItems');
+      itemsDiv.innerHTML = '';
+      let total = 0;
+
+      Object.values(cart).forEach(item => {
+        total += item.preco * item.qty;
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+          <img src="${item.img}">
+          <div class="cart-item-details">
+            <p>${item.nome} - R$${item.preco.toFixed(2)}</p>
+            <div class="qty">
+              <button onclick="changeQty('${item.id}', -1)">-</button>
+              <span>${item.qty}</span>
+              <button onclick="changeQty('${item.id}', 1)">+</button>
+              <button onclick="removeFromCart('${item.id}')">Remover</button>
+            </div>
+          </div>
+        `;
+        itemsDiv.appendChild(div);
+      });
+
+      if (total > 0) {
+        const totalDiv = document.createElement('div');
+        totalDiv.style.textAlign = 'right';
+        totalDiv.style.fontWeight = 'bold';
+        totalDiv.style.margin = '10px 0';
+        totalDiv.innerText = `Total: R$${total.toFixed(2)}`;
+        itemsDiv.appendChild(totalDiv);
+      }
+    }
+
+    function toggleCart() {
+      document.getElementById('cartDrawer').classList.toggle('open');
+    }
+
+    document.getElementById('checkoutBtn').onclick = function () {
+      if (Object.keys(cart).length === 0) {
+        alert('Seu carrinho está vazio!');
+        return;
+      }
+
+      let total = 0;
+      let message = 'Olá! Gostaria de fazer o pedido:\n';
+      Object.values(cart).forEach(i => {
+        total += i.preco * i.qty;
+        message += `- ${i.nome} x${i.qty}\n`;
+      });
+      message += `\nTotal: R$${total.toFixed(2)}`;
+
+      const url = 'https://wa.me/5579996283715?text=' + encodeURIComponent(message);
+      window.open(url, '_blank');
+
+      cart = {};
+      updateCart();
+      toggleCart();
+    }
+
+    document.getElementById('closeCartBtn').onclick = function () {
+      toggleCart();
+    };
+
+    function zoomImage(src) {
+      const modal = document.createElement('div');
+      modal.style.position = 'fixed';
+      modal.style.top = '0';
+      modal.style.left = '0';
+      modal.style.width = '100%';
+      modal.style.height = '100%';
+      modal.style.background = 'rgba(0,0,0,0.7)';
+      modal.style.display = 'flex';
+      modal.style.alignItems = 'center';
+      modal.style.justifyContent = 'center';
+      modal.style.zIndex = '2000';
+      modal.onclick = function () {
+        document.body.removeChild(modal);
+      };
+
+      const img = document.createElement('img');
+      img.src = src;
+      img.style.maxWidth = '90%';
+      img.style.maxHeight = '80%';
+      img.style.borderRadius = '12px';
+      modal.appendChild(img);
+
+      document.body.appendChild(modal);
+    }
+
+    renderCategories();
+    renderMenu();
+  </script>
 </body>
 </html>
-
-
