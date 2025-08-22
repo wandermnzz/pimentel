@@ -86,12 +86,32 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
   z-index: 999;
   flex-direction: column;
 }
+  #lojaStatus {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+  z-index: 1200;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+#lojaStatus.aberto {
+  background-color: #28a745; /* verde */
+}
+#lojaStatus.fechado {
+  background-color: #dc3545; /* vermelho */
+}
 </style>
 </head>
 <body>
 
 <header>
 <h1><img src="logo.png" alt="Logo">Giba's Salgados</h1>
+<div id="lojaStatus"></div>
 </header>
 
 <div id="categoryMenu" class="categories"></div>
@@ -262,12 +282,42 @@ window.addEventListener("popstate", (event) => {
     history.pushState(null, null, window.location.pathname);
   }
 });
+function atualizarStatusLoja() {
+  // Pega a hora atual de São Paulo
+  const nowSP = new Date(new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }));
+  const diaSemana = nowSP.getDay(); // 0 = domingo, 1 = segunda...
+  const hora = nowSP.getHours();
+
+  const statusDiv = document.getElementById("lojaStatus");
+
+  if (diaSemana === 0) {
+    // Domingo fechado
+    statusDiv.innerHTML = "📕 Fechado hoje (Domingo)";
+    statusDiv.style.color = "red";
+  } else if (hora >= 9 && hora < 22) {
+    // Aberto
+    statusDiv.innerHTML = "📗 Aberto";
+    statusDiv.style.color = "green";
+  } else {
+    // Fora do horário
+    statusDiv.innerHTML = "📕 Fechado";
+    statusDiv.style.color = "red";
+  }
+}
+
+// Atualiza imediatamente
+atualizarStatusLoja();
+
+// Atualiza a cada minuto caso o usuário fique na página
+setInterval(atualizarStatusLoja, 60000);
+
 
 // Inicializa categorias
 renderCategories();
 </script>
 </body>
 </html>
+
 
 
 
