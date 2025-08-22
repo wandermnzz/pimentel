@@ -65,7 +65,7 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
   font-size: 14px;
   font-weight: bold;
   padding: 1px 1px;
-  border-radius: 50%;
+  border-radius: 100%;
   border: 2px solid white;
 }
 
@@ -90,7 +90,7 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
   position: fixed;
   bottom: 20px;
   left: 20px;
-  padding: 12px 15px;
+  padding: 8px 16px;
   border-radius: 12px;
   color: #fff;
   font-weight: bold;
@@ -295,10 +295,10 @@ function atualizarStatusLoja() {
 
   if(dia === 0 || hora < 9 || hora >= 22) {
     statusDiv.className = 'fechado';
-    statusDiv.innerText = 'Fechada📕';
+    statusDiv.innerText = 'Fechado';
   } else {
     statusDiv.className = 'aberto';
-    statusDiv.innerText = 'Aberta📗 ';
+    statusDiv.innerText = 'Aberto ';
   }
 }
 
@@ -312,6 +312,7 @@ renderCategories();
 </script>
 </body>
 </html>
+
 
 
 
