@@ -10,7 +10,7 @@ header { background:#D90429; color:#fff; padding:10px 20px; display:flex; justif
 header h1 { margin:0; font-size:24px; display:flex; align-items:center; gap:10px; }
 header h1 img { height:50px; border-radius:8px; }
 .cart-button { background:#fff; color:#D90429; border:2px solid #D90429; padding:6px 12px; border-radius:8px; cursor:pointer; font-weight:bold; position:relative; }
-.cart-button #cartCount { position:absolute; top:-5px; right:-5px; background:#fff; color:#D90429; font-size:12px; font-weight:bold; padding:2px 6px; border-radius:50%; }
+.cart-button #cartCount { position:absolute; top:-5px; right:-5px; background:#D90429; color:#fff; font-size:12px; font-weight:bold; padding:2px 6px; border-radius:50%; }
 
 .categories { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:15px; padding:20px; }
 
@@ -59,7 +59,7 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
 </header>
 
 <div id="categoryMenu" class="categories"></div>
-<div id="menuContainer"></div>
+<div id="menuContainer" class="grid"></div>
 
 <div id="categoryPage">
   <div id="categoryHeader">
@@ -118,14 +118,11 @@ function renderCategories() {
   });
 }
 
-function openCategoryPage(categoria) {
-  selectedCategory = categoria;
-  document.getElementById('categoryTitle').innerText = categoria;
-  const content = document.getElementById('categoryContent');
-  const filtered = produtos.filter(p => p.categoria === categoria);
-  content.innerHTML = filtered.map(p => `
+function renderAllProducts() {
+  const container = document.getElementById('menuContainer');
+  container.innerHTML = produtos.map(p => `
     <div class="card">
-      <img src="${<img src="${p.img}" alt="${p.nome}" onclick="zoomImage('${p.img}')">
+      <img src="${p.img}" alt="${p.nome}" onclick="zoomImage('${p.img}')">
       <div class="card-body">
         <h3>${p.nome}</h3>
         <p>${p.desc}</p>
@@ -134,40 +131,49 @@ function openCategoryPage(categoria) {
       </div>
     </div>
   `).join('');
+}
 
+function openCategoryPage(categoria) {
+  selectedCategory = categoria;
+  document.getElementById('categoryTitle').innerText = categoria;
+  const content = document.getElementById('categoryContent');
+  const filtered = produtos.filter(p => p.categoria === categoria);
+  content.innerHTML = filtered.map(p => `
+    <div class="card">
+      <img src="${p.img}" alt="${p.nome}" onclick="zoomImage('${p.img}')">
+      <div class="card-body">
+        <h3>${p.nome}</h3>
+        <p>${p.desc}</p>
+        <div class="price">R$${p.preco.toFixed(2)}</div>
+        <button class="btn" onclick="addToCart('${p.id}')">Adicionar</button>
+      </div>
+    </div>
+  `).join('');
   document.getElementById('categoryPage').style.display = 'flex';
   document.getElementById('menuContainer').style.display = 'none';
-  document.getElementById('categoryMenu').style.display = 'none';
-  history.pushState({categoryOpen:true}, "Categoria", "#category"); // adiciona histórico
 }
 
 function closeCategoryPage() {
   document.getElementById('categoryPage').style.display = 'none';
-  document.getElementById('menuContainer').style.display = 'block';
-  document.getElementById('categoryMenu').style.display = 'grid';
-  history.pushState({}, "", "#"); // volta ao estado inicial
+  document.getElementById('menuContainer').style.display = 'grid';
 }
 
-window.onpopstate = function(event) {
-  if(event.state && event.state.categoryOpen) {
-    closeCategoryPage();
-  } else {
-    // botão voltar do navegador fecha o site, podemos evitar se quiser
-    closeCategoryPage();
-  }
-}
-
+// Carrinho
 function addToCart(id) {
   if(cart[id]) cart[id].qty++;
-  else cart[id] = {...produtos.find(p=>p.id===id), qty:1};
+  else cart[id] = {...produtos.find(p => p.id===id), qty:1};
   renderCart();
   updateCartCount();
 }
 
 function removeFromCart(id) {
+  if(cart[id]) { delete cart[id]; renderCart(); updateCartCount(); }
+}
+
+function changeQty(id, delta) {
   if(cart[id]) {
-    cart[id].qty--;
-    if(cart[id].qty <= 0) delete cart[id];
+    cart[id].qty += delta;
+    if(cart[id].qty < 1) delete cart[id];
     renderCart();
     updateCartCount();
   }
@@ -206,15 +212,6 @@ function renderCart() {
   }
 }
 
-function changeQty(id, delta) {
-  if(cart[id]){
-    cart[id].qty += delta;
-    if(cart[id].qty < 1) delete cart[id];
-    renderCart();
-    updateCartCount();
-  }
-}
-
 function updateCartCount() {
   const count = Object.values(cart).reduce((sum,item)=>sum+item.qty,0);
   document.getElementById('cartCount').innerText = count;
@@ -235,20 +232,23 @@ document.getElementById('checkoutBtn').onclick = function() {
 
 document.getElementById('closeCartBtn').onclick = toggleCart;
 
+// Zoom de imagem
 function zoomImage(src){
   const modal = document.createElement('div');
   modal.style.position='fixed';
   modal.style.top='0'; modal.style.left='0'; modal.style.width='100%'; modal.style.height='100%';
-  modal.style.background='rgba(0,0,0,0.7)';
-  modal.style.display='flex'; modal.style.alignItems='center'; modal.style.justifyContent='center';
-  modal.style.zIndex='2000'; modal.onclick=function(){document.body.removeChild(modal);};
+  modal.style.background='rgba(0,0,0,0.7)'; modal.style.display='flex';
+  modal.style.alignItems='center'; modal.style.justifyContent='center'; modal.style.zIndex='2000';
+  modal.onclick=function(){document.body.removeChild(modal);};
   const img = document.createElement('img');
   img.src=src; img.style.maxWidth='90%'; img.style.maxHeight='80%'; img.style.borderRadius='12px';
   modal.appendChild(img); document.body.appendChild(modal);
 }
 
+// Inicialização
 document.addEventListener('DOMContentLoaded', () => {
   renderCategories();
+  renderAllProducts();
   updateCartCount();
 });
 </script>
