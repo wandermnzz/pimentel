@@ -293,27 +293,48 @@ window.addEventListener("popstate", () => {
 });
 
 // STATUS LOJA
-function atualizarStatusLoja() {
-  const agora = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
-  const data = new Date(agora);
-  const diaSemana = data.getDay();
-  const hora = data.getHours();
-  const statusDiv = document.getElementById("lojaStatus");
 
-  if (diaSemana === 0) {
-    statusDiv.innerHTML = "📕 Fechado";
-    statusDiv.className = "fechado";
-  } else if (hora >= 9 && hora < 22) {
-    statusDiv.innerHTML = "📗 Aberto";
-    statusDiv.className = "aberto";
-  } else {
-    statusDiv.innerHTML = "📕 Fechado";
-    statusDiv.className = "fechado";
+  function verificarHorario() {
+    const agora = new Date();
+
+    // Ajusta para horário de São Paulo (GMT-3, sem horário de verão)
+    const options = { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit", weekday: "long" };
+    const formatter = new Intl.DateTimeFormat("pt-BR", options);
+    const partes = formatter.formatToParts(agora);
+
+    let hora = 0;
+    let minuto = 0;
+    let diaSemana = "";
+
+    partes.forEach(p => {
+      if (p.type === "hour") hora = parseInt(p.value);
+      if (p.type === "minute") minuto = parseInt(p.value);
+      if (p.type === "weekday") diaSemana = p.value.toLowerCase();
+    });
+
+    const aberto = document.getElementById("lojaStatus");
+
+    // Verifica se é domingo
+    if (diaSemana === "domingo") {
+      aberto.textContent = "Fechado 📕";
+      aberto.style.backgroundColor = "red";
+      return;
+    }
+
+    // Verifica se está dentro do horário de funcionamento
+    if (hora >= 10 && (hora < 11 || (hora === 11 && minuto === 0))) {
+      aberto.textContent = "Aberto 📗";
+      aberto.style.backgroundColor = "green";
+    } else {
+      aberto.textContent = "Fechado 📕";
+      aberto.style.backgroundColor = "red";
+    }
   }
-}
 
-atualizarStatusLoja();
-setInterval(atualizarStatusLoja, 60000);
+  // Atualiza ao carregar e a cada minuto
+  verificarHorario();
+  setInterval(verificarHorario, 60000);
+
 
   // Sempre mantém um histórico extra para não fechar o site
 history.pushState(null, null, location.href);
@@ -368,6 +389,7 @@ renderCategories();
 </script>
 </body>
 </html>
+
 
 
 
