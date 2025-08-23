@@ -305,8 +305,21 @@ function atualizarStatusLoja() {
 atualizarStatusLoja();
 setInterval(atualizarStatusLoja, 60000);
 
+  // Sempre mantém um histórico extra para não fechar o site
+history.pushState(null, null, location.href);
+
+window.onpopstate = function () {
+  // Quando apertar voltar, mostra a lista de categorias
+  document.getElementById("categorias").style.display = "block";
+  document.getElementById("produtos").style.display = "none";
+
+  // Reforça o pushState para continuar bloqueando a saída
+  history.pushState(null, null, location.href);
+};
+
 // Inicializa categorias
 renderCategories();
 </script>
 </body>
 </html>
+
