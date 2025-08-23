@@ -318,25 +318,37 @@ window.onpopstate = function () {
 };
   
 
-document.getElementById("checkoutBtn").addEventListener("click", function() {
-    let items = document.querySelectorAll("#cartItems .cart-item");
-    if (items.length === 0) {
-        alert("Seu carrinho está vazio!");
-        return;
-    }
+// Substitua TODO o handler antigo por este
+document.getElementById('checkoutBtn').addEventListener('click', function () {
+  const itens = Object.values(cart || {});
+  if (itens.length === 0) {
+    alert('Seu carrinho está vazio!');
+    return;
+  }
 
-    let mensagem = "Olá, quero finalizar meu pedido:\n\n";
+  let total = 0;
+  let msg = 'Olá! Gostaria de fazer o pedido:\n\n';
 
-    items.forEach(item => {
-        let spans = item.querySelectorAll("span");
-        let nome = spans[0]?.innerText || "Produto";
-        let qtd = spans[1]?.innerText || "";
-        let preco = spans[2]?.innerText || "";
-        mensagem += `${nome} - ${qtd} ${preco}\n`;
-    });
+  itens.forEach(i => {
+    total += i.preco * i.qty;
+    const precoUnit = i.preco.toFixed(2).replace('.', ',');
+    msg += `- ${i.nome} x${i.qty} (R$ ${precoUnit})\n`;
+  });
 
-    let telefone = "5514996491578"; // substitua pelo seu número
-    window.open("https://wa.me/" + telefone + "?text=" + encodeURIComponent(mensagem), "_blank");
+  const totalFmt = total.toFixed(2).replace('.', ',');
+  msg += `\nTotal: R$ ${totalFmt}`;
+
+  // Seu número:
+  const telefone = '5579996283715';
+  const url = `https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+
+  // (opcional) limpar carrinho e atualizar UI:
+  // cart = {};
+  // renderCart();
+  // updateCartCount();
+  // Fechar o painel se quiser:
+  // document.getElementById('cartContent').style.display = 'none';
 });
 
 
@@ -346,6 +358,7 @@ renderCategories();
 </script>
 </body>
 </html>
+
 
 
 
