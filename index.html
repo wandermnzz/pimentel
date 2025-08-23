@@ -43,12 +43,12 @@ footer .links { margin-top:10px; }
 footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weight:bold; }
 .whatsapp { position:fixed; bottom:20px; right:20px; background:#25D366; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; color:#fff; font-size:24px; z-index:1100; }
 
-/* Carrinho /* Botão do carrinho fixo */
+/* Botão do carrinho fixo */
 #cartButton {
   position: fixed;
   top: 20px;
   right: 20px;
-  background: transparent; /* transparente */
+  background: transparent;
   border: none;
   font-size: 32px;
   cursor: pointer;
@@ -58,14 +58,14 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
 /* Bolinha de contagem */
 #cartCount {
   position: absolute;
-  top: -5px;
-  right: -10px;
+  top: -8px;
+  right: -8px;
   background: red;
   color: white;
-  font-size: 4px;
+  font-size: 12px;
   font-weight: bold;
-  padding: 1px 3px;
-  border-radius: 100%;
+  padding: 2px 6px;
+  border-radius: 50%;
   border: 2px solid white;
 }
 
@@ -74,10 +74,10 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
   display: none;
   position: fixed;
   top: 70px;
-  right: 50px;
-  width: 200px;
-  max-height: 600px;
-  background: rgba(255, 255, 255, 0.95); /* branco semi-transparente */
+  right: 20px;
+  width: 250px;
+  max-height: 400px;
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid #ddd;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
@@ -86,7 +86,9 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
   z-index: 999;
   flex-direction: column;
 }
-  #lojaStatus {
+
+/* Status da loja */
+#lojaStatus {
   position: fixed;
   bottom: 20px;
   left: 20px;
@@ -99,19 +101,14 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
   z-index: 1200;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
-#lojaStatus.aberto {
-  background-color: #28a745; /* verde */
-}
-#lojaStatus.fechado {
-  background-color: #dc3545; /* vermelho */
-}
+#lojaStatus.aberto { background-color: #28a745; }
+#lojaStatus.fechado { background-color: #dc3545; }
 </style>
 </head>
 <body>
 
 <header>
-<h1><img src="logo.png" alt="Logo">Giba's Salgados</h1>
-<div id="lojaStatus"></div>
+  <h1><img src="logo.png" alt="Logo">Giba's Salgados</h1>
 </header>
 
 <div id="categoryMenu" class="categories"></div>
@@ -126,13 +123,12 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
 </div>
 
 <footer>
-Giba's Salgados © 2025
-<div class="links">
-  <a href="https://www.instagram.com/gibassalgados">Instagram</a>
-  <a href="https://wa.me/5579996283715">WhatsApp</a>
-  <a href="https://maps.app.goo.gl/Ao9B81AwjW3zUywE7">📍Rua Amando de barros, 204
-Centro Botucatu -SP</a>
-</div>
+  Giba's Salgados © 2025
+  <div class="links">
+    <a href="https://www.instagram.com/gibassalgados">Instagram</a>
+    <a href="https://wa.me/5579996283715">WhatsApp</a>
+    <a href="https://maps.app.goo.gl/Ao9B81AwjW3zUywE7">📍 Rua Amando de barros, 204 Centro Botucatu - SP</a>
+  </div>
 </footer>
 
 <a href="https://wa.me/5579996283715" class="whatsapp">💬</a>
@@ -143,6 +139,9 @@ Centro Botucatu -SP</a>
   <div id="cartItems"></div>
   <button id="checkoutBtn">Finalizar Pedido</button>
 </div>
+
+<!-- Status loja -->
+<div id="lojaStatus"></div>
 
 <script>
 const categorias = [
@@ -185,7 +184,7 @@ function openCategoryPage(categoria) {
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
-      <img src="${p.img}" alt="${p.nome}" onclick="zoomImage('${p.img}')">
+      <img src="${p.img}" alt="${p.nome}">
       <div class="card-body">
         <h3>${p.nome}</h3>
         <p>${p.desc}</p>
@@ -207,9 +206,8 @@ function closeCategoryPage() {
 }
 
 function addToCart(id){
-  if(cart[id]) {
-    cart[id].qty++;
-  } else {
+  if(cart[id]) cart[id].qty++;
+  else {
     const produto = produtos.find(p => p.id === id);
     cart[id] = {...produto, qty:1};
   }
@@ -256,7 +254,6 @@ function renderCart(){
     `;
     itemsDiv.appendChild(div);
   });
-
   if(total > 0){
     const totalDiv = document.createElement('div');
     totalDiv.style.textAlign = 'right';
@@ -277,75 +274,39 @@ function toggleCart(){
   cartContent.style.display = cartContent.style.display === 'flex' ? 'none' : 'flex';
 }
 
-// Impedir que o botão físico de voltar feche o site quando estiver numa categoria
-window.addEventListener("popstate", (event) => {
+// Impedir que o botão físico feche o site
+window.addEventListener("popstate", () => {
   if(document.getElementById('categoryPage').style.display === 'flex'){
     closeCategoryPage();
     history.pushState(null, null, window.location.pathname);
   }
 });
 
+// STATUS LOJA
 function atualizarStatusLoja() {
-  // Pega data/hora de SP independente do fuso do usuário
   const agora = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
   const data = new Date(agora);
-
-  const diaSemana = data.getDay(); // 0 = Domingo, 1 = Segunda ...
+  const diaSemana = data.getDay();
   const hora = data.getHours();
-
-  let statusDiv = document.getElementById("statusLoja");
+  const statusDiv = document.getElementById("lojaStatus");
 
   if (diaSemana === 0) {
-    // Domingo sempre fechado
     statusDiv.innerHTML = "📕 Fechado";
-    statusDiv.style.background = "red";
+    statusDiv.className = "fechado";
   } else if (hora >= 9 && hora < 22) {
     statusDiv.innerHTML = "📗 Aberto";
-    statusDiv.style.background = "green";
+    statusDiv.className = "aberto";
   } else {
     statusDiv.innerHTML = "📕 Fechado";
-    statusDiv.style.background = "red";
+    statusDiv.className = "fechado";
   }
-
-  statusDiv.style.color = "white";
-  statusDiv.style.fontWeight = "bold";
-  statusDiv.style.padding = "8px 12px";
-  statusDiv.style.borderRadius = "10px";
-  statusDiv.style.position = "fixed";
-  statusDiv.style.bottom = "20px";
-  statusDiv.style.left = "20px";
-  statusDiv.style.zIndex = "1000";
 }
 
-// atualizar assim que carregar
 atualizarStatusLoja();
-
-// e atualizar a cada minuto
 setInterval(atualizarStatusLoja, 60000);
-
-
-/Inicializa o histórico para interceptar o botão voltar
-history.pushState(null, '');
 
 // Inicializa categorias
 renderCategories();
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
