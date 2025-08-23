@@ -103,14 +103,16 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
 }
 #lojaStatus.aberto { background-color: #28a745; }
 #lojaStatus.fechado { background-color: #dc3545; }
-  #categories {
+#categorias {
   display: flex;
-  justify-content: center;   /* Centraliza os itens no meio */
-  flex-wrap: wrap;           /* Faz quebrar de linha se faltar espaço */
-  gap: 15px;                 /* Espaçamento entre eles */
-  margin: 20px auto;
+  justify-content: center;   /* Centraliza no eixo horizontal */
+  align-items: center;       /* Centraliza no eixo vertical */
+  flex-wrap: wrap;           /* Permite quebrar linha se precisar */
+  gap: 15px;                 /* Espaço entre categorias */
+  width: 100%;
+  min-height: 200px;         /* Garante área pra centralizar */
   text-align: center;
-  }
+}
 </style>
 </head>
 <body>
@@ -366,6 +368,7 @@ renderCategories();
 </script>
 </body>
 </html>
+
 
 
 
