@@ -286,36 +286,43 @@ window.addEventListener("popstate", (event) => {
 });
 
 function atualizarStatusLoja() {
-  const statusDiv = document.getElementById('lojaStatus');
-  
-  // Hora em São Paulo
-  const sp = new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"});
-  const agora = new Date(sp);
+  // Pega data/hora de SP independente do fuso do usuário
+  const agora = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+  const data = new Date(agora);
 
-  const dia = agora.getDay(); // 0 = domingo
-  const hora = agora.getHours();
+  const diaSemana = data.getDay(); // 0 = Domingo, 1 = Segunda ...
+  const hora = data.getHours();
 
-  if(dia === 0 || hora < 9 || hora >= 22) {
-    statusDiv.className = 'fechado';
-    statusDiv.innerText = 'Fechado';
+  let statusDiv = document.getElementById("statusLoja");
+
+  if (diaSemana === 0) {
+    // Domingo sempre fechado
+    statusDiv.innerHTML = "📕 Fechado";
+    statusDiv.style.background = "red";
+  } else if (hora >= 9 && hora < 22) {
+    statusDiv.innerHTML = "📗 Aberto";
+    statusDiv.style.background = "green";
   } else {
-    statusDiv.className = 'aberto';
-    statusDiv.innerText = 'Aberto ';
+    statusDiv.innerHTML = "📕 Fechado";
+    statusDiv.style.background = "red";
   }
+
+  statusDiv.style.color = "white";
+  statusDiv.style.fontWeight = "bold";
+  statusDiv.style.padding = "8px 12px";
+  statusDiv.style.borderRadius = "10px";
+  statusDiv.style.position = "fixed";
+  statusDiv.style.bottom = "20px";
+  statusDiv.style.left = "20px";
+  statusDiv.style.zIndex = "1000";
 }
 
-// Atualiza ao carregar
-document.addEventListener('DOMContentLoaded', atualizarStatusLoja);
-// Atualiza a cada 5 minutos
-setInterval(atualizarStatusLoja, 300000);
-  // Evita que o botão voltar do celular feche o site quando a categoria estiver aberta
-window.addEventListener('popstate', function() {
-  const categoryPage = document.getElementById('categoryPage');
-  if(categoryPage.style.display === 'flex') {
-    closeCategoryPage(); // fecha apenas a categoria
-    history.pushState(null, ''); // mantém o site aberto
-  }
-});
+// atualizar assim que carregar
+atualizarStatusLoja();
+
+// e atualizar a cada minuto
+setInterval(atualizarStatusLoja, 60000);
+</script>
 
 // Inicializa o histórico para interceptar o botão voltar
 history.pushState(null, '');
@@ -325,6 +332,7 @@ renderCategories();
 </script>
 </body>
 </html>
+
 
 
 
