@@ -316,10 +316,29 @@ window.onpopstate = function () {
   // Reforça o pushState para continuar bloqueando a saída
   history.pushState(null, null, location.href);
 };
+  
+document.getElementById("checkoutBtn").addEventListener("click", function() {
+    let cartItems = document.getElementById("cartItems").innerText; // pega os itens do carrinho
+    if(cartItems.trim() === ""){
+        alert("Seu carrinho está vazio!");
+        return;
+    }
+
+    // mensagem que vai pro WhatsApp
+    let mensagem = encodeURIComponent("Olá, quero finalizar meu pedido:\n\n" + cartItems);
+
+    // seu número do WhatsApp
+    let telefone = "5514996491578"; // exemplo: 5599999999999
+
+    // redireciona pro WhatsApp
+    window.open("https://wa.me/" + telefone + "?text=" + mensagem, "_blank");
+});
+
 
 // Inicializa categorias
 renderCategories();
 </script>
 </body>
 </html>
+
 
