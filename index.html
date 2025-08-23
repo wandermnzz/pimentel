@@ -103,6 +103,14 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
 }
 #lojaStatus.aberto { background-color: #28a745; }
 #lojaStatus.fechado { background-color: #dc3545; }
+  #categories {
+  display: flex;
+  justify-content: center;   /* Centraliza os itens no meio */
+  flex-wrap: wrap;           /* Faz quebrar de linha se faltar espaço */
+  gap: 15px;                 /* Espaçamento entre eles */
+  margin: 20px auto;
+  text-align: center;
+  }
 </style>
 </head>
 <body>
@@ -358,6 +366,7 @@ renderCategories();
 </script>
 </body>
 </html>
+
 
 
 
