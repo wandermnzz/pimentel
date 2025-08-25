@@ -41,13 +41,13 @@ header h1 img { height:50px; border-radius:8px; }
 footer { background:#fff8ef; padding:15px; text-align:center; border-top:1px solid #FFD166; }
 footer .links { margin-top:10px; }
 footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weight:bold; }
-.whatsapp { position:fixed; bottom:20px; right:20px; background: transparent; width:90px; height:80px; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; color:#fff; font-size:20px; z-index:1100; }
+.whatsapp { position:fixed; bottom:20px; right:20px; background: transparent; width:40px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; color:#fff; font-size:20px; z-index:1100; }
 
 /* Botão do carrinho fixo */
 #cartButton {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 18px;
+  right: 180px;
   background: transparent;
   border: none;
   font-size: 32px;
@@ -61,7 +61,7 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
   top: -8px;
   right: -8px;
   background: red;
-  color: black;
+  color: white;
   font-size: 6px;
   font-weight: bold;
   padding: 2px 2px;
@@ -167,7 +167,7 @@ const categorias = [
 const produtos = [
   {id:'sa1', nome:'Esfirra de Carne', preco:9, categoria:'Salgados Assados', desc:'Deliciosa esfirra de carne.', img:'imagens/esfirra.jpg'},
   {id:'t1', nome:'Torta de Frango', preco:80, categoria:'Tortas', desc:'Torta caseira deliciosa.', img:'imagens/torta1.jpg'},
-  {id:'sf1', nome:'Coxinha de Frango', preco:9, categoria:'Salgados Fritos', desc:'Coxinha crocante de frango.', img:'imagens/coxinha.jpg'},
+  {id:'sf1', nome:'Coxinha de Frango', preco:9, categoria:'Salgados Fritos', desc:'Coxinha crocante de frango.', img:'assados2.jpg'},
   {id:'bc1', nome:'Big Coxinha Frango', preco:23, categoria:'Big Coxinha 600g', desc:'Coxinha gigante 600g de frango.', img:'imagens/bigcoxinha_frango.jpg'},
   {id:'sfest1', nome:'Coxinha Festa', preco:90, categoria:'Salgados para festas', desc:'Cento de mini coxinhas.', img:'imagens/festa_coxinha.jpg'}
 ];
@@ -391,6 +391,7 @@ renderCategories();
 </script>
 </body>
 </html>
+
 
 
 
