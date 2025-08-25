@@ -103,18 +103,14 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
 #lojaStatus.aberto { background-color: #28a745; }
 #lojaStatus.fechado { background-color: #dc3545; }
   
-#categories {
-  display: grid;
-  justify-content: center;   /* Centraliza no eixo horizontal */
-  align-items: center;       /* Centraliza no eixo vertical */
-  flex-wrap: wrap;           /* Permite quebrar linha se precisar */
-  gap: 20px;                 /* Espaço entre categorias */
-  width: 100%;
-  min-height: 200px;         /* Garante área pra centralizar */
-  text-align: center;
-  grid-template-columns: repeat(2, 1fr);
+
+  #categoryMenu {
+  display: flex;
+  flex-wrap: wrap;        /* permite quebrar linha quando não caber */
+  justify-content: center; /* centraliza horizontalmente */
+  gap: 20px;              /* espaço entre os cards */
   padding: 20px;
-}
+  }
   #cartButton img {
   width: 25px;  /* ajusta para caber melhor */
   height: 25px;
@@ -396,6 +392,7 @@ renderCategories();
 </script>
 </body>
 </html>
+
 
 
 
