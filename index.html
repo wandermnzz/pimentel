@@ -41,7 +41,7 @@ header h1 img { height:50px; border-radius:8px; }
 footer { background:#fff8ef; padding:15px; text-align:center; border-top:1px solid #FFD166; }
 footer .links { margin-top:10px; }
 footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weight:bold; }
-.whatsapp { position:fixed; bottom:20px; right:20px; background: transparent; width:65px; height:55px; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; color:#fff; font-size:20px; z-index:1100; }
+.whatsapp { position:fixed; bottom:20px; right:20px; background: #25D366; width:65px; height:55px; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; color:#fff; font-size:20px; z-index:1100; }
 
 /* Botão do carrinho fixo */
 #cartButton {
@@ -105,17 +105,17 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
   
 
   #categoryMenu {
-  display: flex;          /* Faz os cards ficarem na mesma linha */
-  flex-wrap: wrap;        /* Quebra para a próxima linha se não couber */
-  justify-content: center;/* Centraliza horizontalmente */
-  gap: 20px;              /* Espaço entre os cards */
+  display: grid;
+  grid-template-columns: repeat(2, 200px); /* 2 colunas de 200px cada */
+  justify-content: center;                  /* centraliza o grid na tela */
+  gap: 20px;                                /* espaço entre os cards */
   padding: 20px;
 }
 
 .category-card {
-  flex: 0 0 200px;       /* Mantém cada card com 200px de largura */
-  height: 200px;          /* Altura fixa */
-}              /* espaço entre os cards */
+  width: 200px;   /* largura fixa */
+  height: 200px;  /* altura fixa */
+} /* espaço entre os cards */
 
   #cartButton img {
   width: 25px;  /* ajusta para caber melhor */
@@ -398,6 +398,7 @@ renderCategories();
 </script>
 </body>
 </html>
+
 
 
 
