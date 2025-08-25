@@ -105,12 +105,18 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
   
 
   #categoryMenu {
-  display: flex;
-  flex-wrap: wrap;        /* permite quebrar linha quando não caber */
-  justify-content: center; /* centraliza horizontalmente */
-  gap: 20px;              /* espaço entre os cards */
+  display: flex;          /* Faz os cards ficarem na mesma linha */
+  flex-wrap: wrap;        /* Quebra para a próxima linha se não couber */
+  justify-content: center;/* Centraliza horizontalmente */
+  gap: 20px;              /* Espaço entre os cards */
   padding: 20px;
-  }
+}
+
+.category-card {
+  flex: 0 0 200px;       /* Mantém cada card com 200px de largura */
+  height: 200px;          /* Altura fixa */
+}              /* espaço entre os cards */
+
   #cartButton img {
   width: 25px;  /* ajusta para caber melhor */
   height: 25px;
@@ -392,6 +398,7 @@ renderCategories();
 </script>
 </body>
 </html>
+
 
 
 
