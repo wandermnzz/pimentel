@@ -92,13 +92,28 @@ footer .links a { color:#D90429; margin:0 10px; text-decoration:none; font-weigh
   bottom: 20px;
   left: 20px;
   padding: 4px 9px;
-  border-radius: 8px;
+  border-radius: 12px;
   color: #fff;
   font-weight: bold;
   font-size: 14px;
   text-align: center;
   z-index: 1200;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transform: translateX(150%);  /* começa fora da tela, à direita */
+  animation: slideIn 0.8s ease-out forwards; /* aplica a animação */
+}
+
+#lojaStatus.aberto { background-color: #28a745; }
+#lojaStatus.fechado { background-color: #dc3545; }
+
+/* Animação */
+@keyframes slideIn {
+  from {
+    transform: translateX(150%); /* fora da tela */
+  }
+  to {
+    transform: translateX(0); /* posição normal */
+  }
 }
 #lojaStatus.aberto { background-color: #39FF14; }
 #lojaStatus.fechado { background-color: #dc3545; }
@@ -401,6 +416,7 @@ renderCategories();
 </script>
 </body>
 </html>
+
 
 
 
