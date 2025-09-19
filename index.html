@@ -1,248 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>SOS Soluções — Esquadrias Premium</title>
-<meta name="description" content="SOS Soluções — Esquadrias premium em alumínio. Projetos residenciais e comerciais com acabamento de alto padrão." />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-:root{
-  --bg:#0a0d10;
-  --bg-soft:#0c1116;
-  --text:#ffffff;
-  --muted:rgba(255,255,255,.76);
-  --stroke:rgba(255,255,255,.08);
-  --gold:#FFD700;
-  --gold-2:#e6c200;
-  --max:1180px;
-}
-
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%}
-body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-
-/* UTIL */
-.wrap{width:min(var(--max),92%);margin-inline:auto}
-.kicker{font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  padding:13px 22px;border:2px solid var(--gold);border-radius:999px;background:transparent;color:#fff;
-  font-weight:700;transition:.25s;text-decoration:none
-}
-.btn:hover{transform:translateY(-1px);box-shadow:0 0 0 2px rgba(255,215,0,.18),0 10px 26px rgba(0,0,0,.35)}
-h1,h2,h3{letter-spacing:.2px;text-shadow:0 0 1px rgba(0,0,0,.2)}
-.muted{color:var(--muted)}
-.section{padding:70px 0}
-.split{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
-@media (max-width:1024px){.split{grid-template-columns:1fr;gap:22px}}
-
-/* HEADER (fixo discreto) */
-header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,0));backdrop-filter:blur(8px);border-bottom:1px solid var(--stroke)}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
-.nav .brand{display:flex;align-items:center;gap:10px;font-weight:800}
-.nav img{height:36px}
-
-/* HERO — igual ao RD (texto à esq., mídia à dir.) */
-.hero{position:relative;border-bottom:1px solid var(--stroke)}
-.hero .wrap{padding:18px 0}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:stretch;min-height:78vh}
-@media (max-width:1024px){.hero-grid{grid-template-columns:1fr;min-height:auto}}
-.hero-copy{display:flex;flex-direction:column;justify-content:center;padding: clamp(10px,3.5vw,40px) 0}
-.hero h1{font-size:clamp(2rem,4.2vw,3.2rem);font-weight:800;margin:6px 0 10px}
-.hero p{max-width:60ch}
-.hero-media{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--stroke);box-shadow:0 16px 40px rgba(0,0,0,.35)}
-.hero-media video,.hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,13,16,.75) 0%,rgba(10,13,16,.35) 45%,rgba(10,13,16,0) 90%)}
-
-/* BLOCOS DE SERVIÇOS (cards 3 colunas) */
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
-@media (max-width:1024px){.cards{grid-template-columns:1fr}}
-.card{border:1px solid var(--stroke);border-radius:14px;overflow:hidden;background:#0f1318;box-shadow:0 12px 28px rgba(0,0,0,.22);transition:transform .25s}
-.card:hover{transform:translateY(-3px)}
-.card img{width:100%;height:230px;object-fit:cover}
-.card h4{padding:12px 14px}
-
-/* SEÇÃO DESTAQUE (igual bloco “Diversos clientes…”) */
-.band{background: radial-gradient(800px 380px at 12% 20%, rgba(255,255,255,.05), transparent 60%), linear-gradient(180deg, rgba(12,17,22,.55), rgba(12,17,22,.25));border-block:1px solid var(--stroke)}
-.band .content{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
-@media (max-width:1024px){.band .content{grid-template-columns:1fr}}
-.band h2{font-size:clamp(1.8rem,3.2vw,2.4rem);font-weight:800}
-.band .gold{color:var(--gold);font-weight:800}
-
-/* MAPA */
-.map-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
-@media (max-width:1024px){.map-grid{grid-template-columns:1fr}}
-.map-figure{justify-self:end}
-.map-figure img{max-width:520px;width:100%;border-radius:16px;box-shadow:0 16px 36px rgba(0,0,0,.3)}
-
-/* QUEM SOMOS */
-.about{background: radial-gradient(700px 360px at 12% 20%, rgba(255,255,255,.04), transparent 60%), linear-gradient(180deg, rgba(12,17,22,.55), rgba(12,17,22,.25));border-block:1px solid var(--stroke);text-align:center}
-.about h2{font-size:clamp(1.9rem,3.4vw,2.6rem);font-weight:800;margin-bottom:8px}
-.about .gold{color:var(--gold)}
-.about p{max-width:78ch;margin-inline:auto}
-
-/* GALERIA */
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media (max-width:1024px){.gallery{grid-template-columns:1fr}}
-.gallery figure{border:1px solid var(--stroke);border-radius:12px;overflow:hidden;background:#0f1318;box-shadow:0 12px 28px rgba(0,0,0,.22)}
-.gallery img{width:100%;height:240px;object-fit:cover}
-.gallery figcaption{padding:10px 12px;color:var(--muted)}
-
-/* CTA FINAL */
-.cta-final{position:relative;text-align:center;padding:80px 0;border-top:1px solid var(--stroke);background:linear-gradient(rgba(10,13,16,.92), rgba(10,13,16,.92)), url("poster.jpg") center/cover no-repeat}
-.cta-final h2{font-size:clamp(1.8rem,3.2vw,2.3rem);font-weight:800;margin-bottom:8px}
-.cta-final p{max-width:72ch;margin:0 auto 16px}
-
-/* FOOTER */
-footer{background:#000;border-top:1px solid var(--stroke);padding:40px 0}
-.footer-grid{display:flex;align-items:center;justify-content:space-between;gap:18px}
-@media (max-width:768px){.footer-grid{flex-direction:column;text-align:center}}
-footer .muted{color:rgba(255,255,255,.75)}
-
-/* FLOAT WHATSAPP */
-.whats-btn{position:fixed;right:20px;bottom:20px;z-index:50;display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;background:#25D366;color:#fff;font-weight:700;box-shadow:0 12px 28px rgba(0,0,0,.3);text-decoration:none}
-.whats-btn:hover{filter:brightness(1.05);transform:translateY(-2px)}
-.whats-btn img{width:22px;height:22px}
-@media (max-width:640px){.whats-btn span{display:none}}
-
-/* Entradas suaves */
-.fade-in{opacity:0;transform:translateY(16px);transition:opacity .8s ease, transform .8s ease}
-.fade-in.visible{opacity:1;transform:translateY(0)}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog de Xadrez</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Cabeçalho -->
+    <header>
+        <h1>Blog de Xadrez</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Artigos</a></li>
+                <li><a href="#">Estratégias</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<header>
-  <div class="wrap nav">
-    <div class="brand"><img src="Logo2.png" alt="SOS Soluções">SOS Soluções</div>
-    <a class="btn" href="https://wa.me/5579998954178" target="_blank">Solicitar orçamento →</a>
-  </div>
-</header>
+    <!-- Conteúdo principal -->
+    <main>
+        <article>
+            <h2>Primeiros Passos no Xadrez</h2>
+            <p>O xadrez é um jogo milenar que envolve estratégia, paciência e visão de futuro.
+            Neste artigo, vamos aprender os movimentos básicos das peças e como iniciar uma partida.</p>
+        </article>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <img src="Logo2.png" alt="Logo SOS" style="height:54px;margin-bottom:8px">
-      <h1>Seu projeto com <span style="color:#fff;font-weight:800">esquadrias premium</span></h1>
-      <p class="muted" style="margin:8px 0 18px">Projetamos e executamos <strong>portas, janelas e revestimentos</strong> em alumínio de alto padrão para projetos residenciais e comerciais.</p>
-      <a class="btn" href="https://wa.me/5579998954178" target="_blank">Solicite seu orçamento →</a>
-    </div>
+        <article>
+            <h2>Aberturas Famosas</h2>
+            <p>Existem diversas aberturas populares, como a Ruy Lopez, Defesa Siciliana e a Defesa Francesa.
+            Cada uma possui características únicas que podem definir o rumo do jogo.</p>
+        </article>
+    </main>
 
-    <figure class="hero-media">
-      <video autoplay muted loop playsinline poster="poster.jpg">
-        <source src="hero.mp4" type="video/mp4">
-      </video>
-    </figure>
-  </div>
-</section>
+    <!-- Barra lateral -->
+    <aside>
+        <h3>Últimos Posts</h3>
+        <ul>
+            <li><a href="#">Táticas de Mate em 2</a></li>
+            <li><a href="#">A Importância do Meio-Jogo</a></li>
+            <li><a href="#">Finais Mais Comuns</a></li>
+        </ul>
+    </aside>
 
-<!-- SERVIÇOS -->
-<section class="section">
-  <div class="wrap">
-    <p class="kicker">Nossos serviços</p>
-    <h2 style="font-size:2rem;font-weight:800;margin:6px 0 10px">Qualidade e precisão do projeto à instalação</h2>
-    <p class="muted">Cuidamos de cada etapa com segurança e foco em resultado.</p>
-
-    <div class="cards">
-      <article class="card fade-in"><img src="servico1.jpg" alt=""><h4>Portas e Janelas em Alumínio</h4></article>
-      <article class="card fade-in"><img src="servico2.jpg" alt=""><h4>Revestimentos em ACM</h4></article>
-      <article class="card fade-in"><img src="servico3.jpg" alt=""><h4>Fechamentos & Fachadas</h4></article>
-    </div>
-    <div style="margin-top:22px"><a class="btn" href="https://wa.me/5579998954178" target="_blank">Saiba mais →</a></div>
-  </div>
-</section>
-
-<!-- DESTAQUE (clientes) -->
-<section class="section band">
-  <div class="wrap content">
-    <div class="content">
-      <figure class="card" style="margin:0"><img src="servicoref1.jpg" alt="Projeto"></figure>
-      <div>
-        <h2>Diversos clientes por todo <span class="gold">Sergipe</span></h2>
-        <p class="muted" style="margin:8px 0 10px">Soluções de alto padrão em esquadrias que transformam projetos em grandes resultados.</p>
-        <p class="gold" style="font-weight:800">Atendemos em todo Sergipe.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MAPA -->
-<section class="section">
-  <div class="wrap map-grid">
-    <div>
-      <p class="kicker">Onde estamos</p>
-      <h2 style="font-size:2rem;font-weight:800;margin:6px 0 10px">Estamos bem perto de você!</h2>
-      <p class="muted">Av. General Euclides Figueiredo, 133 — Aracaju/SE</p>
-      <p class="muted" style="margin:4px 0 16px">Atuamos em todo o estado de Sergipe, com atendimento próximo e ágil.</p>
-      <a class="btn" href="https://goo.gl/maps/example" target="_blank">Saiba como chegar →</a>
-    </div>
-    <figure class="map-figure"><img src="mapasergipe4.png" alt="Mapa de Sergipe"></figure>
-  </div>
-</section>
-
-<!-- QUEM SOMOS -->
-<section class="section about">
-  <div class="wrap">
-    <h2>Quem somos? <span class="gold">Somos inovação!</span></h2>
-    <p class="muted" style="margin-top:10px">Especialistas em esquadrias de alumínio para projetos residenciais e comerciais, unindo tecnologia de ponta, acabamento de alto padrão e atendimento próximo a cada detalhe.</p>
-  </div>
-</section>
-
-<!-- GALERIA -->
-<section class="section">
-  <div class="wrap">
-    <p class="kicker">Nossos trabalhos</p>
-    <h2 style="font-size:2rem;font-weight:800;margin:6px 0 18px">Resultados que valorizam seu projeto</h2>
-    <div class="gallery">
-      <figure class="fade-in"><img src="poster.jpg" alt=""><figcaption>Portão com controle e senha integrada</figcaption></figure>
-      <figure class="fade-in"><img src="portaocasabranca.jpg" alt=""><figcaption>Portão deslizante moderno</figcaption></figure>
-      <figure class="fade-in"><img src="portaopreto.jpg" alt=""><figcaption>Garagem seccional automatizada</figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<!-- CTA FINAL -->
-<section class="cta-final">
-  <div class="wrap">
-    <h2>Então, vamos elevar seu projeto?</h2>
-    <p class="muted">Entre em contato e dê o primeiro passo para ter esquadrias de alto padrão, feitas sob medida para valorizar cada detalhe.</p>
-    <a class="btn" href="https://wa.me/5579998954178" target="_blank">Solicite seu orçamento →</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="wrap footer-grid">
-    <div>
-      <div style="display:flex;align-items:center;gap:10px;font-weight:800;margin-bottom:6px">
-        <img src="Logo2.png" alt="SOS" style="height:26px"> SOS Soluções
-      </div>
-      <div class="muted">Av. General Euclides Figueiredo, 133 — Aracaju/SE</div>
-      <div class="muted">(79) 99989-54178</div>
-    </div>
-    <div class="muted">© <span id="year"></span> SOS Soluções. Todos os direitos reservados.</div>
-  </div>
-</footer>
-
-<!-- WHATSAPP FLOAT -->
-<a class="whats-btn" href="https://wa.me/5579998954178" target="_blank" aria-label="WhatsApp">
-  <img src="whatsapp.png" alt="WhatsApp"><span>Fale conosco</span>
-</a>
-
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
-
-// fade-in simples
-const els = document.querySelectorAll('.fade-in');
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
-},{threshold:.15});
-els.forEach(el=>io.observe(el));
-</script>
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2025 Blog de Xadrez - Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
