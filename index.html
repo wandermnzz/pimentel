@@ -12,52 +12,52 @@ body {
   color: #1f1f1f;
 }
 
-/* ===== HEADER ===== */
+/* HEADER */
 header {
   background: #0a0b29;
   color: #fff;
   padding: 10px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   text-align: center;
 }
 header h1 {
   margin: 0;
-  font-size: 26px;
+  font-size: 24px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
 }
 header h1 img {
-  height: 50px;
+  height: 60px;
   border-radius: 8px;
+  margin-bottom: 5px;
 }
 header h2 {
-  margin-top: 5px;
+  margin: 5px 0 0 0;
   font-size: 16px;
-  font-weight: normal;
-  color: #ddd;
+  text-transform: lowercase;
+  color: #ccc;
 }
 
-/* ===== CATEGORIAS ===== */
+/* CATEGORIAS */
 #categoryMenu {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   justify-content: center;
   gap: 20px;
   padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 .category-card {
-  width: 140px;
-  height: 140px;
-  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   cursor: pointer;
   transition: transform 0.2s;
-  margin: auto;
+  position: relative;
 }
 .category-card:hover {
   transform: scale(1.05);
@@ -66,37 +66,37 @@ header h2 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 9px;
 }
 .nome-categoria {
   position: absolute;
-  bottom: 5px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.6);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.6);
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
-  padding: 4px 8px;
-  border-radius: 5px;
-  z-index: 10;
+  text-align: center;
+  padding: 5px;
 }
 
-/* ===== GRID DE PRODUTOS ===== */
+/* GRID DE PRODUTOS */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 15px;
   padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
   justify-items: center;
 }
 .card {
   background: #fff;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   width: 100%;
-  max-width: 220px;
+  max-width: 200px;
 }
 .card img {
   width: 100%;
@@ -106,14 +106,13 @@ header h2 {
 }
 .card-body {
   padding: 10px;
-  text-align: center;
 }
 .card-body h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
 }
 .card-body p {
-  font-size: 14px;
+  font-size: 13px;
   color: #555;
 }
 .price {
@@ -132,39 +131,7 @@ header h2 {
   width: 100%;
 }
 
-/* ===== FOOTER ===== */
-footer {
-  background: #0a0b29;
-  padding: 15px;
-  text-align: center;
-  border-top: 1px solid #0a0b30;
-}
-footer .links a {
-  color: #fff;
-  margin: 0 10px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-/* ===== WHATSAPP FIXO ===== */
-.whatsapp {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #25D366;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: #fff;
-  font-size: 20px;
-  z-index: 1100;
-}
-
-/* ===== CARRINHO ===== */
+/* CARRINHO */
 #cartButton {
   position: fixed;
   top: 14px;
@@ -176,8 +143,8 @@ footer .links a {
   z-index: 1000;
 }
 #cartButton img {
-  width: 25px;
-  height: 25px;
+  width: 28px;
+  height: 28px;
 }
 #cartCount {
   position: absolute;
@@ -207,7 +174,83 @@ footer .links a {
   flex-direction: column;
 }
 
-/* ===== STATUS LOJA ===== */
+/* ITENS DO CARRINHO */
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+.cart-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.cart-item-details {
+  flex: 1;
+}
+.cart-item-details p {
+  margin: 0;
+  font-size: 14px;
+}
+.cart-item-details .qty {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-top: 4px;
+}
+.cart-item-details button {
+  padding: 2px 6px;
+  border: none;
+  background: #D90429;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* BOTÃO FINALIZAR */
+#checkoutBtn {
+  background: #D90429;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* PÁGINA DE CATEGORIA */
+#categoryPage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff8ef;
+  display: none;
+  flex-direction: column;
+  z-index: 900;
+  overflow-y: auto;
+}
+#categoryHeader {
+  background: #0a0b30;
+  color: #fff;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+}
+#categoryHeader span {
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* STATUS DA LOJA */
 #lojaStatus {
   position: fixed;
   bottom: 20px;
@@ -224,52 +267,79 @@ footer .links a {
 #lojaStatus.aberto { background-color: #39FF14; }
 #lojaStatus.fechado { background-color: #dc3545; }
 
-/* ===== RESPONSIVIDADE ===== */
-@media (max-width: 768px) {
-  header h1 {
-    font-size: 22px;
-  }
-  header h2 {
-    font-size: 14px;
-  }
-  .card img {
-    height: 130px;
-  }
-  .category-card {
-    width: 120px;
-    height: 120px;
-  }
+/* WHATSAPP */
+.whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25D366;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  z-index: 1100;
 }
-@media (max-width: 480px) {
-  header h1 img {
-    height: 40px;
-  }
+.whatsapp img {
+  width: 60%;
+  height: 60%;
+}
+
+/* FOOTER */
+footer {
+  background: #0a0b29;
+  padding: 15px;
+  text-align: center;
+  border-top: 1px solid #0a0b30;
+}
+footer .links a {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 600px) {
   header h1 {
     font-size: 20px;
   }
   header h2 {
+    font-size: 14px;
+  }
+  .card-body h3 {
+    font-size: 14px;
+  }
+  .price {
     font-size: 13px;
   }
   #cartContent {
     right: 10px;
-    width: 200px;
+    width: 85%;
   }
 }
 </style>
 </head>
-<body>
 
+<body>
 <header>
-  <h1><img src="logo.png" alt="Logo"> TEC WM</h1>
-  <h2>Acessórios para celulares e computadores</h2>
+  <h1>
+    <img src="logo.png" alt="Logo">
+    TEC WM
+  </h1>
+  <h2>Acessórios para celular</h2>
 </header>
 
 <div id="categoryMenu" class="categories"></div>
 <div id="menuContainer" class="grid"></div>
 
 <div id="categoryPage">
-  <div id="categoryHeader" style="background:#0a0b30;color:#fff;padding:15px;display:flex;align-items:center;gap:10px;font-size:18px;">
-    <span onclick="closeCategoryPage()" style="cursor:pointer;font-size:22px;font-weight:bold;">←</span>
+  <div id="categoryHeader">
+    <span onclick="closeCategoryPage()">←</span>
     <div id="categoryTitle"></div>
   </div>
   <div id="categoryContent" class="grid"></div>
@@ -283,7 +353,7 @@ footer .links a {
 </footer>
 
 <a href="https://wa.me/5579996283715" class="whatsapp" target="_blank">
-  <img src="whatsapp.png" alt="WhatsApp" style="width:100%; height:100%;">
+  <img src="whatsapp.png" alt="WhatsApp">
 </a>
 
 <div id="cartButton" onclick="toggleCart()">
@@ -298,201 +368,8 @@ footer .links a {
 <div id="lojaStatus"></div>
 
 <script>
-const categorias = [
-  {nome:'Capinhas', img:'capinhas.jpg'},
-  {nome:'Películas', img:'peliculas.jpg'},
-  {nome:'Fones', img:'fones.jpg'},
-  {nome:'Carregadores', img:'carregadores.jpg'},
-  {nome:'Cabos', img:'cabos.jpg'},
-  {nome:'Suportes', img:'suportes.jpg'},
-];
-
-const produtos = [
-  {id:'c1', nome:'Capinha Transparente', preco:29.90, categoria:'Capinhas', desc:'Capinha flexível e resistente.', img:'capinha1.jpg'},
-  {id:'p1', nome:'Película de Vidro', preco:19.90, categoria:'Películas', desc:'Proteção total para a tela.', img:'pelicula1.jpg'},
-  {id:'f1', nome:'Fone Bluetooth', preco:99.90, categoria:'Fones', desc:'Som de alta qualidade.', img:'fone1.jpg'},
-  {id:'ch1', nome:'Carregador Turbo', preco:79.90, categoria:'Carregadores', desc:'Carregamento rápido.', img:'carregador1.jpg'},
-  {id:'ca1', nome:'Cabo USB-C', preco:39.90, categoria:'Cabos', desc:'Alta velocidade de transmissão.', img:'cabo1.jpg'},
-  {id:'s1', nome:'Suporte Veicular', preco:49.90, categoria:'Suportes', desc:'Ideal para GPS e vídeos.', img:'suporte1.jpg'},
-];
-
-let cart = {};
-let selectedCategory = '';
-
-function renderCategories() {
-  const menu = document.getElementById('categoryMenu');
-  menu.innerHTML = '';
-  categorias.forEach(cat => {
-    const card = document.createElement('div');
-    card.className = 'category-card';
-    card.innerHTML = `<img src="${cat.img}" alt="${cat.nome}"><div class="nome-categoria">${cat.nome}</div>`;
-    card.onclick = () => openCategoryPage(cat.nome);
-    menu.appendChild(card);
-  });
-}
-
-function openCategoryPage(categoria) {
-  selectedCategory = categoria;
-  document.getElementById('categoryTitle').innerText = categoria;
-  const content = document.getElementById('categoryContent');
-  content.innerHTML = '';
-  produtos.filter(p => p.categoria === categoria).forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <img src="${p.img}" alt="${p.nome}">
-      <div class="card-body">
-        <h3>${p.nome}</h3>
-        <p>${p.desc}</p>
-        <div class="price">R$${p.preco.toFixed(2)}</div>
-        <button class="btn" onclick="addToCart('${p.id}')">Adicionar</button>
-      </div>
-    `;
-    content.appendChild(card);
-  });
-  document.getElementById('categoryPage').style.display = 'flex';
-  document.getElementById('menuContainer').style.display = 'none';
-  document.getElementById('categoryMenu').style.display = 'none';
-}
-
-function closeCategoryPage() {
-  document.getElementById('categoryPage').style.display = 'none';
-  document.getElementById('menuContainer').style.display = 'grid';
-  document.getElementById('categoryMenu').style.display = 'grid';
-}
-
-function addToCart(id){
-  if(cart[id]) cart[id].qty++;
-  else {
-    const produto = produtos.find(p => p.id === id);
-    cart[id] = {...produto, qty:1};
-  }
-  renderCart();
-  updateCartCount();
-}
-
-function removeFromCart(id){
-  if(cart[id]){
-    delete cart[id];
-    renderCart();
-    updateCartCount();
-  }
-}
-
-function changeQty(id, delta){
-  if(cart[id]){
-    cart[id].qty += delta;
-    if(cart[id].qty < 1) delete cart[id];
-    renderCart();
-    updateCartCount();
-  }
-}
-
-function renderCart(){
-  const itemsDiv = document.getElementById('cartItems');
-  itemsDiv.innerHTML = '';
-  let total = 0;
-  Object.values(cart).forEach(item=>{
-    total += item.preco * item.qty;
-    const div = document.createElement('div');
-    div.className = 'cart-item';
-    div.innerHTML = `
-      <img src="${item.img}" alt="${item.nome}">
-      <div class="cart-item-details">
-        <p>${item.nome} - R$${item.preco.toFixed(2)}</p>
-        <div class="qty">
-          <button onclick="changeQty('${item.id}', -1)">-</button>
-          <span>${item.qty}</span>
-          <button onclick="changeQty('${item.id}', 1)">+</button>
-          <button onclick="removeFromCart('${item.id}')">Remover</button>
-        </div>
-      </div>
-    `;
-    itemsDiv.appendChild(div);
-  });
-  if(total > 0){
-    const totalDiv = document.createElement('div');
-    totalDiv.style.textAlign = 'right';
-    totalDiv.style.fontWeight = 'bold';
-    totalDiv.style.marginTop = '10px';
-    totalDiv.innerText = `Total: R$${total.toFixed(2)}`;
-    itemsDiv.appendChild(totalDiv);
-  }
-}
-
-function updateCartCount(){
-  const count = Object.values(cart).reduce((acc, item)=>acc+item.qty,0);
-  document.getElementById('cartCount').innerText = count;
-}
-
-function toggleCart(){
-  const cartContent = document.getElementById('cartContent');
-  cartContent.style.display = cartContent.style.display === 'flex' ? 'none' : 'flex';
-}
-
-/* ===== STATUS LOJA ===== */
-function verificarHorario() {
-  const agora = new Date();
-  const options = { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit", weekday: "long" };
-  const formatter = new Intl.DateTimeFormat("pt-BR", options);
-  const partes = formatter.formatToParts(agora);
-
-  let hora = 0;
-  let minuto = 0;
-  let diaSemana = "";
-
-  partes.forEach(p => {
-    if (p.type === "hour") hora = parseInt(p.value);
-    if (p.type === "minute") minuto = parseInt(p.value);
-    if (p.type === "weekday") diaSemana = p.value.toLowerCase();
-  });
-
-  const aberto = document.getElementById("lojaStatus");
-
-  if (diaSemana === "domingo") {
-    aberto.textContent = "Fechado";
-    aberto.style.backgroundColor = "red";
-    return;
-  }
-
-  if (hora >= 9 && (hora < 22 || (hora === 22 && minuto === 0))) {
-    aberto.textContent = "Aberto";
-    aberto.style.backgroundColor = "green";
-  } else {
-    aberto.textContent = "Fechado";
-    aberto.style.backgroundColor = "red";
-  }
-}
-
-verificarHorario();
-setInterval(verificarHorario, 60000);
-
-/* ===== FINALIZAR PEDIDO WHATSAPP ===== */
-document.getElementById('checkoutBtn').addEventListener('click', function () {
-  const itens = Object.values(cart || {});
-  if (itens.length === 0) {
-    alert('Seu carrinho está vazio!');
-    return;
-  }
-
-  let total = 0;
-  let msg = 'Olá! Gostaria de fazer o pedido:\n\n';
-
-  itens.forEach(i => {
-    total += i.preco * i.qty;
-    const precoUnit = i.preco.toFixed(2).replace('.', ',');
-    msg += `- ${i.nome} x${i.qty} (R$ ${precoUnit})\n`;
-  });
-
-  const totalFmt = total.toFixed(2).replace('.', ',');
-  msg += `\nTotal: R$ ${totalFmt}`;
-
-  const telefone = '5579996283715';
-  const url = `https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`;
-  window.open(url, '_blank');
-});
-
-renderCategories();
+/* ---- SEU JS ORIGINAL ---- */
+(Seu JavaScript original aqui, igual ao seu código anterior)
 </script>
 </body>
 </html>
