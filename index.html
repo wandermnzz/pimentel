@@ -3,47 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>tec wm</title>
+<title>TEC WM</title>
 <style>
-body { margin:0; font-family: Arial, sans-serif; background:#0a0b30; color:#1f1f1f; }
-header { background:#0a0b29; color:#fff; padding:10px 20px; display:flex; justify-content:space-between; align-items:center; }
-header h1 { margin:0; font-size:24px; display:flex; align-items:center; gap:10px; }
-header h1 img { height:50px; border-radius:8px; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0a0b30;
+  color: #1f1f1f;
+}
 
-.categories { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:15px; padding:20px; }
-.category-card { width:200px; height:200px; position:relative; border-radius:12px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.1); cursor:pointer; transition: transform 0.2s; }
-.category-card:hover { transform:scale(1.05); }
-.category-card img { width:100%; height:100%; object-fit:cover; display:block; }
-.nome-categoria { position:absolute; top:5px; left:5px; background:rgba(0,0,0,0.5); color:#fff; font-size:12px; font-weight:bold; padding:2px 5px; border-radius:3px; z-index:10; }
+/* ===== HEADER ===== */
+header {
+  background: #0a0b29;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+header h1 {
+  margin: 0;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header h1 img {
+  height: 50px;
+  border-radius: 8px;
+}
+header h2 {
+  margin-top: 5px;
+  font-size: 16px;
+  font-weight: normal;
+  color: #ddd;
+}
 
-.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:15px; padding:20px; }
-.card { background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
-.card img { width:100%; height:150px; object-fit:cover; cursor:pointer; }
-.card-body { padding:10px; }
-.card-body h3 { margin:0; font-size:18px; }
-.card-body p { font-size:14px; color:#555; }
-.price { color:#D90429; font-weight:bold; margin-top:5px; }
-.btn { background:#D90429; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; margin-top:8px; width:100%; }
+/* ===== CATEGORIAS ===== */
+#categoryMenu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+.category-card {
+  width: 140px;
+  height: 140px;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s;
+  margin: auto;
+}
+.category-card:hover {
+  transform: scale(1.05);
+}
+.category-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 9px;
+}
+.nome-categoria {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 5px;
+  z-index: 10;
+}
 
-.cart-item { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #eee; }
-.cart-item img { width:50px; height:50px; object-fit:cover; border-radius:8px; }
-.cart-item-details { flex:1; }
-.cart-item-details p { margin:0; font-size:14px; }
-.cart-item-details .qty { display:flex; gap:5px; align-items:center; margin-top:4px; }
-.cart-item-details button { padding:2px 6px; border:none; background:#D90429; color:#fff; border-radius:6px; cursor:pointer; }
+/* ===== GRID DE PRODUTOS ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  padding: 20px;
+  justify-items: center;
+}
+.card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 220px;
+}
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  cursor: pointer;
+}
+.card-body {
+  padding: 10px;
+  text-align: center;
+}
+.card-body h3 {
+  margin: 0;
+  font-size: 18px;
+}
+.card-body p {
+  font-size: 14px;
+  color: #555;
+}
+.price {
+  color: #D90429;
+  font-weight: bold;
+  margin-top: 5px;
+}
+.btn {
+  background: #D90429;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 8px;
+  width: 100%;
+}
 
-#checkoutBtn { background:#D90429; color:#fff; border:none; padding:10px; margin:10px; border-radius:8px; cursor:pointer; font-weight:bold; }
+/* ===== FOOTER ===== */
+footer {
+  background: #0a0b29;
+  padding: 15px;
+  text-align: center;
+  border-top: 1px solid #0a0b30;
+}
+footer .links a {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
 
-#categoryPage { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff8ef; display: none; flex-direction: column; z-index: 900; overflow-y: auto; }
-#categoryHeader { background:#0a0b30; color:#fff; padding:15px; display:flex; align-items:center; gap:10px; font-size:18px; }
-#categoryHeader span { cursor:pointer; font-size:22px; font-weight:bold; }
+/* ===== WHATSAPP FIXO ===== */
+.whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25D366;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  z-index: 1100;
+}
 
-footer { background:#0a0b29; padding:15px; text-align:center; border-top:1px solid #0a0b30; }
-footer .links { margin-top:10px; }
-footer .links a { color:#fff; margin:0 10px; text-decoration:none; font-weight:bold; }
-.whatsapp { position:fixed; bottom:20px; right:20px; background: #25D366; width:25px; height:25px; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; color:#fff; font-size:20px; z-index:1100; }
-
-/* Botão do carrinho fixo */
+/* ===== CARRINHO ===== */
 #cartButton {
   position: fixed;
   top: 14px;
@@ -54,8 +175,10 @@ footer .links a { color:#fff; margin:0 10px; text-decoration:none; font-weight:b
   cursor: pointer;
   z-index: 1000;
 }
-
-/* Bolinha de contagem */
+#cartButton img {
+  width: 25px;
+  height: 25px;
+}
 #cartCount {
   position: absolute;
   top: -8px;
@@ -67,8 +190,6 @@ footer .links a { color:#fff; margin:0 10px; text-decoration:none; font-weight:b
   padding: 2px 3px;
   border-radius: 50%;
 }
-
-/* Conteúdo do carrinho */
 #cartContent {
   display: none;
   position: fixed;
@@ -86,7 +207,7 @@ footer .links a { color:#fff; margin:0 10px; text-decoration:none; font-weight:b
   flex-direction: column;
 }
 
-/* Status da loja */
+/* ===== STATUS LOJA ===== */
 #lojaStatus {
   position: fixed;
   bottom: 20px;
@@ -102,46 +223,53 @@ footer .links a { color:#fff; margin:0 10px; text-decoration:none; font-weight:b
 }
 #lojaStatus.aberto { background-color: #39FF14; }
 #lojaStatus.fechado { background-color: #dc3545; }
-  
 
-  #categoryMenu {
-  display: grid;
-  grid-template-columns: repeat(2, 165px); /* 2 colunas de 200px cada */
-  justify-content: center;                  /* centraliza o grid na tela */
-  gap: 20px;                                /* espaço entre os cards */
-  padding: 20px;
-}
-.category-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* mantém a proporção e cobre todo o card */
-  border-radius: 9px; /* se quiser manter os cantos arredondados */
-}
-.category-card {
-  width: 140px;   /* largura fixa */
-  height: 140px;  /* altura fixa */
-} /* espaço entre os cards */
-
-  #cartButton img {
-  width: 25px;  /* ajusta para caber melhor */
-  height: 25px;
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 22px;
   }
-  
+  header h2 {
+    font-size: 14px;
+  }
+  .card img {
+    height: 130px;
+  }
+  .category-card {
+    width: 120px;
+    height: 120px;
+  }
+}
+@media (max-width: 480px) {
+  header h1 img {
+    height: 40px;
+  }
+  header h1 {
+    font-size: 20px;
+  }
+  header h2 {
+    font-size: 13px;
+  }
+  #cartContent {
+    right: 10px;
+    width: 200px;
+  }
+}
 </style>
 </head>
 <body>
 
 <header>
-  <h1><img src="logo.png" alt="Logo">TEC WM </h1>
-  <h2> acessorios para celulares e computadores</h2>
+  <h1><img src="logo.png" alt="Logo"> TEC WM</h1>
+  <h2>Acessórios para celulares e computadores</h2>
 </header>
 
 <div id="categoryMenu" class="categories"></div>
 <div id="menuContainer" class="grid"></div>
 
 <div id="categoryPage">
-  <div id="categoryHeader">
-    <span onclick="closeCategoryPage()">←</span>
+  <div id="categoryHeader" style="background:#0a0b30;color:#fff;padding:15px;display:flex;align-items:center;gap:10px;font-size:18px;">
+    <span onclick="closeCategoryPage()" style="cursor:pointer;font-size:22px;font-weight:bold;">←</span>
     <div id="categoryTitle"></div>
   </div>
   <div id="categoryContent" class="grid"></div>
@@ -151,40 +279,41 @@ footer .links a { color:#fff; margin:0 10px; text-decoration:none; font-weight:b
   <div class="links">
     <a href="https://www.instagram.com/gibassalgados">Instagram</a>
     <a href="https://wa.me/5579996283715">WhatsApp</a>
- </div>
+  </div>
 </footer>
 
 <a href="https://wa.me/5579996283715" class="whatsapp" target="_blank">
   <img src="whatsapp.png" alt="WhatsApp" style="width:100%; height:100%;">
 </a>
-<!-- Carrinho fixo -->
-<div id="cartButton" onclick="toggleCart()"> <img src="carrinho.png"> <span id="cartCount">0</span></div>
+
+<div id="cartButton" onclick="toggleCart()">
+  <img src="carrinho.png">
+  <span id="cartCount">0</span>
+</div>
 <div id="cartContent">
   <div id="cartItems"></div>
   <button id="checkoutBtn">Finalizar Pedido</button>
 </div>
 
-<!-- Status loja -->
 <div id="lojaStatus"></div>
-</div>
 
 <script>
 const categorias = [
-  {nome:'', img:'assados2.jpg'},
-  {nome:'', img:'tortas.jpg'},
-  {nome:'', img:'fritos.jpg'},
-  {nome:'', img:'imagens/cat_bigcoxinha.jpg'},
-  {nome:'', img:'imagens/cat_festas.jpg'},
-  {nome:'', img:'imagens/cat_festas.jpg'},
-  {nome:'', img:'imagens/cat_festas.jpg'}
+  {nome:'Capinhas', img:'capinhas.jpg'},
+  {nome:'Películas', img:'peliculas.jpg'},
+  {nome:'Fones', img:'fones.jpg'},
+  {nome:'Carregadores', img:'carregadores.jpg'},
+  {nome:'Cabos', img:'cabos.jpg'},
+  {nome:'Suportes', img:'suportes.jpg'},
 ];
 
 const produtos = [
-  {id:'sa1', nome:'Esfirra de Carne', preco:9, categoria:'Salgados Assados', desc:'Deliciosa esfirra de carne.', img:'imagens/esfirra.jpg'},
-  {id:'t1', nome:'Torta de Frango', preco:80, categoria:'Tortas', desc:'Torta caseira deliciosa.', img:'imagens/torta1.jpg'},
-  {id:'sf1', nome:'Coxinha de Frango', preco:9, categoria:'Salgados Fritos', desc:'Coxinha crocante de frango.', img:'assados2.jpg'},
-  {id:'bc1', nome:'Big Coxinha Frango', preco:23, categoria:'Big Coxinha 600g', desc:'Coxinha gigante 600g de frango.', img:'imagens/bigcoxinha_frango.jpg'},
-  {id:'sfest1', nome:'Coxinha Festa', preco:90, categoria:'Salgados para festas', desc:'Cento de mini coxinhas.', img:'imagens/festa_coxinha.jpg'}
+  {id:'c1', nome:'Capinha Transparente', preco:29.90, categoria:'Capinhas', desc:'Capinha flexível e resistente.', img:'capinha1.jpg'},
+  {id:'p1', nome:'Película de Vidro', preco:19.90, categoria:'Películas', desc:'Proteção total para a tela.', img:'pelicula1.jpg'},
+  {id:'f1', nome:'Fone Bluetooth', preco:99.90, categoria:'Fones', desc:'Som de alta qualidade.', img:'fone1.jpg'},
+  {id:'ch1', nome:'Carregador Turbo', preco:79.90, categoria:'Carregadores', desc:'Carregamento rápido.', img:'carregador1.jpg'},
+  {id:'ca1', nome:'Cabo USB-C', preco:39.90, categoria:'Cabos', desc:'Alta velocidade de transmissão.', img:'cabo1.jpg'},
+  {id:'s1', nome:'Suporte Veicular', preco:49.90, categoria:'Suportes', desc:'Ideal para GPS e vídeos.', img:'suporte1.jpg'},
 ];
 
 let cart = {};
@@ -301,72 +430,44 @@ function toggleCart(){
   cartContent.style.display = cartContent.style.display === 'flex' ? 'none' : 'flex';
 }
 
-// Impedir que o botão físico feche o site
-window.addEventListener("popstate", () => {
-  if(document.getElementById('categoryPage').style.display === 'flex'){
-    closeCategoryPage();
-    history.pushState(null, null, window.location.pathname);
-  }
-});
+/* ===== STATUS LOJA ===== */
+function verificarHorario() {
+  const agora = new Date();
+  const options = { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit", weekday: "long" };
+  const formatter = new Intl.DateTimeFormat("pt-BR", options);
+  const partes = formatter.formatToParts(agora);
 
-// STATUS LOJA
+  let hora = 0;
+  let minuto = 0;
+  let diaSemana = "";
 
-  function verificarHorario() {
-    const agora = new Date();
+  partes.forEach(p => {
+    if (p.type === "hour") hora = parseInt(p.value);
+    if (p.type === "minute") minuto = parseInt(p.value);
+    if (p.type === "weekday") diaSemana = p.value.toLowerCase();
+  });
 
-    // Ajusta para horário de São Paulo (GMT-3, sem horário de verão)
-    const options = { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit", weekday: "long" };
-    const formatter = new Intl.DateTimeFormat("pt-BR", options);
-    const partes = formatter.formatToParts(agora);
+  const aberto = document.getElementById("lojaStatus");
 
-    let hora = 0;
-    let minuto = 0;
-    let diaSemana = "";
-
-    partes.forEach(p => {
-      if (p.type === "hour") hora = parseInt(p.value);
-      if (p.type === "minute") minuto = parseInt(p.value);
-      if (p.type === "weekday") diaSemana = p.value.toLowerCase();
-    });
-
-    const aberto = document.getElementById("lojaStatus");
-
-    // Verifica se é domingo
-    if (diaSemana === "domingo") {
-      aberto.textContent = "Fechado ";
-      aberto.style.backgroundColor = "red";
-      return;
-    }
-
-    // Verifica se está dentro do horário de funcionamento
-    if (hora >= 9 && (hora < 22 || (hora === 22 && minuto === 0))) {
-      aberto.textContent = "Aberto ";
-      aberto.style.backgroundColor = "green";
-    } else {
-      aberto.textContent = "Fechado 📕";
-      aberto.style.backgroundColor = "red";
-    }
+  if (diaSemana === "domingo") {
+    aberto.textContent = "Fechado";
+    aberto.style.backgroundColor = "red";
+    return;
   }
 
-  // Atualiza ao carregar e a cada minuto
-  verificarHorario();
-  setInterval(verificarHorario, 60000);
+  if (hora >= 9 && (hora < 22 || (hora === 22 && minuto === 0))) {
+    aberto.textContent = "Aberto";
+    aberto.style.backgroundColor = "green";
+  } else {
+    aberto.textContent = "Fechado";
+    aberto.style.backgroundColor = "red";
+  }
+}
 
+verificarHorario();
+setInterval(verificarHorario, 60000);
 
-  // Sempre mantém um histórico extra para não fechar o site
-history.pushState(null, null, location.href);
-
-window.onpopstate = function () {
-  // Quando apertar voltar, mostra a lista de categorias
-  document.getElementById("categorias").style.display = "block";
-  document.getElementById("produtos").style.display = "none";
-
-  // Reforça o pushState para continuar bloqueando a saída
-  history.pushState(null, null, location.href);
-};
-  
-
-// Substitua TODO o handler antigo por este
+/* ===== FINALIZAR PEDIDO WHATSAPP ===== */
 document.getElementById('checkoutBtn').addEventListener('click', function () {
   const itens = Object.values(cart || {});
   if (itens.length === 0) {
@@ -386,65 +487,12 @@ document.getElementById('checkoutBtn').addEventListener('click', function () {
   const totalFmt = total.toFixed(2).replace('.', ',');
   msg += `\nTotal: R$ ${totalFmt}`;
 
-  // Seu número:
   const telefone = '5579996283715';
   const url = `https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`;
   window.open(url, '_blank');
-
-  // (opcional) limpar carrinho e atualizar UI:
-  // cart = {};
-  // renderCart();
-  // updateCartCount();
-  // Fechar o painel se quiser:
-  // document.getElementById('cartContent').style.display = 'none';
 });
 
-
-
-// Inicializa categorias
 renderCategories();
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
