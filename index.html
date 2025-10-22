@@ -1,53 +1,450 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog de Xadrez</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tec wm</title>
+<style>
+body { margin:0; font-family: Arial, sans-serif; background:#0a0b30; color:#1f1f1f; }
+header { background:#0a0b29; color:#fff; padding:10px 20px; display:flex; justify-content:space-between; align-items:center; }
+header h1 { margin:0; font-size:24px; display:flex; align-items:center; gap:10px; }
+header h1 img { height:50px; border-radius:8px; }
+
+.categories { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:15px; padding:20px; }
+.category-card { width:200px; height:200px; position:relative; border-radius:12px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.1); cursor:pointer; transition: transform 0.2s; }
+.category-card:hover { transform:scale(1.05); }
+.category-card img { width:100%; height:100%; object-fit:cover; display:block; }
+.nome-categoria { position:absolute; top:5px; left:5px; background:rgba(0,0,0,0.5); color:#fff; font-size:12px; font-weight:bold; padding:2px 5px; border-radius:3px; z-index:10; }
+
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:15px; padding:20px; }
+.card { background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
+.card img { width:100%; height:150px; object-fit:cover; cursor:pointer; }
+.card-body { padding:10px; }
+.card-body h3 { margin:0; font-size:18px; }
+.card-body p { font-size:14px; color:#555; }
+.price { color:#D90429; font-weight:bold; margin-top:5px; }
+.btn { background:#D90429; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; margin-top:8px; width:100%; }
+
+.cart-item { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #eee; }
+.cart-item img { width:50px; height:50px; object-fit:cover; border-radius:8px; }
+.cart-item-details { flex:1; }
+.cart-item-details p { margin:0; font-size:14px; }
+.cart-item-details .qty { display:flex; gap:5px; align-items:center; margin-top:4px; }
+.cart-item-details button { padding:2px 6px; border:none; background:#D90429; color:#fff; border-radius:6px; cursor:pointer; }
+
+#checkoutBtn { background:#D90429; color:#fff; border:none; padding:10px; margin:10px; border-radius:8px; cursor:pointer; font-weight:bold; }
+
+#categoryPage { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff8ef; display: none; flex-direction: column; z-index: 900; overflow-y: auto; }
+#categoryHeader { background:#0a0b30; color:#fff; padding:15px; display:flex; align-items:center; gap:10px; font-size:18px; }
+#categoryHeader span { cursor:pointer; font-size:22px; font-weight:bold; }
+
+footer { background:#0a0b29; padding:15px; text-align:center; border-top:1px solid #0a0b30; }
+footer .links { margin-top:10px; }
+footer .links a { color:#fff; margin:0 10px; text-decoration:none; font-weight:bold; }
+.whatsapp { position:fixed; bottom:20px; right:20px; background: #25D366; width:25px; height:25px; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; color:#fff; font-size:20px; z-index:1100; }
+
+/* Botão do carrinho fixo */
+#cartButton {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* Bolinha de contagem */
+#cartCount {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: red;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 3px;
+  border-radius: 50%;
+}
+
+/* Conteúdo do carrinho */
+#cartContent {
+  display: none;
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  width: 250px;
+  max-height: 400px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  padding: 10px;
+  overflow-y: auto;
+  z-index: 999;
+  flex-direction: column;
+}
+
+/* Status da loja */
+#lojaStatus {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 4px 9px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  z-index: 1200;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+#lojaStatus.aberto { background-color: #39FF14; }
+#lojaStatus.fechado { background-color: #dc3545; }
+  
+
+  #categoryMenu {
+  display: grid;
+  grid-template-columns: repeat(2, 165px); /* 2 colunas de 200px cada */
+  justify-content: center;                  /* centraliza o grid na tela */
+  gap: 20px;                                /* espaço entre os cards */
+  padding: 20px;
+}
+.category-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* mantém a proporção e cobre todo o card */
+  border-radius: 9px; /* se quiser manter os cantos arredondados */
+}
+.category-card {
+  width: 140px;   /* largura fixa */
+  height: 140px;  /* altura fixa */
+} /* espaço entre os cards */
+
+  #cartButton img {
+  width: 25px;  /* ajusta para caber melhor */
+  height: 25px;
+  }
+  
+</style>
 </head>
 <body>
-    <!-- Cabeçalho -->
-    <header>
-        <h1>Blog de Xadrez</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Início</a></li>
-                <li><a href="#">Artigos</a></li>
-                <li><a href="#">Estratégias</a></li>
-                <li><a href="#">Contato</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <!-- Conteúdo principal -->
-    <main>
-        <article>
-            <h2>Primeiros Passos no Xadrez</h2>
-            <p>O xadrez é um jogo milenar que envolve estratégia, paciência e visão de futuro.
-            Neste artigo, vamos aprender os movimentos básicos das peças e como iniciar uma partida.</p>
-        </article>
+<header>
+  <h1><img src="logo.png" alt="Logo">TEC WM </h1>
+  <h2> acessorios para celulares e computadores</h2>
+</header>
 
-        <article>
-            <h2>Aberturas Famosas</h2>
-            <p>Existem diversas aberturas populares, como a Ruy Lopez, Defesa Siciliana e a Defesa Francesa.
-            Cada uma possui características únicas que podem definir o rumo do jogo.</p>
-        </article>
-    </main>
+<div id="categoryMenu" class="categories"></div>
+<div id="menuContainer" class="grid"></div>
 
-    <!-- Barra lateral -->
-    <aside>
-        <h3>Últimos Posts</h3>
-        <ul>
-            <li><a href="#">Táticas de Mate em 2</a></li>
-            <li><a href="#">A Importância do Meio-Jogo</a></li>
-            <li><a href="#">Finais Mais Comuns</a></li>
-        </ul>
-    </aside>
+<div id="categoryPage">
+  <div id="categoryHeader">
+    <span onclick="closeCategoryPage()">←</span>
+    <div id="categoryTitle"></div>
+  </div>
+  <div id="categoryContent" class="grid"></div>
+</div>
 
-    <!-- Rodapé -->
-    <footer>
-        <p>&copy; 2025 Blog de Xadrez - Todos os direitos reservados.</p>
-    </footer>
+<footer>
+  <div class="links">
+    <a href="https://www.instagram.com/gibassalgados">Instagram</a>
+    <a href="https://wa.me/5579996283715">WhatsApp</a>
+ </div>
+</footer>
+
+<a href="https://wa.me/5579996283715" class="whatsapp" target="_blank">
+  <img src="whatsapp.png" alt="WhatsApp" style="width:100%; height:100%;">
+</a>
+<!-- Carrinho fixo -->
+<div id="cartButton" onclick="toggleCart()"> <img src="carrinho.png"> <span id="cartCount">0</span></div>
+<div id="cartContent">
+  <div id="cartItems"></div>
+  <button id="checkoutBtn">Finalizar Pedido</button>
+</div>
+
+<!-- Status loja -->
+<div id="lojaStatus"></div>
+</div>
+
+<script>
+const categorias = [
+  {nome:'', img:'assados2.jpg'},
+  {nome:'', img:'tortas.jpg'},
+  {nome:'', img:'fritos.jpg'},
+  {nome:'', img:'imagens/cat_bigcoxinha.jpg'},
+  {nome:'', img:'imagens/cat_festas.jpg'},
+  {nome:'', img:'imagens/cat_festas.jpg'},
+  {nome:'', img:'imagens/cat_festas.jpg'}
+];
+
+const produtos = [
+  {id:'sa1', nome:'Esfirra de Carne', preco:9, categoria:'Salgados Assados', desc:'Deliciosa esfirra de carne.', img:'imagens/esfirra.jpg'},
+  {id:'t1', nome:'Torta de Frango', preco:80, categoria:'Tortas', desc:'Torta caseira deliciosa.', img:'imagens/torta1.jpg'},
+  {id:'sf1', nome:'Coxinha de Frango', preco:9, categoria:'Salgados Fritos', desc:'Coxinha crocante de frango.', img:'assados2.jpg'},
+  {id:'bc1', nome:'Big Coxinha Frango', preco:23, categoria:'Big Coxinha 600g', desc:'Coxinha gigante 600g de frango.', img:'imagens/bigcoxinha_frango.jpg'},
+  {id:'sfest1', nome:'Coxinha Festa', preco:90, categoria:'Salgados para festas', desc:'Cento de mini coxinhas.', img:'imagens/festa_coxinha.jpg'}
+];
+
+let cart = {};
+let selectedCategory = '';
+
+function renderCategories() {
+  const menu = document.getElementById('categoryMenu');
+  menu.innerHTML = '';
+  categorias.forEach(cat => {
+    const card = document.createElement('div');
+    card.className = 'category-card';
+    card.innerHTML = `<img src="${cat.img}" alt="${cat.nome}"><div class="nome-categoria">${cat.nome}</div>`;
+    card.onclick = () => openCategoryPage(cat.nome);
+    menu.appendChild(card);
+  });
+}
+
+function openCategoryPage(categoria) {
+  selectedCategory = categoria;
+  document.getElementById('categoryTitle').innerText = categoria;
+  const content = document.getElementById('categoryContent');
+  content.innerHTML = '';
+  produtos.filter(p => p.categoria === categoria).forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${p.img}" alt="${p.nome}">
+      <div class="card-body">
+        <h3>${p.nome}</h3>
+        <p>${p.desc}</p>
+        <div class="price">R$${p.preco.toFixed(2)}</div>
+        <button class="btn" onclick="addToCart('${p.id}')">Adicionar</button>
+      </div>
+    `;
+    content.appendChild(card);
+  });
+  document.getElementById('categoryPage').style.display = 'flex';
+  document.getElementById('menuContainer').style.display = 'none';
+  document.getElementById('categoryMenu').style.display = 'none';
+}
+
+function closeCategoryPage() {
+  document.getElementById('categoryPage').style.display = 'none';
+  document.getElementById('menuContainer').style.display = 'grid';
+  document.getElementById('categoryMenu').style.display = 'grid';
+}
+
+function addToCart(id){
+  if(cart[id]) cart[id].qty++;
+  else {
+    const produto = produtos.find(p => p.id === id);
+    cart[id] = {...produto, qty:1};
+  }
+  renderCart();
+  updateCartCount();
+}
+
+function removeFromCart(id){
+  if(cart[id]){
+    delete cart[id];
+    renderCart();
+    updateCartCount();
+  }
+}
+
+function changeQty(id, delta){
+  if(cart[id]){
+    cart[id].qty += delta;
+    if(cart[id].qty < 1) delete cart[id];
+    renderCart();
+    updateCartCount();
+  }
+}
+
+function renderCart(){
+  const itemsDiv = document.getElementById('cartItems');
+  itemsDiv.innerHTML = '';
+  let total = 0;
+  Object.values(cart).forEach(item=>{
+    total += item.preco * item.qty;
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `
+      <img src="${item.img}" alt="${item.nome}">
+      <div class="cart-item-details">
+        <p>${item.nome} - R$${item.preco.toFixed(2)}</p>
+        <div class="qty">
+          <button onclick="changeQty('${item.id}', -1)">-</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty('${item.id}', 1)">+</button>
+          <button onclick="removeFromCart('${item.id}')">Remover</button>
+        </div>
+      </div>
+    `;
+    itemsDiv.appendChild(div);
+  });
+  if(total > 0){
+    const totalDiv = document.createElement('div');
+    totalDiv.style.textAlign = 'right';
+    totalDiv.style.fontWeight = 'bold';
+    totalDiv.style.marginTop = '10px';
+    totalDiv.innerText = `Total: R$${total.toFixed(2)}`;
+    itemsDiv.appendChild(totalDiv);
+  }
+}
+
+function updateCartCount(){
+  const count = Object.values(cart).reduce((acc, item)=>acc+item.qty,0);
+  document.getElementById('cartCount').innerText = count;
+}
+
+function toggleCart(){
+  const cartContent = document.getElementById('cartContent');
+  cartContent.style.display = cartContent.style.display === 'flex' ? 'none' : 'flex';
+}
+
+// Impedir que o botão físico feche o site
+window.addEventListener("popstate", () => {
+  if(document.getElementById('categoryPage').style.display === 'flex'){
+    closeCategoryPage();
+    history.pushState(null, null, window.location.pathname);
+  }
+});
+
+// STATUS LOJA
+
+  function verificarHorario() {
+    const agora = new Date();
+
+    // Ajusta para horário de São Paulo (GMT-3, sem horário de verão)
+    const options = { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit", weekday: "long" };
+    const formatter = new Intl.DateTimeFormat("pt-BR", options);
+    const partes = formatter.formatToParts(agora);
+
+    let hora = 0;
+    let minuto = 0;
+    let diaSemana = "";
+
+    partes.forEach(p => {
+      if (p.type === "hour") hora = parseInt(p.value);
+      if (p.type === "minute") minuto = parseInt(p.value);
+      if (p.type === "weekday") diaSemana = p.value.toLowerCase();
+    });
+
+    const aberto = document.getElementById("lojaStatus");
+
+    // Verifica se é domingo
+    if (diaSemana === "domingo") {
+      aberto.textContent = "Fechado ";
+      aberto.style.backgroundColor = "red";
+      return;
+    }
+
+    // Verifica se está dentro do horário de funcionamento
+    if (hora >= 9 && (hora < 22 || (hora === 22 && minuto === 0))) {
+      aberto.textContent = "Aberto ";
+      aberto.style.backgroundColor = "green";
+    } else {
+      aberto.textContent = "Fechado 📕";
+      aberto.style.backgroundColor = "red";
+    }
+  }
+
+  // Atualiza ao carregar e a cada minuto
+  verificarHorario();
+  setInterval(verificarHorario, 60000);
+
+
+  // Sempre mantém um histórico extra para não fechar o site
+history.pushState(null, null, location.href);
+
+window.onpopstate = function () {
+  // Quando apertar voltar, mostra a lista de categorias
+  document.getElementById("categorias").style.display = "block";
+  document.getElementById("produtos").style.display = "none";
+
+  // Reforça o pushState para continuar bloqueando a saída
+  history.pushState(null, null, location.href);
+};
+  
+
+// Substitua TODO o handler antigo por este
+document.getElementById('checkoutBtn').addEventListener('click', function () {
+  const itens = Object.values(cart || {});
+  if (itens.length === 0) {
+    alert('Seu carrinho está vazio!');
+    return;
+  }
+
+  let total = 0;
+  let msg = 'Olá! Gostaria de fazer o pedido:\n\n';
+
+  itens.forEach(i => {
+    total += i.preco * i.qty;
+    const precoUnit = i.preco.toFixed(2).replace('.', ',');
+    msg += `- ${i.nome} x${i.qty} (R$ ${precoUnit})\n`;
+  });
+
+  const totalFmt = total.toFixed(2).replace('.', ',');
+  msg += `\nTotal: R$ ${totalFmt}`;
+
+  // Seu número:
+  const telefone = '5579996283715';
+  const url = `https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+
+  // (opcional) limpar carrinho e atualizar UI:
+  // cart = {};
+  // renderCart();
+  // updateCartCount();
+  // Fechar o painel se quiser:
+  // document.getElementById('cartContent').style.display = 'none';
+});
+
+
+
+// Inicializa categorias
+renderCategories();
+</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
