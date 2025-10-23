@@ -1,375 +1,76 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TEC WM</title>
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0a0b30;
-  color: #1f1f1f;
-}
-
-/* HEADER */
-header {
-  background: #0a0b29;
-  color: #fff;
-  padding: 10px 20px;
-  text-align: center;
-}
-header h1 {
-  margin: 0;
-  font-size: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-header h1 img {
-  height: 60px;
-  border-radius: 8px;
-  margin-bottom: 5px;
-}
-header h2 {
-  margin: 5px 0 0 0;
-  font-size: 16px;
-  text-transform: lowercase;
-  color: #ccc;
-}
-
-/* CATEGORIAS */
-#categoryMenu {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-}
-.category-card {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  cursor: pointer;
-  transition: transform 0.2s;
-  position: relative;
-}
-.category-card:hover {
-  transform: scale(1.05);
-}
-.category-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.nome-categoria {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-  padding: 5px;
-}
-
-/* GRID DE PRODUTOS */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 15px;
-  padding: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-  justify-items: center;
-}
-.card {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  width: 100%;
-  max-width: 200px;
-}
-.card img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  cursor: pointer;
-}
-.card-body {
-  padding: 10px;
-}
-.card-body h3 {
-  margin: 0;
-  font-size: 16px;
-}
-.card-body p {
-  font-size: 13px;
-  color: #555;
-}
-.price {
-  color: #D90429;
-  font-weight: bold;
-  margin-top: 5px;
-}
-.btn {
-  background: #D90429;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 8px;
-  width: 100%;
-}
-
-/* CARRINHO */
-#cartButton {
-  position: fixed;
-  top: 14px;
-  right: 14px;
-  background: transparent;
-  border: none;
-  font-size: 32px;
-  cursor: pointer;
-  z-index: 1000;
-}
-#cartButton img {
-  width: 28px;
-  height: 28px;
-}
-#cartCount {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background: red;
-  color: white;
-  font-size: 10px;
-  font-weight: bold;
-  padding: 2px 3px;
-  border-radius: 50%;
-}
-#cartContent {
-  display: none;
-  position: fixed;
-  top: 70px;
-  right: 20px;
-  width: 250px;
-  max-height: 400px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  padding: 10px;
-  overflow-y: auto;
-  z-index: 999;
-  flex-direction: column;
-}
-
-/* ITENS DO CARRINHO */
-.cart-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
-}
-.cart-item img {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-.cart-item-details {
-  flex: 1;
-}
-.cart-item-details p {
-  margin: 0;
-  font-size: 14px;
-}
-.cart-item-details .qty {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  margin-top: 4px;
-}
-.cart-item-details button {
-  padding: 2px 6px;
-  border: none;
-  background: #D90429;
-  color: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-/* BOTÃO FINALIZAR */
-#checkoutBtn {
-  background: #D90429;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-/* PÁGINA DE CATEGORIA */
-#categoryPage {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #fff8ef;
-  display: none;
-  flex-direction: column;
-  z-index: 900;
-  overflow-y: auto;
-}
-#categoryHeader {
-  background: #0a0b30;
-  color: #fff;
-  padding: 15px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 18px;
-}
-#categoryHeader span {
-  cursor: pointer;
-  font-size: 22px;
-  font-weight: bold;
-}
-
-/* STATUS DA LOJA */
-#lojaStatus {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  padding: 4px 9px;
-  border-radius: 8px;
-  color: #fff;
-  font-weight: bold;
-  font-size: 14px;
-  text-align: center;
-  z-index: 1200;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-#lojaStatus.aberto { background-color: #39FF14; }
-#lojaStatus.fechado { background-color: #dc3545; }
-
-/* WHATSAPP */
-.whatsapp {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #25D366;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: #fff;
-  font-size: 20px;
-  z-index: 1100;
-}
-.whatsapp img {
-  width: 60%;
-  height: 60%;
-}
-
-/* FOOTER */
-footer {
-  background: #0a0b29;
-  padding: 15px;
-  text-align: center;
-  border-top: 1px solid #0a0b30;
-}
-footer .links a {
-  color: #fff;
-  margin: 0 10px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-/* RESPONSIVIDADE */
-@media (max-width: 600px) {
-  header h1 {
-    font-size: 20px;
-  }
-  header h2 {
-    font-size: 14px;
-  }
-  .card-body h3 {
-    font-size: 14px;
-  }
-  .price {
-    font-size: 13px;
-  }
-  #cartContent {
-    right: 10px;
-    width: 85%;
-  }
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rastreamento da Lanchonete</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    body { font-family: Arial; text-align: center; padding: 20px; background: #f5f5f5; }
+    button { padding: 10px 20px; margin: 10px; border: none; border-radius: 8px; background: #008000; color: white; font-size: 16px; }
+    button#parar { background: #c0392b; }
+    #map { height: 400px; width: 100%; margin-top: 20px; border-radius: 10px; }
+  </style>
 </head>
-
 <body>
-<header>
-  <h1>
-    <img src="logo.png" alt="Logo">
-    TEC WM
-  </h1>
-  <h2>Acessórios para celular</h2>
-</header>
+  <h2>📍 Rastreamento da Lanchonete</h2>
+  <p>Envie a sua localização em tempo real para o cliente</p>
+  <button id="iniciar">Iniciar Rastreamento</button>
+  <button id="parar">Parar Rastreamento</button>
+  <div id="map"></div>
 
-<div id="categoryMenu" class="categories"></div>
-<div id="menuContainer" class="grid"></div>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const SHEET_URL = "https://api.sheetbest.com/sheets/3198fc28-4ca0-4fde-86b1-cb1791fbe8d3";
+    let watchId = null;
+    let map, marker;
 
-<div id="categoryPage">
-  <div id="categoryHeader">
-    <span onclick="closeCategoryPage()">←</span>
-    <div id="categoryTitle"></div>
-  </div>
-  <div id="categoryContent" class="grid"></div>
-</div>
+    // Função para enviar dados ao SheetBest
+    async function enviarLocalizacao(lat, lon, status = "ativo") {
+      const data = {
+        latitude: lat,
+        longitude: lon,
+        status: status,
+        hora: new Date().toLocaleString("pt-BR")
+      };
+      await fetch(SHEET_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+    }
 
-<footer>
-  <div class="links">
-    <a href="https://www.instagram.com/gibassalgados">Instagram</a>
-    <a href="https://wa.me/5579996283715">WhatsApp</a>
-  </div>
-</footer>
+    document.getElementById("iniciar").addEventListener("click", () => {
+      if (navigator.geolocation) {
+        alert("Rastreamento iniciado! O cliente agora pode ver sua localização.");
+        watchId = navigator.geolocation.watchPosition(pos => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          enviarLocalizacao(lat, lon, "ativo");
 
-<a href="https://wa.me/5579996283715" class="whatsapp" target="_blank">
-  <img src="whatsapp.png" alt="WhatsApp">
-</a>
+          if (!map) {
+            map = L.map('map').setView([lat, lon], 16);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              maxZoom: 19,
+            }).addTo(map);
+            marker = L.marker([lat, lon]).addTo(map).bindPopup("Você está aqui!");
+          } else {
+            marker.setLatLng([lat, lon]);
+            map.setView([lat, lon], 16);
+          }
+        });
+      } else {
+        alert("Geolocalização não suportada neste dispositivo.");
+      }
+    });
 
-<div id="cartButton" onclick="toggleCart()">
-  <img src="carrinho.png">
-  <span id="cartCount">0</span>
-</div>
-<div id="cartContent">
-  <div id="cartItems"></div>
-  <button id="checkoutBtn">Finalizar Pedido</button>
-</div>
-
-<div id="lojaStatus"></div>
-
-<script>
-/* ---- SEU JS ORIGINAL ---- */
-(Seu JavaScript original aqui, igual ao seu código anterior)
-</script>
+    document.getElementById("parar").addEventListener("click", () => {
+      if (watchId) {
+        navigator.geolocation.clearWatch(watchId);
+        enviarLocalizacao("", "", "inativo");
+        alert("Rastreamento encerrado!");
+      }
+    });
+  </script>
 </body>
 </html>
