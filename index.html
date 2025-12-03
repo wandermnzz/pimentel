@@ -1,76 +1,169 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rastreamento da Lanchonete</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <style>
-    body { font-family: Arial; text-align: center; padding: 20px; background: #f5f5f5; }
-    button { padding: 10px 20px; margin: 10px; border: none; border-radius: 8px; background: #008000; color: white; font-size: 16px; }
-    button#parar { background: #c0392b; }
-    #map { height: 400px; width: 100%; margin-top: 20px; border-radius: 10px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furo de Orelha Humanizado</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f7ecff; /* Lilás claro */
+            color: #333;
+        }
+
+        header {
+            width: 100%;
+            padding: 15px 25px;
+            background: #d8b7ff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h2 {
+            margin: 0;
+            font-size: 22px;
+            color: #4a0072;
+        }
+
+        .logo span {
+            font-size: 12px;
+            color: #4a0072;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #4a0072;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            color: #6a00a3;
+        }
+
+        .hero p {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .servicos {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .servicos h2 {
+            color: #6a00a3;
+            font-size: 28px;
+        }
+
+        .servicos p {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .galeria {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .galeria img {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #d8b7ff;
+            margin-top: 40px;
+            color: #4a0072;
+        }
+
+        /* BOTÃO WHATSAPP */
+        .whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 65px;
+            height: 65px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            z-index: 999;
+            transition: transform 0.2s ease;
+        }
+
+        .whatsapp:hover {
+            transform: scale(1.08);
+        }
+
+        .whatsapp img {
+            width: 38px;
+            height: 38px;
+        }
+
+    </style>
+
 </head>
 <body>
-  <h2>📍 Rastreamento da Lanchonete</h2>
-  <p>Envie a sua localização em tempo real para o cliente</p>
-  <button id="iniciar">Iniciar Rastreamento</button>
-  <button id="parar">Parar Rastreamento</button>
-  <div id="map"></div>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script>
-    const SHEET_URL = "https://api.sheetbest.com/sheets/3198fc28-4ca0-4fde-86b1-cb1791fbe8d3";
-    let watchId = null;
-    let map, marker;
+<header>
+    <div class="logo">
+       <img src="imglogo.png" alt="logopng">
+          </div>
 
-    // Função para enviar dados ao SheetBest
-    async function enviarLocalizacao(lat, lon, status = "ativo") {
-      const data = {
-        latitude: lat,
-        longitude: lon,
-        status: status,
-        hora: new Date().toLocaleString("pt-BR")
-      };
-      await fetch(SHEET_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
-    }
+    <nav>
+        <a href="#servicos">Serviços</a>
+    </nav>
+</header>
 
-    document.getElementById("iniciar").addEventListener("click", () => {
-      if (navigator.geolocation) {
-        alert("Rastreamento iniciado! O cliente agora pode ver sua localização.");
-        watchId = navigator.geolocation.watchPosition(pos => {
-          const lat = pos.coords.latitude;
-          const lon = pos.coords.longitude;
-          enviarLocalizacao(lat, lon, "ativo");
+<section class="hero">
+    <h1>Furo de Orelha Humanizado</h1>
+    <p>Atendimento humanizado para bebês, crianças e adultos.</p>
+</section>
 
-          if (!map) {
-            map = L.map('map').setView([lat, lon], 16);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              maxZoom: 19,
-            }).addTo(map);
-            marker = L.marker([lat, lon]).addTo(map).bindPopup("Você está aqui!");
-          } else {
-            marker.setLatLng([lat, lon]);
-            map.setView([lat, lon], 16);
-          }
-        });
-      } else {
-        alert("Geolocalização não suportada neste dispositivo.");
-      }
-    });
+<section id="servicos" class="servicos">
+    <h2>Nossos Serviços</h2>
+    <p>Carinho, cuidado e segurança para realizar o primeiro furo de orelha — ou renovar seu estilo.</p>
 
-    document.getElementById("parar").addEventListener("click", () => {
-      if (watchId) {
-        navigator.geolocation.clearWatch(watchId);
-        enviarLocalizacao("", "", "inativo");
-        alert("Rastreamento encerrado!");
-      }
-    });
-  </script>
+    <div class="galeria">
+        <img src="img1.jpg" alt="Furo de orelha 1">
+        <img src="img2.jpg" alt="Furo de orelha 2">
+        <img src="img3.jpg" alt="Furo de orelha 3">
+    </div>
+</section>
+
+<footer>
+    <p>© 2025 - Furo de Orelha Humanizado</p>
+</footer>
+
+<!-- BOTÃO WHATSAPP (troque o número pelo seu!) -->
+<a href="https://wa.me/5599999999999" class="whatsapp" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
 </body>
 </html>
